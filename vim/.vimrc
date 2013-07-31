@@ -193,8 +193,6 @@ augroup END
 "Backspace works in Insert mode (e.g. not inserting a ^?), but won't delete over line breaks, or automatically-inserted indentation, or the place where insert mode started:
 set backspace=indent,eol,start
 
-let g:jedi#popup_on_dot = 0
-
 let mapleader = ","
 nnoremap <Leader>u :GundoToggle<CR>
 nnoremap <Leader>o :NERDTreeToggle<CR>
