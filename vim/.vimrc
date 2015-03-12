@@ -18,8 +18,6 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'klen/python-mode'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/matchit.zip'
-" Bundle 'vim-scripts/molokai'
-" Bundle 'tomasr/molokai'
 Bundle "lightalchemist/molokai"
 Bundle 'jacquesbh/vim-showmarks'
 
@@ -37,14 +35,6 @@ Bundle 'tomtom/tlib_vim'
 
 filetype plugin indent on
 
-
-" Pathogen
-" filetype off " Pathogen needs to run before plugin indent on
-" call pathogen#infect()
-" call pathogen#incubate()
-" call pathogen#helptags() " generate helptags for everything in 'runtimepath'
-" filetype plugin indent on
-
 "Must set this to enable 256 color support
 set t_Co=256
 
@@ -54,16 +44,9 @@ set t_Co=256
 " Distinguished theme
 " colorscheme distinguished
 " Molokai color theme
-let g:rehash256 = 1
 colorscheme molokai
-" Note that this should only be called after setting theme
-" set background=light
-" solarized theme
-" let g:solarized_termcolors=256
-" colorscheme solarized
-" set background=dark
-
-set nocompatible
+let g:rehash256 = 1
+let g:molokai_original=1
 
 """"""""""""""""""""""""""""""""""""""""""
 "" SEARCH, HIGHLIGHT, SPELLING, ETC.
