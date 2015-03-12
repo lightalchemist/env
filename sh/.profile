@@ -21,14 +21,4 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-    export TERM='xterm-256color'
-else
-    export TERM='xterm-color'
-fi
-
-export WORKON_HOME=~/.virtualenvs
-export PROJECT_HOME=~/Projects
-source /usr/local/bin/virtualenvwrapper.sh
-
-
+export PATH=$PATH:/home/lightalchemist/bin

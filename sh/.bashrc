@@ -16,10 +16,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=5000
-HISTFILESIZE=5000
-# Added the following to include time and date info for history.
-export HISTTIMEFORMAT="%h %d %H:%M:%S "
+HISTSIZE=1000
+HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -59,11 +57,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1='\t:\W$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
 else
-    # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    PS1="\t:\W\$ "
+    PS1='${debian_chroot:+($debian_chroot)}[\D{%T}]:\W$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -126,9 +122,31 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias grep='grep --color=auto -nH'
 
-export WORKON_HOME=~/.virtualenvs
-export PROJECT_HOME=~/Projects/Python
-source /usr/local/bin/virtualenvwrapper.sh
+shopt -s cdspell
 
-# Start default virtualenv once we load bash
-workon standard
+export WORKON_HOME=~/virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+export PIP_VIRTUALENV_BASE=~/virtualenvs
+
+# Use virtualenv "default" once we load bash
+workon default
+
+alias ga='git add '
+alias gb='git branch '
+alias gd='git diff'
+alias gk='gitk --all&'
+alias gx='gitx --all'
+
+# bash
+# No ttyctl, so we need to save and then restore terminal settings
+vim()
+{
+    # osx users, use stty -g
+    local STTYOPTS="$(stty --save)"
+    stty stop '' -ixoff
+    command vim "$@"
+    stty "$STTYOPTS"
+}
+
+export PYLEARN2_DATA_PATH=~/Projects/DeepLearningTutorials/data
+export PYLEARN2_VIEWER_COMMAND="eog --new-instance"
