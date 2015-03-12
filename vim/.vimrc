@@ -33,20 +33,23 @@ Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
 Bundle 'tomtom/tlib_vim'
 
+Bundle 'junegunn/goyo.vim'
+Bundle 'junegunn/limelight.vim'
+Bundle 'junegunn/seoul256.vim'
+
+Bundle 'godlygeek/tabular'
+
 filetype plugin indent on
 
 "Must set this to enable 256 color support
 set t_Co=256
 
-" Hemisu theme
-" colorscheme hemisu
-" set background=dark
-" Distinguished theme
-" colorscheme distinguished
-" Molokai color theme
 colorscheme molokai
 let g:rehash256 = 1
 let g:molokai_original=1
+" colorscheme seoul256
+
+let g:goyo_width = 100
 
 """"""""""""""""""""""""""""""""""""""""""
 "" SEARCH, HIGHLIGHT, SPELLING, ETC.
