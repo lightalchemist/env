@@ -19,9 +19,11 @@ Bundle 'klen/python-mode'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/matchit.zip'
 Bundle "lightalchemist/molokai"
+Bundle 'sickill/vim-monokai'
 Bundle 'jacquesbh/vim-showmarks'
 
 Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
 Bundle 'vim-scripts/Gundo'
 
 Bundle 'tomtom/tcomment_vim'
@@ -32,6 +34,7 @@ Bundle 'vim-scripts/YankRing.vim'
 Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
 Bundle 'tomtom/tlib_vim'
+Bundle 'vim-scripts/TagHighlight.git'
 
 Bundle 'junegunn/goyo.vim'
 Bundle 'junegunn/limelight.vim'
@@ -44,10 +47,13 @@ filetype plugin indent on
 "Must set this to enable 256 color support
 set t_Co=256
 
-colorscheme molokai
-let g:rehash256 = 1
-let g:molokai_original=1
-" colorscheme seoul256
+" colorscheme monokai
+
+" colorscheme molokai
+" let g:rehash256 = 1
+" let g:molokai_original=1
+
+colorscheme seoul256
 
 let g:goyo_width = 100
 
@@ -61,7 +67,6 @@ set incsearch
 
 "Highlight things that we find with search
 set hlsearch!
-" nnoremap <C-h><C-h> :set hlsearch!<CR>
 nnoremap <silent> ,/ :set hlsearch!<CR>
 
 "Turn syntax highlighting on.  (This helps you know when you leave a brace open!):
@@ -76,7 +81,6 @@ set showbreak=↪
 
 " :set formatoptions+=w
 :set formatoptions+=t
-" :set textwidth=79
 
 "Soft wrap long lines
 set wrap
@@ -266,13 +270,20 @@ set ruler
 set laststatus=2
 set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%==%c,%l/%L\ %P
 
-
+" Press F5 to retab
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
 
 " This is suppose to auto source vimrc file after editing and saving it.
+"     autocmd!
+"     autocmd BufWritePost $MYVIMRC source $MYVIMRC
+" augroup END " }
+" augroup myvimrchooks
+"     au!
+"     autocmd bufwritepost .vimrc source $MYVIMRC
+" augroup END
 augroup myvimrchooks
-    au!
-    autocmd bufwritepost .vimrc source ~/.vimrc
+    autocmd!
+    autocmd myvimrchooks BufWritePost $MYVIMRC nested source $MYVIMRC
 augroup END
 
 "Backspace works in Insert mode (e.g. not inserting a ^?), but won't delete over line breaks, or automatically-inserted indentation, or the place where insert mode started:
@@ -287,7 +298,7 @@ nnoremap <silent> <Leader>u :GundoToggle<CR>
 nnoremap <silent> <Leader>o :NERDTreeToggle<CR>
 
 " Shortcut for comment t
-map <Leader>c gcc
+map <silent> <Leader>c :TComment<CR>
 
 " Map open a copy of current window in split window
 nnoremap <Leader>w <C-w>v
@@ -318,7 +329,8 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" :source ~/.vim/bundle/vim-matchit/plugin/matchit.vim
+set splitbelow " Place new horizontal split below
+set splitright " Place new vertical split on right
 
 " Make Y behave normally
 " map Y y$
@@ -335,13 +347,21 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
+set encoding=utf-8
+
 "Enable powerline tabline
-" let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 "Configure airline tab separator
 " let g:airline#extensions#tabline#left_sep = ' '
 " let g:airline#extensions#tabline#left_alt_sep = '>'
 "Use nice fonts from powerline
 let g:airline_powerline_fonts = 1
+" let g:airline_theme = "molokai"
+" let g:airline_theme = "tomorrow"
+let g:airline_theme = "sol"
+" let g:airline_theme = "wombat"
+" let g:airline_theme = "light"
+" let g:airline_theme = "solarized"
 
 
 "Allows you to use w!! to save file that requires root priviledge
@@ -471,8 +491,8 @@ highlight SpellBad ctermfg=196 term=underline cterm=underline
 let delimitMate_expand_cr = 1
 
 " Highlight column
-set colorcolumn=80
-highlight ColorColumn ctermbg=darkgray
+" set colorcolumn=80
+" highlight ColorColumn ctermbg=darkgray
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%81v.\+/
 
@@ -501,7 +521,7 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-" let g:ultisnips_python_style = 0x3
+let g:ultisnips_python_style = 0x3
 let g:UltiSnips = {}
 let g:snips_email = "lightalchemist@gmail.com"
 let g:snips_author = "Hong-Wei Ng"
@@ -510,3 +530,69 @@ let g:snips_github = "https://github.com/lightalchemist"
 set virtualedit=onemore " Allow for cursor beyond last character
 set showmatch " Set show matching parenthesis
 
+" Syntastic
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_enable_signs = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_no_include_search = 0
+let g:syntastic_javascript_checkers = ["eslint"]
+let g:syntastic_coffeescript_checkers = ["coffeelint"]
+let g:syntastic_cpp_compiler = "g++"
+let g:syntastic_cpp_compiler_options = " -std=c++11"
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_java_checkers = []
+let g:syntastic_error_symbol = "X"
+let g:syntastic_style_error_symbol = ">"
+let g:syntastic_warning_symbol = "!"
+let g:syntastic_style_warning_symbol = ">"
+let g:syntastic_always_populate_loc_list = 1
+
+
+" Goyo
+function! s:goyo_enter()
+  if has('gui_running')
+    set fullscreen
+    set background=light
+    set linespace=7
+  elseif exists('$TMUX')
+    silent !tmux set status off
+  endif
+
+  " Allow to quit in Goyo mode using ':q'
+  let b:quitting = 0
+  let b:quitting_bang = 0
+  autocmd QuitPre <buffer> let b:quitting = 1
+  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+endfunction
+
+function! s:goyo_leave()
+  if has('gui_running')
+    set nofullscreen
+    set background=dark
+    set linespace=0
+  elseif exists('$TMUX')
+    silent !tmux set status on
+  endif
+
+  " Quit Vim if this is the only remaining buffer
+  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+      if b:quitting_bang
+          qa!
+      else
+          qa
+      endif
+  endif
+endfunction
+
+autocmd User GoyoEnter nested call <SID>goyo_enter()
+autocmd User GoyoLeave nested call <SID>goyo_leave()
+
+nnoremap <silent> <c-g> :Goyo<CR>
+inoremap <silent> <c-g> <Esc>:Goyo<CR>i
+
+nnoremap <silent> <c-l> :Limelight!! 0.7<CR>
+inoremap <silent> <c-l> <Esc>:Limelight!! 0.7<CR>i
