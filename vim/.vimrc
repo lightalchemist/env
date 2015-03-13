@@ -42,6 +42,8 @@ Bundle 'junegunn/seoul256.vim'
 
 Bundle 'godlygeek/tabular'
 
+Bundle 'majutsushi/tagbar'
+
 filetype plugin indent on
 
 "Must set this to enable 256 color support
@@ -66,7 +68,7 @@ let g:goyo_width = 100
 set incsearch
 
 "Highlight things that we find with search
-set hlsearch!
+set hlsearch
 nnoremap <silent> ,/ :set hlsearch!<CR>
 
 "Turn syntax highlighting on.  (This helps you know when you leave a brace open!):
@@ -270,8 +272,8 @@ set ruler
 set laststatus=2
 set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%==%c,%l/%L\ %P
 
-" Press F5 to retab
-nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
+" Press F3 to retab
+" nnoremap <silent> <F3> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
 
 " This is suppose to auto source vimrc file after editing and saving it.
 "     autocmd!
@@ -299,6 +301,8 @@ nnoremap <silent> <Leader>o :NERDTreeToggle<CR>
 
 " Shortcut for comment t
 map <silent> <Leader>c :TComment<CR>
+" map <silent> <Leader>cp <c-_>p
+" map <silent> <Leader>cr <c-_>r
 
 " Map open a copy of current window in split window
 nnoremap <Leader>w <C-w>v
@@ -445,36 +449,81 @@ let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 nnoremap <silent> <leader>y :YRShow<CR>
 let g:yankring_history_dir = '~/Documents'
 
+
+" Python-mode
+" Activate rope
+" Keys:
+" K             Show python docs
+" <Ctrl-Space>  Rope autocomplete
+" <Ctrl-c>g     Rope goto definition
+" <Ctrl-c>d     Rope show documentation
+" <Ctrl-c>f     Rope find occurrences
+" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
+" [[            Jump on previous class or function (normal, visual, operator modes)
+" ]]            Jump on next class or function (normal, visual, operator modes)
+" [M            Jump on previous class or method (normal, visual, operator modes)
+" ]M            Jump on next class or method (normal, visual, operator modes)
+let g:pymode_rope = 1
+
+" Documentation
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
+
+"Linting
+" let g:pymode_lint = 1
+" let g:pymode_lint_checker = "pyflakes,pep8"
+" Auto check on save
+" let g:pymode_lint_write = 1
+
+" Support virtualenv
+let g:pymode_virtualenv = 1
+
+" Enable breakpoints plugin
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>b'
+
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" Don't autofold code
+let g:pymode_folding = 0
+
 "Python mode
-let g:pymode = 1
+" let g:pymode = 1
 let g:pymode_lint_cwindow = 0
 
 " let g:virtualenv_directory="~/.virtualenvs"
-let g:pymode_virtualenv = 1
+" let g:pymode_virtualenv = 1
 let g:pymode_rope_complete_on_dot = 0
 " let g:pymode_rope_completion_bind = '<C-Space>'
 " let g:pymode_rope_completion = 1
 let g:pymode_rope_completion = 0
 let g:pymode_rope_lookup_project = 0
 
+" let g:pymode_doc = 1
+" let g:pymode_doc_vind = 'K'
+
+
 " Disable completion previews with function prototypes, etc.
-set completeopt-=preview
+" set completeopt-=preview
+set previewheight=50  " Preview window height
 let g:ycm_add_preview_to_completeopt = 0
 
-nnoremap <silent> <Leader>l :TlistToggle<CR>
-let g:Tlist_Exit_OnlyWindow = 1
-let g:Tlist_Auto_Update = 1
-let g:Tlist_Show_One_File = 1
+" nnoremap <silent> <Leader>l :TlistToggle<CR>
+" let g:Tlist_Exit_OnlyWindow = 1
+" let g:Tlist_Auto_Update = 1
+" let g:Tlist_Show_One_File = 1
 
-" Tasklist settings
-"Remap tasklist shortcut
-map <Leader>v <Plug>TaskList
-let g:tlWindowPosition = 0
+" Tagbar
+map <silent><Leader>v :TagbarToggle<CR>
 
 " Underline the current line with dashes in normal mode
-nnoremap <F4> yyp<c-v>$r-
+" nnoremap <c-_> yyp<c-v>$r-
 " Underline the current line with dashes in insert mode
-inoremap <F4> <Esc>yyp<c-v>$r-A
+" inoremap <c-_> <Esc>yyp<c-v>$r-A
 
 highlight clear SpellBad
 highlight SpellBad ctermfg=196 term=underline cterm=underline
@@ -503,17 +552,11 @@ let delimitMate_expand_cr = 1
 
 " YouCompleteMe
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-" Make sure YouCompleteMe don't use Tab so it will not conflict with UltiSnips
-" let g:ycm_key_list_select_completion=[]
-" let g:ycm_key_list_previous_completion=[]
-
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 let g:ycm_autoclose_preview_window_after_insertion = 1
-
-" let g:SuperTabDefaultCompletionType = '<C-n>'
-" let g:SuperTabDefaultCompletionType = "context"
+set pumheight=10  " Limit show max 10 suggestions
 
 " UltiSnips
 " better key bindings for UltiSnipsExpandTrigger
@@ -551,6 +594,9 @@ let g:syntastic_warning_symbol = "!"
 let g:syntastic_style_warning_symbol = ">"
 let g:syntastic_always_populate_loc_list = 1
 
+" let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_python_checkers=['flake8']
+" let g:syntastic_python_checker_args='--ignore=E501,E225,E231,E302,F401 --max-complexity 10'
 
 " Goyo
 function! s:goyo_enter()
@@ -591,8 +637,25 @@ endfunction
 autocmd User GoyoEnter nested call <SID>goyo_enter()
 autocmd User GoyoLeave nested call <SID>goyo_leave()
 
-nnoremap <silent> <c-g> :Goyo<CR>
-inoremap <silent> <c-g> <Esc>:Goyo<CR>i
+" F3 to toggle Goyo
+nnoremap <silent> <F3> :Goyo<CR>
+inoremap <silent> <F3> <Esc>:Goyo<CR>i
 
-nnoremap <silent> <c-l> :Limelight!! 0.7<CR>
-inoremap <silent> <c-l> <Esc>:Limelight!! 0.7<CR>i
+" Shift F3 to toggle Limelight
+nnoremap <silent> O1;2R :Limelight!!<CR>
+inoremap <silent> O1;2R <Esc>:Limelight!!<CR>i
+let g:Limelight_default_coefficient = 0.7
+
+" For Linux. Only applicable if 'xsel' installed
+" Workaround to keep whatever Vim copied to clipboard even after Vim exits/suspends.
+" http://dalibornasevic.com/posts/38-paste-text-from-vim-when-it-s-suspended-ctrl-z
+" function! CopyText()
+"   normal gv"+y
+"   :call system('xsel -ib', getreg('+'))
+" endfunction
+" vmap <leader>y :call CopyText()
+
+" set timeoutlen=150
+
+" Shortcut to close preview window
+nnoremap <silent> <Leader>pc :pc<CR>
