@@ -305,7 +305,7 @@ map <silent> <Leader>c :TComment<CR>
 " map <silent> <Leader>cr <c-_>r
 
 " Map open a copy of current window in split window
-nnoremap <Leader>w <C-w>v
+nnoremap <Leader>w <C-w>v<C-w>h
 
 " Map shortcut key to open VIMRC file
 nnoremap <leader>ev :tabnew $MYVIMRC<cr>
@@ -659,3 +659,12 @@ let g:Limelight_default_coefficient = 0.7
 
 " Shortcut to close preview window
 nnoremap <silent> <Leader>pc :pc<CR>
+
+" Requires Exuberant Tags
+" Call: "ctags -R" at the root directory of project
+" Search for tags all the way up the tree until one is found
+set tags+=./tags;$HOME
+
+" nnoremap <silent><c-q> :q<CR>
+" nnoremap <silent><c-x> :x<CR>
+
