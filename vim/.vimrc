@@ -51,9 +51,9 @@ set t_Co=256
 
 " colorscheme monokai
 
-" colorscheme molokai
-" let g:rehash256 = 1
 " let g:molokai_original=1
+" let g:rehash256 = 1
+" colorscheme molokai
 
 colorscheme seoul256
 
@@ -437,7 +437,7 @@ let g:rbpt_colorpairs = [
     \ ['gray',    'RoyalBlue3'],
     \ ]
 
-" " Update this with the amount of supported colors
+" Update this with the amount of supported colors
 let g:rbpt_max = 16
 
 nnoremap <silent> <Leader>R :RainbowParenthesesToggle<CR>
@@ -476,6 +476,7 @@ let g:pymode_doc_key = 'K'
 " let g:pymode_lint_write = 1
 
 " Support virtualenv
+" let g:virtualenv_directory="~/.virtualenvs"
 let g:pymode_virtualenv = 1
 
 " Enable breakpoints plugin
@@ -488,27 +489,23 @@ let g:pymode_syntax_all = 1
 let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
-" Don't autofold code
-let g:pymode_folding = 0
+" let g:pymode_folding = 1
 
-"Python mode
-" let g:pymode = 1
 let g:pymode_lint_cwindow = 0
 
-" let g:virtualenv_directory="~/.virtualenvs"
-" let g:pymode_virtualenv = 1
 let g:pymode_rope_complete_on_dot = 0
 " let g:pymode_rope_completion_bind = '<C-Space>'
 " let g:pymode_rope_completion = 1
 let g:pymode_rope_completion = 0
 let g:pymode_rope_lookup_project = 0
 
-" let g:pymode_doc = 1
-" let g:pymode_doc_vind = 'K'
+let g:pymode_options_colorcolumn = 0
 
+" Turn off warnings
+let g:pymode_warnings = 1
 
 " Disable completion previews with function prototypes, etc.
-" set completeopt-=preview
+set completeopt-=preview
 set previewheight=50  " Preview window height
 let g:ycm_add_preview_to_completeopt = 0
 
