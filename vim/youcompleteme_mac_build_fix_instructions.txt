@@ -1,0 +1,13 @@
+Instructions taken from: https://github.com/Valloric/YouCompleteMe/issues/1018
+
+Generate Makefile using CMake, providing the appropriate paths to Python library and headers:
+cmake -G "Unix Makefiles" -DPYTHON_LIBRARY=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib -DPYTHON_INCLUDE_DIR=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Headers . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
+
+Then add the following to .vimrc to let Vim use the same Python that was used to compile YouCompleteMe
+" To allow YouCompleteMe to use the same Python that was used to compile it
+let $PATH = '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib -DPYTHON_INCLUDE_DIR=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Headers'.$PATH
+
+Note: YouCompleteMe must be used with MacVim. So in .profile
+alias vim=mvim
+or
+alias vim=mvim -v # -v is vi mode
