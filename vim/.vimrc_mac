@@ -679,4 +679,8 @@ nnoremap <silent> <Leader>pc :pc<CR>
 set tags+=./tags;$HOME
 
 " To allow YouCompleteMe to use the same Python that was used to compile it
-let $PATH = '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib -DPYTHON_INCLUDE_DIR=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Headers'.$PATH
+" let $PATH = '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib -DPYTHON_INCLUDE_DIR=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Headers'.$PATH
+
+" We must set this to the SAME python YCM was compiled with!
+" This is Macports python 2.7
+let g:ycm_path_to_python_interpreter = '/opt/local/bin/python2.7'
