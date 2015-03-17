@@ -1,42 +1,73 @@
-" Pathogen
-filetype off " Pathogen needs to run before plugin indent on
-call pathogen#infect()
-call pathogen#incubate()
-call pathogen#helptags() " generate helptags for everything in 'runtimepath'
+" Vundle
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" Let Vundle manage Vundle
+" required!
+Bundle 'gmarik/vundle'
+
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'kien/ctrlp.vim'
+Bundle 'kien/rainbow_parentheses.vim'
+
+Bundle 'Raimondi/delimitMate'
+Bundle 'klen/python-mode'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'vim-scripts/matchit.zip'
+Bundle "lightalchemist/molokai"
+Bundle 'sickill/vim-monokai'
+Bundle 'jacquesbh/vim-showmarks'
+
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'vim-scripts/Gundo'
+
+Bundle 'tomtom/tcomment_vim'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'bling/vim-airline'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'vim-scripts/YankRing.vim'
+Bundle 'honza/vim-snippets'
+Bundle 'garbas/vim-snipmate'
+Bundle 'tomtom/tlib_vim'
+Bundle 'vim-scripts/TagHighlight.git'
+
+Bundle 'junegunn/goyo.vim'
+Bundle 'junegunn/limelight.vim'
+Bundle 'junegunn/seoul256.vim'
+
+Bundle 'godlygeek/tabular'
+
+Bundle 'majutsushi/tagbar'
+
 filetype plugin indent on
-" autocmd filetype python set expandtab
 
 "Must set this to enable 256 color support
 if $COLOR_TERM == 'gnome-terminal'
    set t_Co=256
 endif
 
-" Hemisu theme
-" colorscheme hemisu
-" set background=dark
-" Distinguished theme
-" colorscheme distinguished
-" Molokai color theme
-let g:rehash256 = 1
 colorscheme molokai
-" Note that this should only be called after setting theme
-" set background=dark
-" solarized theme
-" let g:solarized_termcolors=256
-" colorscheme solarized
-" set background=dark
+let g:rehash256 = 1
+let g:molokai_original=1
+" colorscheme seoul256
 
-set nocompatible
+let g:goyo_width = 100
 
 """"""""""""""""""""""""""""""""""""""""""
 "" SEARCH, HIGHLIGHT, SPELLING, ETC.
 """"""""""""""""""""""""""""""""""""""""""
-"The following lets searches be incremental.  So in normal mode, /sec will go to the first 'section', for example.  I don't have to type /section for that:
+" The following lets searches be incremental.
+" So in normal mode, /sec will go to the first 'section',
+" for example.  I don't have to type /section for that:
 set incsearch
 
 "Highlight things that we find with search
-set hlsearch!
-" nnoremap <C-h><C-h> :set hlsearch!<CR>
+set hlsearch
 nnoremap <silent> ,/ :set hlsearch!<CR>
 
 "Turn syntax highlighting on.  (This helps you know when you leave a brace open!):
@@ -45,17 +76,17 @@ syntax on
 " Vim window stuff
 "I'm pretty sure this makes wrapped lines break at spaces, not in the middle of words:
 set linebreak breakat=\ 
-" set list
-" set listchars=tab:▸\ ,trail:⋅,extends:❯,precedes:❮
-" set showbreak=↪
+set list
+set listchars=tab:▸\ ,trail:⋅,extends:❯,precedes:❮
+set showbreak=↪
+
+" :set formatoptions+=w
+:set formatoptions+=t
 
 "Soft wrap long lines
 set wrap
 
 " setlocal wrap nolist linebreak breakat=\ 
-
-"This turns off physical line wrapping (i.e. auto insertion of newlines)
-"set textwidth=0 wrapmargin=0
 
 "Display filename in titlebar of window
 set title
@@ -70,10 +101,12 @@ set selection=exclusive
 set cursorline
 
 "paragraph formatting stuff:
-"This tells Vim to use an external program, Par, to format my paragraphs.  This comes from www.vimcasts.org
+"This tells Vim to use an external program, Par, to format my paragraphs. 
+"This comes from www.vimcasts.org
 set formatprg=par
 
-"I don't recall where this came from, but it makes Vim put all its backup and temporary files in places I don't mind:
+"I don't recall where this came from, but it makes Vim put all its backup
+"and temporary files in places I don't mind:
 set backupdir=~/.vim/vim-tmp,~/.tmp,~/tmp,~/var/tmp,/tmp
 set directory=~/.vim/vim-tmp,~/.tmp,~/tmp,~/var/tmp,/tmp
 
@@ -81,12 +114,16 @@ set directory=~/.vim/vim-tmp,~/.tmp,~/tmp,~/var/tmp,/tmp
 " GENERIC PLUGIN BEHAVIOR """"
 """"""""""""""""""""""""""""""
 "Allows for plugins to do smart indentation (I think!):
-filetype plugin indent on
+" filetype plugin indent on
 
 "I think this lets you use filetype specific plugins:
 " filetype plugin on
 
-"To be frank, offhand I don't know exactly what these two do.  The first does something with the Omni Complete function, which is very helpful.  The second does something when you have a file open in Vim and then open it with another program and make changes.  I think this makes Vim update its version of the file:
+"To be frank, offhand I don't know exactly what these two do.
+"The first does something with the Omni Complete function, which is very helpful.
+"The second does something when you have a file open in Vim and then open it
+"with another program and make changes. I think this makes Vim update its version
+" of the file:
 " set ofu=syntaxcomplete#Complete
 " set autoread
 " Tells Vim not to automatically reload changed files
@@ -102,8 +139,18 @@ set autoindent
 set smartindent
 set preserveindent
 
-"These deal with what the TAB key inserts.  I set my tabs to be only two spaces wide (default is 4).  The second one makes sure the shift function knows this (you use that by selecting some text and hitting > for multiple lines and >> for a single line.  The last one converts TAB characters into spaces instead of TAB characters.  (Apparently this is big to programmers, I use it to follow conventions in the Ruby programming language.
+"These deal with what the TAB key inserts.
+"I set my tabs to be only two spaces wide (default is 4).
+"The second one makes sure the shift function knows this
+""(you use that by selecting some text and hitting > for multiple lines and >>
+"for a single line.  The last one converts TAB characters into spaces instead
+"of TAB characters.  (Apparently this is big to programmers,
+"I use it to follow conventions in the Ruby programming language.
 set tabstop=4 shiftwidth=4 expandtab
+
+"This turns off physical line wrapping (i.e. auto insertion of newlines)
+"set textwidth=0 wrapmargin=0
+" set textwidth=79
 
 set scrolloff=5
 
@@ -112,13 +159,19 @@ set scrolloff=5
 """""""""""""""
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
+set nofoldenable " Don't fold on start
 
 "Specify a column-width for fold markers:
 set foldcolumn=4
 
-"I want to mark folds manually.  So in a .tex file I can write %{{{ to start a section and %}}} to close it.  Then a zc in normal mode will shrink the whole section to one line.  Very tidy.
-set foldmethod=manual "alternatives: indent, syntax, marker (uses `{{{` to open and `}}}` to close)
+"I want to mark folds manually.  So in a .tex file I can write %{{{ to start a section and %}}} to close it.
+"Then a zc in normal mode will shrink the whole section to one line.  Very tidy.
+" set foldmethod=manual "alternatives: indent, syntax, marker (uses `{{{` to open and `}}}` to close)
 
+"Unfold all folds when file is read in because pymode by default folds them.
+" au BufRead * normal zR
+
+"Think this is no visual bell
 set novb
 
 """"""""""""""""
@@ -177,16 +230,13 @@ inoremap k <Esc><C-y>i
 "This lets you use your mouse
 set mouse=a
 
-"Operations for copy and paste will work with OS clipboard. No need to prefix 
-"with '+' or *
+"Operations for copy and paste will work with OS clipboard.
+"No need to prefix with '+' or *
 " set clipboard=unnamedplus
 set clipboard=unnamed
 
 " nnoremap <F2> :set invpaste paste?<CR>
-nnoremap <F2> :set invpaste paste?<CR>
-set pastetoggle=<F2>
-" nnoremap <C-P> :set invpaste paste?<CR>
-" set pastetoggle=<C-P>
+" set pastetoggle=<F2>
 
 " Clear paste mode when going back to normal mode
 au InsertLeave * set nopaste
@@ -220,13 +270,20 @@ set ruler
 set laststatus=2
 set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%==%c,%l/%L\ %P
 
-
-nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
+" Press F3 to retab
+" nnoremap <silent> <F3> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
 
 " This is suppose to auto source vimrc file after editing and saving it.
+"     autocmd!
+"     autocmd BufWritePost $MYVIMRC source $MYVIMRC
+" augroup END " }
+" augroup myvimrchooks
+"     au!
+"     autocmd bufwritepost .vimrc source $MYVIMRC
+" augroup END
 augroup myvimrchooks
-    au!
-    autocmd bufwritepost .vimrc source ~/.vimrc
+    autocmd!
+    autocmd myvimrchooks BufWritePost $MYVIMRC nested source $MYVIMRC
 augroup END
 
 "Backspace works in Insert mode (e.g. not inserting a ^?), but won't delete over line breaks, or automatically-inserted indentation, or the place where insert mode started:
@@ -241,13 +298,15 @@ nnoremap <silent> <Leader>u :GundoToggle<CR>
 nnoremap <silent> <Leader>o :NERDTreeToggle<CR>
 
 " Shortcut for comment t
-" map <Leader>c gcc
+map <silent> <Leader>c :TComment<CR>
+" map <silent> <Leader>cp <c-_>p
+" map <silent> <Leader>cr <c-_>r
 
 " Map open a copy of current window in split window
-nnoremap <Leader>w <C-w>v
+nnoremap <Leader>w <C-w>v<C-w>h
 
 " Map shortcut key to open VIMRC file
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+nnoremap <leader>ev :tabnew $MYVIMRC<cr>
 
 " Toggle between absolute line number and relative number
 " function! NumberToggle()
@@ -272,10 +331,11 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" :source ~/.vim/bundle/vim-matchit/plugin/matchit.vim
+set splitbelow " Place new horizontal split below
+set splitright " Place new vertical split on right
 
 " Make Y behave normally
-map Y y$
+" map Y y$
 
 command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
 
@@ -289,13 +349,39 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
+set encoding=utf-8
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
 "Enable powerline tabline
-" let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 "Configure airline tab separator
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '>'
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '>'
 "Use nice fonts from powerline
 let g:airline_powerline_fonts = 1
+let g:airline_theme = "sol"
+" let g:airline_theme = "molokai"
+" let g:airline_theme = "tomorrow"
+" let g:airline_theme = "wombat"
+" let g:airline_theme = "light"
+" let g:airline_theme = "solarized"
 
 
 "Allows you to use w!! to save file that requires root priviledge
@@ -314,27 +400,19 @@ noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 "Map Alt-l and Alt-h to move between tabs
-noremap  gt
-noremap  gT
-inoremap  <Esc>gti
-inoremap  <Esc>gTi
-" noremap l gt
-" noremap h gT
-" inoremap l <Esc>gti
-" inoremap h <Esc>gTi
+noremap l gt
+noremap h gT
+inoremap l <Esc>gti
+inoremap h <Esc>gTi
 
-"Command t configuration
-"Ctrl-t for opening doc in current window
-" let g:CommandTAcceptSelectionMap = '<C-t>'
-" "<Enter> for opening doc in new tab
-" let g:CommandTAcceptSelectionTabMap = '<CR>'
-" let g:CommandTMaxDepth = 5
-" let g:CommandTMaxHeight = 10
-" let g:CommandTMinHeight = 10
-" nnoremap <silent><F5> :CommandTFlush<CR>
+"Configure CtrlP
+let g:ctrlp_map = '<Leader>t'
+let g:ctrlp_cmd = 'CtrlP'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$' 
+let g:ctrlp_working_path_mode = 'ra'
 
-" let g:CommandTNeverShowDotFiles
-" let g:CommandTScanDotDirectories
 set wildignore+=*.swp,*.bak,*.class,*.o,*.obj,*.pyc,*.pkl,.git,*.jpg,*.bmp,*.png,*.mat,*.bak,*.pdf
 
 "Rainbow Parentheses
@@ -357,26 +435,25 @@ augroup TastetheRainbow
 augroup END
 
 let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
+    \ ['LightRed',       'RoyalBlue3'],
+    \ [112,    'SeaGreen3'],
     \ ['darkgray',    'DarkOrchid3'],
     \ ['darkgreen',   'firebrick3'],
     \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
+    \ ['red',     'SeaGreen3'],
+    \ [226, 'DarkOrchid3'],
+    \ ['red',       'firebrick3'],
     \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['yellow',    'SeaGreen3'],
+    \ [112,       'SeaGreen3'],
+    \ [226, 'DarkOrchid3'],
+    \ [112,    'firebrick3'],
+    \ [204,    'SeaGreen3'],
     \ ['darkgreen',   'RoyalBlue3'],
-    \ ['lightblue',     'DarkOrchid3'],
+    \ [112,     'DarkOrchid3'],
     \ ['gray',    'RoyalBlue3'],
     \ ]
 
 " Update this with the amount of supported colors
-"let g:rbpt_max = 21
 let g:rbpt_max = 16
 
 nnoremap <silent> <Leader>R :RainbowParenthesesToggle<CR>
@@ -384,58 +461,226 @@ nnoremap <silent> <Leader>R :RainbowParenthesesToggle<CR>
 let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
 let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 
+" map yankring
+nnoremap <silent> <leader>y :YRShow<CR>
+let g:yankring_history_dir = '~/Documents'
+
+
+" Python-mode
+" Activate rope
+" Keys:
+" K             Show python docs
+" <Ctrl-Space>  Rope autocomplete
+" <Ctrl-c>g     Rope goto definition
+" <Ctrl-c>d     Rope show documentation
+" <Ctrl-c>f     Rope find occurrences
+" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
+" [[            Jump on previous class or function (normal, visual, operator modes)
+" ]]            Jump on next class or function (normal, visual, operator modes)
+" [M            Jump on previous class or method (normal, visual, operator modes)
+" ]M            Jump on next class or method (normal, visual, operator modes)
+let g:pymode_rope = 1
+
+" Documentation
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
+
+"Linting
+" let g:pymode_lint = 1
+" let g:pymode_lint_checker = "pyflakes,pep8"
+" Auto check on save
+" let g:pymode_lint_write = 1
+
+" Support virtualenv
+" let g:virtualenv_directory="~/.virtualenvs"
+let g:pymode_virtualenv = 1
+
+" Enable breakpoints plugin
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>b'
+
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" let g:pymode_folding = 1
+
+let g:pymode_lint_cwindow = 0
+
+let g:pymode_rope_complete_on_dot = 0
+" let g:pymode_rope_completion_bind = '<C-Space>'
+" let g:pymode_rope_completion = 1
+let g:pymode_rope_completion = 0
+let g:pymode_rope_lookup_project = 0
+
+let g:pymode_options_colorcolumn = 0
+
+" Turn off warnings
+let g:pymode_warnings = 1
+
+" Disable completion previews with function prototypes, etc.
+set completeopt-=preview
+set previewheight=50  " Preview window height
+let g:ycm_add_preview_to_completeopt = 0
+
+" nnoremap <silent> <Leader>l :TlistToggle<CR>
+" let g:Tlist_Exit_OnlyWindow = 1
+" let g:Tlist_Auto_Update = 1
+" let g:Tlist_Show_One_File = 1
+
+" Tagbar
+map <silent><Leader>v :TagbarToggle<CR>
+
+" Underline the current line with dashes in normal mode
+" nnoremap <c-_> yyp<c-v>$r-
+" Underline the current line with dashes in insert mode
+" inoremap <c-_> <Esc>yyp<c-v>$r-A
+
+highlight clear SpellBad
+highlight SpellBad ctermfg=196 term=underline cterm=underline
+" highlight clear SpellBad
+" highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+" highlight clear SpellCap
+" highlight SpellCap term=underline cterm=underline
+" highlight clear SpellRare
+" highlight SpellRare term=underline cterm=underline
+" highlight clear SpellLocal
+" highlight SpellLocal term=underline cterm=underline
+
+" DelimitMate add extra newline after typing cr inside a pair of delimiters
+let delimitMate_expand_cr = 1
+
+" Highlight column
+" set colorcolumn=80
+" highlight ColorColumn ctermbg=darkgray
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%81v.\+/
+
+" Map save to C-s
+" Might need to modify bash_profile
+:nmap <c-s> :w<CR>
+:imap <c-s> <Esc>:w<CR>a
+
+" YouCompleteMe
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+let g:ycm_autoclose_preview_window_after_insertion = 1
+set pumheight=10  " Limit show max 10 suggestions
+
+" UltiSnips
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
 let g:ultisnips_python_style = 0x3
 let g:UltiSnips = {}
 let g:snips_email = "lightalchemist@gmail.com"
 let g:snips_author = "Hong-Wei Ng"
 let g:snips_github = "https://github.com/lightalchemist"
 
-" map yankring
-nnoremap <silent> <leader>y :YRShow<CR>
-let g:yankring_history_dir = '~/Documents'
+set virtualedit=onemore " Allow for cursor beyond last character
+set showmatch " Set show matching parenthesis
 
-"Python mode
-let g:pymode = 1
-let g:pymode_lint_cwindow = 0
+" Syntastic
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_enable_signs = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_no_include_search = 0
+let g:syntastic_javascript_checkers = ["eslint"]
+let g:syntastic_coffeescript_checkers = ["coffeelint"]
+let g:syntastic_cpp_compiler = "g++"
+let g:syntastic_cpp_compiler_options = " -std=c++11"
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_java_checkers = []
+let g:syntastic_error_symbol = "X"
+let g:syntastic_style_error_symbol = ">"
+let g:syntastic_warning_symbol = "!"
+let g:syntastic_style_warning_symbol = ">"
+let g:syntastic_always_populate_loc_list = 1
 
-" let g:virtualenv_directory="~/.virtualenvs"
-let g:pymode_virtualenv = 1
-let g:pymode_rope_complete_on_dot = 0
-let g:pymode_rope_completion_bind = '<C-Space>'
+" let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_python_checkers=['flake8']
+" let g:syntastic_python_checker_args='--ignore=E501,E225,E231,E302,F401 --max-complexity 10'
 
-let g:pymode_rope_completion = 1
-let g:pymode_rope_lookup_project = 0
-set completeopt-=preview
+" Goyo
+function! s:goyo_enter()
+  if has('gui_running')
+    set fullscreen
+    set background=light
+    set linespace=7
+  elseif exists('$TMUX')
+    silent !tmux set status off
+  endif
 
-let g:SuperTabDefaultCompletionType = "context"
+  " Allow to quit in Goyo mode using ':q'
+  let b:quitting = 0
+  let b:quitting_bang = 0
+  autocmd QuitPre <buffer> let b:quitting = 1
+  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+endfunction
 
-nnoremap <silent> <Leader>l :TlistToggle<CR>
-let g:Tlist_Exit_OnlyWindow = 1
-let g:Tlist_Auto_Update = 1
-let g:Tlist_Show_One_File = 1
+function! s:goyo_leave()
+  if has('gui_running')
+    set nofullscreen
+    set background=dark
+    set linespace=0
+  elseif exists('$TMUX')
+    silent !tmux set status on
+  endif
 
-" Tasklist settings
-"Remap tasklist shortcut
-map <Leader>v <Plug>TaskList
-let g:tlWindowPosition = 0
+  " Quit Vim if this is the only remaining buffer
+  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+      if b:quitting_bang
+          qa!
+      else
+          qa
+      endif
+  endif
+endfunction
 
-"Unfold all folds when file is read in because pymode by default folds them.
-au BufRead * normal zR
+autocmd User GoyoEnter nested call <SID>goyo_enter()
+autocmd User GoyoLeave nested call <SID>goyo_leave()
 
+" F3 to toggle Goyo
+nnoremap <silent> <F3> :Goyo<CR>
+inoremap <silent> <F3> <Esc>:Goyo<CR>i
 
-highlight clear SpellBad
-highlight SpellBad ctermfg=196 term=underline cterm=underline
+" Shift F3 to toggle Limelight
+nnoremap <silent> O1;2R :Limelight!!<CR>
+inoremap <silent> O1;2R <Esc>:Limelight!!<CR>i
+let g:Limelight_default_coefficient = 0.7
 
-" Ctrl-c for copy"
-vmap <C-c> :w !pbcopy<cr><cr>
+" For Linux. Only applicable if 'xsel' installed
+" Workaround to keep whatever Vim copied to clipboard even after Vim exits/suspends.
+" http://dalibornasevic.com/posts/38-paste-text-from-vim-when-it-s-suspended-ctrl-z
+" function! CopyText()
+"   normal gv"+y
+"   :call system('xsel -ib', getreg('+'))
+" endfunction
+" vmap <leader>y :call CopyText()
 
-let delimitMate_expand_cr = 1
+" set timeoutlen=150
 
+" Shortcut to close preview window
+nnoremap <silent> <Leader>pc :pc<CR>
 
-"Configure CtrlP
-let g:ctrlp_map = '<Leader>t'
-let g:ctrlp_cmd = 'CtrlP'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$' 
-let g:ctrlp_working_path_mode = 'ra'
+" Requires Exuberant Tags
+" Call: "ctags -R" at the root directory of project
+" Search for tags all the way up the tree until one is found
+set tags+=./tags;$HOME
+
+" To allow YouCompleteMe to use the same Python that was used to compile it
+" let $PATH = '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib -DPYTHON_INCLUDE_DIR=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Headers'.$PATH
+
+" We must set this to the SAME python YCM was compiled with!
+" This is Macports python 2.7
+let g:ycm_path_to_python_interpreter = '/opt/local/bin/python2.7'
