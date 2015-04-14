@@ -18,14 +18,13 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'klen/python-mode'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/matchit.zip'
-Bundle "lightalchemist/molokai"
-Bundle 'sickill/vim-monokai'
 Bundle 'jacquesbh/vim-showmarks'
 
 Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
 Bundle 'vim-scripts/Gundo'
+Bundle 'majutsushi/tagbar'
 
+Bundle 'scrooloose/syntastic'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'bling/vim-airline'
@@ -34,15 +33,14 @@ Bundle 'vim-scripts/YankRing.vim'
 Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
 Bundle 'tomtom/tlib_vim'
-Bundle 'vim-scripts/TagHighlight.git'
+" Bundle 'vim-scripts/TagHighlight.git'
+Bundle 'godlygeek/tabular'
+
+" Color schemes
+Bundle 'lightalchemist/molokai'
 
 Bundle 'junegunn/goyo.vim'
 Bundle 'junegunn/limelight.vim'
-Bundle 'junegunn/seoul256.vim'
-
-Bundle 'godlygeek/tabular'
-
-Bundle 'majutsushi/tagbar'
 
 filetype plugin indent on
 
@@ -50,12 +48,16 @@ filetype plugin indent on
 set t_Co=256
 
 " colorscheme monokai
-
 " let g:molokai_original=1
 " let g:rehash256 = 1
-" colorscheme molokai
-
-colorscheme seoul256
+colorscheme molokai
+" colorscheme twilight256
+" colorscheme jellybeans
+" colorscheme seoul256
+" colorscheme twilight
+" colorscheme distinguished
+" colorscheme hemisu
+" set background=dark
 
 let g:goyo_width = 100
 
@@ -337,7 +339,7 @@ set splitbelow " Place new horizontal split below
 set splitright " Place new vertical split on right
 
 " Make Y behave normally
-" map Y y$
+" nnoremap Y y$
 
 command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
 
@@ -463,7 +465,7 @@ let g:yankring_history_dir = '~/Documents'
 " ]]            Jump on next class or function (normal, visual, operator modes)
 " [M            Jump on previous class or method (normal, visual, operator modes)
 " ]M            Jump on next class or method (normal, visual, operator modes)
-let g:pymode_rope = 1
+let g:pymode_rope = 0
 
 " Documentation
 let g:pymode_doc = 1
@@ -548,6 +550,8 @@ let delimitMate_expand_cr = 1
 :imap <c-s> <Esc>:w<CR>a
 
 " YouCompleteMe
+let g:syntastic_cpp_compiler = 'g++'
+let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
@@ -577,10 +581,9 @@ let g:syntastic_enable_signs = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_cpp_no_include_search = 0
-let g:syntastic_javascript_checkers = ["eslint"]
-let g:syntastic_coffeescript_checkers = ["coffeelint"]
 let g:syntastic_cpp_compiler = "g++"
 let g:syntastic_cpp_compiler_options = " -std=c++11"
+let g:syntastic_quiet_messages = {"type": "style"}
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -633,6 +636,9 @@ endfunction
 
 autocmd User GoyoEnter nested call <SID>goyo_enter()
 autocmd User GoyoLeave nested call <SID>goyo_leave()
+
+" Save file and make project
+nnoremap <F5> :w<cr>:make!<cr>
 
 " F3 to toggle Goyo
 nnoremap <silent> <F3> :Goyo<CR>
