@@ -18,8 +18,11 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'klen/python-mode'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/matchit.zip'
-Bundle "lightalchemist/molokai"
+
+Bundle 'Lokaltog/vim-distinguished'
+Bundle 'lightalchemist/molokai'
 Bundle 'sickill/vim-monokai'
+
 Bundle 'jacquesbh/vim-showmarks'
 
 Bundle 'scrooloose/nerdtree'
@@ -51,6 +54,7 @@ if $COLOR_TERM == 'gnome-terminal'
    set t_Co=256
 endif
 
+" colorscheme distinguished
 colorscheme molokai
 let g:rehash256 = 1
 let g:molokai_original=1
@@ -348,8 +352,6 @@ highlight clear SpellRare
 highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
-
-set encoding=utf-8
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -684,3 +686,21 @@ set tags+=./tags;$HOME
 " We must set this to the SAME python YCM was compiled with!
 " This is Macports python 2.7
 let g:ycm_path_to_python_interpreter = '/opt/local/bin/python2.7'
+
+" Font for powerline
+" Fonts were downloaded from: https://github.com/powerline/fonts
+set guifont=Inconsolata\ for\ Powerline:h15
+" let g:Powerline_symbols = 'fancy'
+set encoding=utf-8
+" set t_Co=256
+set fillchars+=stl:\ ,stlnc:\
+" set term=xterm-256color
+set termencoding=utf-8
+
+if has("gui_running")
+   let s:uname = system("uname")
+   if s:uname == "Darwin\n"
+      set guifont=Inconsolata\ for\ Powerline:h15
+   endif
+endif
+
