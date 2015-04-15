@@ -117,6 +117,10 @@ alias rm='trash'
 alias cp='cp -i'
 alias mv='mv -i'
 alias grep='grep --color=auto -nH'
+alias ls='ls -G'
+alias vim='mvim -v'
+alias rm='rmtrash'
+
 
 # NOTE: PATH variable must be set before sourcing virtualenvwrapper.sh
 # See http://virtualenvwrapper.readthedocs.org/en/latest/install.html
