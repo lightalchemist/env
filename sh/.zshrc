@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/lightalchemist/.oh-my-zsh
+# export ZSH=/home/lightalchemist/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -97,7 +98,11 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias grep='grep --color=auto -nH'
 
+# NOTE: PATH variable must be set before sourcing virtualenvwrapper.sh
+# See http://virtualenvwrapper.readthedocs.org/en/latest/install.html
 # For virtualenv support
+export VIRTUALENVWRAPPER_PYTHON=`which python`
+export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
 export WORKON_HOME=~/virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 export PIP_VIRTUALENV_BASE=~/virtualenvs
