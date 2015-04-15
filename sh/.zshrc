@@ -109,10 +109,10 @@ case $TERM in
 esac
 
 # PS1=$'\e[0;30m[%D/\%\}/Y-%m-%d %H:%M:%S}] \e[0;31m%~ $ \e[0m'
-RPROMPT='[%D{%L:%M:%S %p}]'
 
+# This adds time that updates to right prompt
+RPROMPT='[%D %D{%L:%M:%S %p}]'
 TMOUT=1
-
 TRAPALRM() {
     zle reset-prompt
 }
