@@ -9,3 +9,14 @@ https://github.com/Anthony25/gnome-terminal-colors-solarized
 
 Install oh-my-zsh
 https://github.com/robbyrussell/oh-my-zsh/wiki/themes
+
+On Mac:
+Install Powerline fonts by running in Terminal App.
+This is important as iTerm 2 somehow does not have have `uname` available.
+
+Choose Pastel theme for iTerm2 profile
+
+Set profile to use /opt/local/bin/zsh at startup/login.
+
+Peppermint theme also available. See link within for iTerm2's download.
+https://noahfrederick.com/log/lion-terminal-theme-peppermint/
