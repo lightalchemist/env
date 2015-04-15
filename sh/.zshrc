@@ -5,14 +5,16 @@ export ZSH=/home/lightalchemist/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="af-magic"
+# ZSH_THEME="af-magic"
 # ZSH_THEME="bira"
 # ZSH_THEME="blinks"
-# ZSH_THEME="agnoster"
+ZSH_THEME="agnoster"
 # ZSH_THEME="alanpeabody"
 # ZSH_THEME="wedisagree"
 # ZSH_THEME="afowler"
 # ZSH_THEME="dieter"
+
+DEFAULT_USER="hw"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -106,3 +108,11 @@ case $TERM in
         TERM="${TERM}-256color" ;;
 esac
 
+# PS1=$'\e[0;30m[%D/\%\}/Y-%m-%d %H:%M:%S}] \e[0;31m%~ $ \e[0m'
+RPROMPT='[%D{%L:%M:%S %p}]'
+
+TMOUT=1
+
+TRAPALRM() {
+    zle reset-prompt
+}
