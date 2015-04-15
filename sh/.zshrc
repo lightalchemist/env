@@ -110,10 +110,10 @@ esac
 
 # This adds [dd-mm-yy time] that updates to right prompt
 RPROMPT='[%D %D{%L:%M:%S %p}]'
-TMOUT=1
-TRAPALRM() {
-    zle reset-prompt
-}
+# TMOUT=1
+# TRAPALRM() {
+#     zle reset-prompt
+# }
 
 export EDITOR="VIM"
 
