@@ -108,11 +108,14 @@ case $TERM in
         TERM="${TERM}-256color" ;;
 esac
 
-# PS1=$'\e[0;30m[%D/\%\}/Y-%m-%d %H:%M:%S}] \e[0;31m%~ $ \e[0m'
-
-# This adds time that updates to right prompt
+# This adds [dd-mm-yy time] that updates to right prompt
 RPROMPT='[%D %D{%L:%M:%S %p}]'
 TMOUT=1
 TRAPALRM() {
     zle reset-prompt
 }
+
+export EDITOR="VIM"
+
+# Activate virtualenv "ml"
+workon ml
