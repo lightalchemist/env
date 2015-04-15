@@ -5,14 +5,14 @@ export ZSH=/home/lightalchemist/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="af-magic"
+ZSH_THEME="af-magic"
 # ZSH_THEME="bira"
 # ZSH_THEME="blinks"
 # ZSH_THEME="agnoster"
 # ZSH_THEME="alanpeabody"
 # ZSH_THEME="wedisagree"
+# ZSH_THEME="afowler"
 # ZSH_THEME="dieter"
-ZSH_THEME="afowler"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -52,12 +52,12 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git virtualenvwrapper)
+plugins=(git virtualenvwrapper extract)
 
 # User configuration
 
 # export PATH="/usr/local/cuda-6.5/bin:/home/lightalchemist/virtualenvs/ml/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/lightalchemist/bin"
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANpATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -105,3 +105,4 @@ case $TERM in
     xterm|screen|rxvt-unicode)
         TERM="${TERM}-256color" ;;
 esac
+
