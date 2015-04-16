@@ -7,8 +7,11 @@ https://github.com/powerline/fonts
 Install Solarized theme. Remember to create a new profile first!
 https://github.com/Anthony25/gnome-terminal-colors-solarized
 
-Install oh-my-zsh
-https://github.com/robbyrussell/oh-my-zsh/wiki/themes
+Install oh-my-zsh. Use agnoster theme
+https://github.com/robbyrussell/oh-my-zsh/
+
+Install oh-my-zsh syntax highlighting
+https://github.com/zsh-users/zsh-syntax-highlighting
 
 On Mac:
 Install Powerline fonts by running in Terminal App.
