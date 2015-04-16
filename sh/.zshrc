@@ -90,11 +90,12 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias ll='ls -AlF'
-alias la='ls -AF'
-alias l='ls -CF'
+alias ll='ls -AlhF'
+alias la='ls -aF'
 # ls --option not available on OS X. Need to use Homebrew to install coreutils
-alias ls='ls --color=tty -h --group-directories-first'
+alias ls='ls --color=tty -F --group-directories-first'
+alias l=ls
+alias lc='ls --color=tty -F --format=single-column --group-directories-first'
 alias rm='trash'
 alias cp='cp -i'
 alias mv='mv -i'
