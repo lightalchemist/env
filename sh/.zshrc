@@ -90,9 +90,11 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias ll='ls -alF'
-alias la='ls -A'
+alias ll='ls -AlF'
+alias la='ls -AF'
 alias l='ls -CF'
+# ls --option not available on OS X. Need to use Homebrew to install coreutils
+alias ls='ls --color=tty -h --group-directories-first'
 alias rm='trash'
 alias cp='cp -i'
 alias mv='mv -i'
@@ -100,12 +102,38 @@ alias grep='grep --color=auto -nH'
 
 # NOTE: PATH variable must be set before sourcing virtualenvwrapper.sh
 # See http://virtualenvwrapper.readthedocs.org/en/latest/install.html
+
 # For virtualenv support
+# Deactivate current virtual env so that flags below will be set properly
+# virtualenv_path="$VIRTUAL_ENV"
+# echo "Current VIRTUAL_ENV is: $VIRTUAL_ENV"
+# if [ $virtualenv_path ]; then
+#     echo "Deactivating virtualenv `basename $virtualenv_path`"
+#     echo $PATH
+#     deactivate
+# else
+#     echo "No virtualenv to deactivate"
+# fi
+
 export VIRTUALENVWRAPPER_PYTHON=`which python`
 export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
 export WORKON_HOME=~/virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 export PIP_VIRTUALENV_BASE=~/virtualenvs
+
+# Activate virtualenv
+workon ml
+# if [ $virtualenv_path ]; then
+#     echo "Reapplying virtualenv: $virtualenv_path"
+#     # echo "Activating virtualenv `basename` $virtualenv_path"
+#     echo $virtualenv_path
+#     echo "Activating virtualenv: "
+#     echo "`basename $virtualenv_path`"
+#     workon "`basename $virtualenv_path`"
+# else
+#     echo "No active virtualenv"
+#     workon ml
+# fi
 
 # Configure 256 colors if possible
 case $TERM in
@@ -121,6 +149,3 @@ RPROMPT='[%D %D{%L:%M:%S %p}]'
 # }
 
 export EDITOR="VIM"
-
-# Activate virtualenv "ml"
-workon ml
