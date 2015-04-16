@@ -114,7 +114,7 @@ RPROMPT='[%D %D{%L:%M:%S %p}]'
 #     zle reset-prompt
 # }
 
-export EDITOR="VIM"
+export EDITOR=`which vim`
 
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo

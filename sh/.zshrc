@@ -150,4 +150,4 @@ RPROMPT='[%D %D{%L:%M:%S %p}]'
 #     zle reset-prompt
 # }
 
-export EDITOR="VIM"
+export EDITOR=`which vim`
