@@ -135,7 +135,7 @@ export PIP_RESPECT_VIRTUALENV=true
 # if [[ -r /usr/local/bin/virtualenvwrapper.sh ]]; then
 # Adapted this for MacPorts
 if [[ -r /opt/local/bin/virtualenvwrapper.sh-2.7 ]]; then
-    source /usr/local/bin/virtualenvwrapper.sh
+    source /opt/local/bin/virtualenvwrapper.sh-2.7
 else
     echo "WARNING: Can't find virtualenvwrapper.sh"
 fi
