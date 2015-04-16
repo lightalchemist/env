@@ -9,10 +9,10 @@ antigen use oh-my-zsh
 # bundles from oh-my-zsh
 # antigen bundle extract
 antigen bundle git
-antigen bundle python
+# antigen bundle python
 antigen bundle virtualenvwrapper
 antigen bundle virtualenv
-antigen bundle dirhistory
+# antigen bundle dirhistory
 # antigen bundle history-substring-search
 # antigen bundle history
 
