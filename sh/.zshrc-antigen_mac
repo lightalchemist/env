@@ -1,3 +1,4 @@
+# For OS X
 source "$HOME/.antigen/antigen.zsh"
 
 # Install antigen
@@ -6,20 +7,19 @@ source "$HOME/.antigen/antigen.zsh"
 antigen use oh-my-zsh
 
 # bundles from oh-my-zsh
-antigen bundle extract
+# antigen bundle extract
 antigen bundle git
-antigen bundle pip
 antigen bundle python
 antigen bundle virtualenvwrapper
 antigen bundle virtualenv
 antigen bundle dirhistory
-antigen bundle history-substring-search
-antigen bundle kennethreitz/autoenv
-antigen bundle history
+# antigen bundle history-substring-search
+# antigen bundle history
 
-antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle tarruda/zsh-autosuggestions
+# antigen bundle tarruda/zsh-autosuggestions
+antigen bundle kennethreitz/autoenv
 antigen bundle chrissicool/zsh-256color
 
 antigen-theme agnoster
@@ -27,19 +27,19 @@ antigen-theme agnoster
 setopt correct_all # Enable autocorrect suggestions
 ENABLE_CORRECTION="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-COMPLETION_WAITING_DOTS="false"
 
 # Autosuggestion color
-AUTOSUGGESTION_HIGHLIGHT_COLOR=fg159
-AUTOSUGGESTION_HIGHLIGHT_CURSOR=1
+# AUTOSUGGESTION_HIGHLIGHT_COLOR=fg159
+# AUTOSUGGESTION_HIGHLIGHT_CURSOR=1
 # AUTOSUGGESTION_HIGHLIGHT_COLOR="fg=159,bg=020"
-bindkey '^f' vi-forward-blank-word
-bindkey '^b' vi-backward-blank-word
+# bindkey '^f' vi-forward-blank-word
+# bindkey '^b' vi-backward-blank-word
 # Setup zsh-autosuggestions
-zle-line-init() {
-    zle autosuggest-start
-}
-zle -N zle-line-init
+# zle-line-init() {
+#     zle autosuggest-start
+# }
+# zle -N zle-line-init
+# COMPLETION_WAITING_DOTS="true"
 
 # User configuration
 # Set up PATH variable
