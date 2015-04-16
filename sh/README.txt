@@ -7,6 +7,9 @@ https://github.com/powerline/fonts
 Install Solarized theme. Remember to create a new profile first!
 https://github.com/Anthony25/gnome-terminal-colors-solarized
 
+Antigen to manage zsh
+git clone https://github.com/zsh-users/antigen ~/.antigen
+
 Install oh-my-zsh. Use agnoster theme
 https://github.com/robbyrussell/oh-my-zsh/
 
