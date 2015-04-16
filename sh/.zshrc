@@ -123,6 +123,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 export PIP_VIRTUALENV_BASE=~/virtualenvs
 
 # Activate virtualenv
+# NOTE: Careful with this as virtualenv may not be available on all machines.
 workon ml
 # if [ $virtualenv_path ]; then
 #     echo "Reapplying virtualenv: $virtualenv_path"
