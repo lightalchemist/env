@@ -11,6 +11,7 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-fugitive'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 
@@ -394,12 +395,13 @@ inoremap h <Esc>gTi
 "Configure CtrlP
 let g:ctrlp_map = '<Leader>t'
 let g:ctrlp_cmd = 'CtrlP'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*.so,*.swp,*.zip     " MacOSX/Linux
+" set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$' 
 let g:ctrlp_working_path_mode = 'ra'
 
-set wildignore+=*.swp,*.bak,*.class,*.o,*.obj,*.pyc,*.pkl,.git,*.jpg,*.bmp,*.png,*.mat,*.bak,*.pdf
+set wildignore+=*.swp,*.bak,*.class,*.o,*.obj,*.pyc,*.pkl,*.jpg,*.bmp,*.png,*.mat,*.bak,*.pdf
 
 "Rainbow Parentheses
 au FileType c,cpp,objc,objcpp,py,java,m call Load_Rainbow()
