@@ -392,6 +392,10 @@ noremap h gT
 inoremap l <Esc>gti
 inoremap h <Esc>gTi
 
+" Cycle through buffer
+nnoremap <silent> <C-Right> :bnext<CR>
+nnoremap <silent> <C-Left> :bprevious<CR>
+
 "Configure CtrlP
 let g:ctrlp_map = '<Leader>t'
 let g:ctrlp_cmd = 'CtrlP'
