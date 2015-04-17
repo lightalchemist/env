@@ -279,18 +279,11 @@ set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%==%c,%l/%L\ %P
 " nnoremap <silent> <F3> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
 
 " This is suppose to auto source vimrc file after editing and saving it.
-"     autocmd!
-"     autocmd BufWritePost $MYVIMRC source $MYVIMRC
-" augroup END " }
-" augroup myvimrchooks
-"     au!
-"     autocmd bufwritepost .vimrc source $MYVIMRC
-" augroup END
-augroup myvimrchooks
+augroup reload_vimrc " {
     autocmd!
-    autocmd myvimrchooks BufWritePost $MYVIMRC nested source $MYVIMRC
-augroup END
-
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC | AirlineRefresh
+    autocmd BufWritePost $MYVIMRC AirlineRefresh
+augroup END " }
 "Backspace works in Insert mode (e.g. not inserting a ^?), but won't delete over line breaks, or automatically-inserted indentation, or the place where insert mode started:
 set backspace=indent,eol,start
 
