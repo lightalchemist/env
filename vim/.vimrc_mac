@@ -11,6 +11,7 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-fugitive'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 
@@ -18,17 +19,13 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'klen/python-mode'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/matchit.zip'
-
-Bundle 'Lokaltog/vim-distinguished'
-Bundle 'lightalchemist/molokai'
-Bundle 'sickill/vim-monokai'
-
 Bundle 'jacquesbh/vim-showmarks'
 
 Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
 Bundle 'vim-scripts/Gundo'
+Bundle 'majutsushi/tagbar'
 
+Bundle 'scrooloose/syntastic'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'bling/vim-airline'
@@ -37,27 +34,23 @@ Bundle 'vim-scripts/YankRing.vim'
 Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
 Bundle 'tomtom/tlib_vim'
-Bundle 'vim-scripts/TagHighlight.git'
+" Bundle 'vim-scripts/TagHighlight.git'
+Bundle 'godlygeek/tabular'
+
+" Color schemes
+Bundle 'lightalchemist/molokai'
 
 Bundle 'junegunn/goyo.vim'
 Bundle 'junegunn/limelight.vim'
-Bundle 'junegunn/seoul256.vim'
-
-Bundle 'godlygeek/tabular'
-
-Bundle 'majutsushi/tagbar'
 
 filetype plugin indent on
 
 "Must set this to enable 256 color support
-if $COLOR_TERM == 'gnome-terminal'
-   set t_Co=256
-endif
+set t_Co=256
 
-" colorscheme distinguished
-colorscheme molokai
-let g:rehash256 = 1
 let g:molokai_original=1
+let g:rehash256 = 1
+colorscheme molokai
 " colorscheme seoul256
 
 let g:goyo_width = 100
@@ -236,7 +229,6 @@ set mouse=a
 
 "Operations for copy and paste will work with OS clipboard.
 "No need to prefix with '+' or *
-" set clipboard=unnamedplus
 set clipboard=unnamed
 
 " nnoremap <F2> :set invpaste paste?<CR>
@@ -278,24 +270,13 @@ set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%==%c,%l/%L\ %P
 " nnoremap <silent> <F3> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
 
 " This is suppose to auto source vimrc file after editing and saving it.
-"     autocmd!
-"     autocmd BufWritePost $MYVIMRC source $MYVIMRC
-" augroup END " }
-" augroup myvimrchooks
-"     au!
-"     autocmd bufwritepost .vimrc source $MYVIMRC
-" augroup END
-augroup myvimrchooks
+augroup reload_vimrc " {
     autocmd!
-    autocmd myvimrchooks BufWritePost $MYVIMRC nested source $MYVIMRC
-augroup END
-
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC | AirlineRefresh
+    autocmd BufWritePost $MYVIMRC AirlineRefresh
+augroup END " }
 "Backspace works in Insert mode (e.g. not inserting a ^?), but won't delete over line breaks, or automatically-inserted indentation, or the place where insert mode started:
 set backspace=indent,eol,start
-
-" let g:jedi#popup_on_dot = 0
-" let g:jedi#use_tabs_not_buffers = 0
-" autocmd FileType python setlocal completeopt-=preview
 
 let mapleader = ","
 nnoremap <silent> <Leader>u :GundoToggle<CR>
@@ -339,7 +320,7 @@ set splitbelow " Place new horizontal split below
 set splitright " Place new vertical split on right
 
 " Make Y behave normally
-" map Y y$
+" nnoremap Y y$
 
 command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
 
@@ -353,23 +334,7 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-" unicode symbols
-" let g:airline_left_sep = '»'
-" let g:airline_left_sep = '▶'
-" let g:airline_right_sep = '«'
-" let g:airline_right_sep = '◀'
-" let g:airline_symbols.linenr = '␊'
-" let g:airline_symbols.linenr = '␤'
-" let g:airline_symbols.linenr = '¶'
-" let g:airline_symbols.branch = '⎇'
-" let g:airline_symbols.paste = 'ρ'
-" let g:airline_symbols.paste = 'Þ'
-" let g:airline_symbols.paste = '∥'
-" let g:airline_symbols.whitespace = 'Ξ'
+set encoding=utf-8
 
 "Enable powerline tabline
 let g:airline#extensions#tabline#enabled = 1
@@ -408,15 +373,18 @@ noremap h gT
 inoremap l <Esc>gti
 inoremap h <Esc>gTi
 
+" Cycle through buffer
+nnoremap <silent> <C-Right> :bnext<CR>
+nnoremap <silent> <C-Left> :bprevious<CR>
+
 "Configure CtrlP
 let g:ctrlp_map = '<Leader>t'
 let g:ctrlp_cmd = 'CtrlP'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+set wildignore+=*.so,*.swp,*.zip     " MacOSX/Linux
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$' 
 let g:ctrlp_working_path_mode = 'ra'
 
-set wildignore+=*.swp,*.bak,*.class,*.o,*.obj,*.pyc,*.pkl,.git,*.jpg,*.bmp,*.png,*.mat,*.bak,*.pdf
+set wildignore+=*.swp,*.bak,*.class,*.o,*.obj,*.pyc,*.pkl,*.jpg,*.bmp,*.png,*.mat,*.bak,*.pdf
 
 "Rainbow Parentheses
 au FileType c,cpp,objc,objcpp,py,java,m call Load_Rainbow()
@@ -482,7 +450,7 @@ let g:yankring_history_dir = '~/Documents'
 " ]]            Jump on next class or function (normal, visual, operator modes)
 " [M            Jump on previous class or method (normal, visual, operator modes)
 " ]M            Jump on next class or method (normal, visual, operator modes)
-let g:pymode_rope = 1
+let g:pymode_rope = 0
 
 " Documentation
 let g:pymode_doc = 1
@@ -567,6 +535,7 @@ let delimitMate_expand_cr = 1
 :imap <c-s> <Esc>:w<CR>a
 
 " YouCompleteMe
+let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
@@ -596,10 +565,9 @@ let g:syntastic_enable_signs = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_cpp_no_include_search = 0
-let g:syntastic_javascript_checkers = ["eslint"]
-let g:syntastic_coffeescript_checkers = ["coffeelint"]
 let g:syntastic_cpp_compiler = "g++"
 let g:syntastic_cpp_compiler_options = " -std=c++11"
+let g:syntastic_quiet_messages = {"type": "style"}
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -653,6 +621,9 @@ endfunction
 autocmd User GoyoEnter nested call <SID>goyo_enter()
 autocmd User GoyoLeave nested call <SID>goyo_leave()
 
+" Save file and make project
+nnoremap <F5> :w<cr>:make!<cr>
+
 " F3 to toggle Goyo
 nnoremap <silent> <F3> :Goyo<CR>
 inoremap <silent> <F3> <Esc>:Goyo<CR>i
@@ -681,19 +652,17 @@ nnoremap <silent> <Leader>pc :pc<CR>
 " Search for tags all the way up the tree until one is found
 set tags+=./tags;$HOME
 
-" To allow YouCompleteMe to use the same Python that was used to compile it
-" let $PATH = '/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib -DPYTHON_INCLUDE_DIR=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Headers'.$PATH
-
+" nnoremap <silent><c-q> :q<CR>
+" nnoremap <silent><c-x> :x<CR>
+"
 " We must set this to the SAME python YCM was compiled with!
 " This is Macports python 2.7
 let g:ycm_path_to_python_interpreter = '/opt/local/bin/python2.7'
 
 " Font for powerline
 " Fonts were downloaded from: https://github.com/powerline/fonts
-set guifont=Inconsolata\ for\ Powerline:h15
 " let g:Powerline_symbols = 'fancy'
-set encoding=utf-8
-" set t_Co=256
+" set guifont=Inconsolata\ for\ Powerline:h15
 set fillchars+=stl:\ ,stlnc:\
 " set term=xterm-256color
 set termencoding=utf-8
