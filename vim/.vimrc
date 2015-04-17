@@ -48,17 +48,10 @@ filetype plugin indent on
 "Must set this to enable 256 color support
 set t_Co=256
 
-" colorscheme monokai
 let g:molokai_original=1
 let g:rehash256 = 1
 colorscheme molokai
-" colorscheme twilight256
-" colorscheme jellybeans
 " colorscheme seoul256
-" colorscheme twilight
-" colorscheme distinguished
-" colorscheme hemisu
-" set background=dark
 
 let g:goyo_width = 100
 
@@ -240,8 +233,6 @@ set clipboard=unnamedplus
 
 " nnoremap <F2> :set invpaste paste?<CR>
 " set pastetoggle=<F2>
-" nnoremap <C-P> :set invpaste paste?<CR>
-" set pastetoggle=<C-P>
 
 " Clear paste mode when going back to normal mode
 au InsertLeave * set nopaste
@@ -286,10 +277,6 @@ augroup reload_vimrc " {
 augroup END " }
 "Backspace works in Insert mode (e.g. not inserting a ^?), but won't delete over line breaks, or automatically-inserted indentation, or the place where insert mode started:
 set backspace=indent,eol,start
-
-" let g:jedi#popup_on_dot = 0
-" let g:jedi#use_tabs_not_buffers = 0
-" autocmd FileType python setlocal completeopt-=preview
 
 let mapleader = ","
 nnoremap <silent> <Leader>u :GundoToggle<CR>
@@ -354,11 +341,12 @@ let g:airline#extensions#tabline#enabled = 1
 "Configure airline tab separator
 " let g:airline#extensions#tabline#left_sep = ' '
 " let g:airline#extensions#tabline#left_alt_sep = '>'
+" let g:airline#extensions#tabline#left_alt_sep = '|'
 "Use nice fonts from powerline
 let g:airline_powerline_fonts = 1
+let g:airline_theme = "sol"
 " let g:airline_theme = "molokai"
 " let g:airline_theme = "tomorrow"
-let g:airline_theme = "sol"
 " let g:airline_theme = "wombat"
 " let g:airline_theme = "light"
 " let g:airline_theme = "solarized"
@@ -392,9 +380,7 @@ nnoremap <silent> <C-Left> :bprevious<CR>
 "Configure CtrlP
 let g:ctrlp_map = '<Leader>t'
 let g:ctrlp_cmd = 'CtrlP'
-" set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*.so,*.swp,*.zip     " MacOSX/Linux
-" set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$' 
 let g:ctrlp_working_path_mode = 'ra'
 
@@ -549,7 +535,6 @@ let delimitMate_expand_cr = 1
 :imap <c-s> <Esc>:w<CR>a
 
 " YouCompleteMe
-let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 " make YCM compatible with UltiSnips (using supertab)
@@ -669,4 +654,8 @@ set tags+=./tags;$HOME
 
 " nnoremap <silent><c-q> :q<CR>
 " nnoremap <silent><c-x> :x<CR>
+"
+" We must set this to the SAME python YCM was compiled with!
+" This is Macports python 2.7
+" let g:ycm_path_to_python_interpreter = '/opt/local/bin/python2.7'
 
