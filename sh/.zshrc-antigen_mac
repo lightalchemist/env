@@ -109,9 +109,9 @@ RPROMPT='[%D %D{%L:%M:%S %p}]'
 export EDITOR="mvim -v"
 
 # bind UP and DOWN arrow keys
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
+# zmodload zsh/terminfo
+# bindkey "$terminfo[kcuu1]" history-substring-search-up
+# bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # Make prompt more user friendly when user entered wrong command.
 # This replaces [ynae] with the expanded version of the words
