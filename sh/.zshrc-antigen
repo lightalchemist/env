@@ -15,18 +15,22 @@ antigen bundle virtualenv
 antigen bundle dirhistory
 # antigen bundle history-substring-search
 # antigen bundle history
+# antigen bundle autoenv
 
 antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle tarruda/zsh-autosuggestions
 antigen bundle kennethreitz/autoenv
-antigen bundle chrissicool/zsh-256color
+antigen bundle Tarrasch/zsh-autoenv
+# antigen bundle chrissicool/zsh-256color
 
 antigen-theme agnoster
 
 setopt correct_all # Enable autocorrect suggestions
 ENABLE_CORRECTION="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
 # Autosuggestion color
 AUTOSUGGESTION_HIGHLIGHT_COLOR=fg159
@@ -59,39 +63,11 @@ alias grep='grep --color=auto -nH'
 
 # NOTE: PATH variable *MUST* be set before sourcing virtualenvwrapper.sh
 # See http://virtualenvwrapper.readthedocs.org/en/latest/install.html
-
-# For virtualenv support
-# Deactivate current virtual env so that flags below will be set properly
-# virtualenv_path="$VIRTUAL_ENV"
-# echo "Current VIRTUAL_ENV is: $VIRTUAL_ENV"
-# if [ $virtualenv_path ]; then
-#     echo "Deactivating virtualenv `basename $virtualenv_path`"
-#     echo $PATH
-#     deactivate
-# else
-#     echo "No virtualenv to deactivate"
-# fi
-
 export VIRTUALENVWRAPPER_PYTHON=`which python`
 export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
 export WORKON_HOME=~/virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 export PIP_VIRTUALENV_BASE=~/virtualenvs
-
-# Activate virtualenv
-# NOTE: Careful with this as virtualenv may not be available on all machines.
-workon ml
-# if [ $virtualenv_path ]; then
-#     echo "Reapplying virtualenv: $virtualenv_path"
-#     # echo "Activating virtualenv `basename` $virtualenv_path"
-#     echo $virtualenv_path
-#     echo "Activating virtualenv: "
-#     echo "`basename $virtualenv_path`"
-#     workon "`basename $virtualenv_path`"
-# else
-#     echo "No active virtualenv"
-#     workon ml
-# fi
 
 # Configure 256 colors if possible
 case $TERM in
@@ -115,5 +91,8 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 
 autoload -U colors && colors
 export SPROMPT="Correct $fg_bold[red]%R$reset_color to $fg_bold[green]%r?$reset_color (Yes, No, Abort, Edit) "
+
+# Don't add failed commands to history
+zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 
 antigen-apply
