@@ -15,3 +15,5 @@ wget https://github.com/lightalchemist/env/raw/master/vim/.vimrc
 
 # Vundle install plugins
 vim +PluginInstall
+
+# Remember to manually run any install scripts for plugins (e.g., YouCompleteMe) if necessary.
