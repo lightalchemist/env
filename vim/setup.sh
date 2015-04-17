@@ -1,4 +1,17 @@
 #!/usr/bin/env sh
 
 # Script to setup Vim.
-# For e.g., create directories, get Vundle, etc.
+# Assumes appropriate Vim already installed.
+
+# Backup existing configuration
+if [ -e .vimrc ]; then mv .vimrc .vimrc_bak; fi
+if [ -e .vim ]; then mv .vim .vim_bak; fi
+
+# Get Vundle
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+
+# Get my .vimrc
+wget https://github.com/lightalchemist/env/raw/master/vim/.vimrc
+
+# Vundle install plugins
+vim +PluginInstall
