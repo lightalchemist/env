@@ -68,9 +68,19 @@ export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
 
 # Configure 256 colors if possible
+# Also, use xterm-256color-italic to allow VIM recognize italics
+# Full instructions here: http://www.nerdyweekly.com/posts/enable-italic-text-vim-tmux-gnome-terminal/
+# # Download a custom terminfo that defines sitm and ritm
+# $ wget https://gist.githubusercontent.com/sos4nt/3187620/raw/8e13c1fec5b72d415ed2917590348451de5f8e58/xterm-256color-italic.terminfo
+# # Compile it
+# $ tic xterm-256color-italic.terminfo
+# # Activate xterm-256color-italic.terminfo automatically
+# # (edit filename accordingly if you're using another shell)
+# $ echo 'export TERM=xterm-256color-italic' >> ~/.bashrc
 case $TERM in
     xterm|screen|rxvt-unicode)
-        TERM="${TERM}-256color" ;;
+        TERM="${TERM}-256color-italic" ;;
+        # TERM="${TERM}-256color" ;;
 esac
 
 # This adds [dd-mm-yy time] that updates to right prompt
@@ -101,5 +111,6 @@ alias mmv='noglob zmv -W'
 
 # Don't add failed commands to history
 zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
+
 
 antigen-apply
