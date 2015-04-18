@@ -11,6 +11,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 
