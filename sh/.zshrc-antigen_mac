@@ -33,12 +33,12 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # AUTOSUGGESTION_HIGHLIGHT_COLOR="fg=159,bg=020"
 # bindkey '^f' vi-forward-blank-word
 # bindkey '^b' vi-backward-blank-word
-# Setup zsh-autosuggestions
+# # Setup zsh-autosuggestions
 # zle-line-init() {
 #     zle autosuggest-start
 # }
 # zle -N zle-line-init
-# COMPLETION_WAITING_DOTS="true"
+# COMPLETION_WAITING_DOTS="false"
 
 # User configuration
 # Set up PATH variable
@@ -100,7 +100,8 @@ case $TERM in
 esac
 
 # This adds [dd-mm-yy time] that updates to right prompt
-RPROMPT='[%D %D{%L:%M:%S %p}]'
+# Use %p instead of %K for 12 hour time format
+RPROMPT='[%D %D{%L:%M:%S %K}]'
 # TMOUT=1
 # TRAPALRM() {
 #     zle reset-prompt
