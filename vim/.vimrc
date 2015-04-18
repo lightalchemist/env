@@ -42,16 +42,22 @@ Bundle 'junegunn/limelight.vim'
 
 " Color schemes
 Bundle 'lightalchemist/molokai'
+Bundle 'junegunn/seoul256.vim'
 
 filetype plugin indent on
 
 "Must set this to enable 256 color support
 set t_Co=256
 
-let g:molokai_original=1
-let g:rehash256 = 1
-colorscheme molokai
-" colorscheme seoul256
+" let g:molokai_original=1
+" let g:rehash256 = 1
+" colorscheme molokai
+
+" seoul256 (dark):
+"   Range:   233 (darkest) ~ 239 (lightest)
+"   Default: 237
+let g:seoul256_background = 236
+colorscheme seoul256
 
 let g:goyo_width = 100
 
