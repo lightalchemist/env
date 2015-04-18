@@ -641,3 +641,9 @@ highlight ShowMarksHLo ctermfg=lightblue
 let g:showmarks_textlower="-"
 let g:showmarks_textupper="-"
 let g:showmarks_textother="-"
+
+" Set diff colors to more appropriate ones
+highlight DiffAdd    cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
+highlight DiffDelete cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
+highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
