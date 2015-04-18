@@ -4,8 +4,12 @@ For Linux:
 Install Powerline fonts
 https://github.com/powerline/fonts
 
-Install Solarized theme. Remember to create a new profile first!
+NOTE: Install Solarized theme.
+Remember to create a new profile first for it to override!
 https://github.com/Anthony25/gnome-terminal-colors-solarized
+
+For gnome-terminal, another theme available is the Seoul256 theme I converted from its iTerm2's version.
+It is stored as %gconf.xml in this directory.
 
 Antigen to manage zsh
 git clone https://github.com/zsh-users/antigen ~/.antigen
@@ -26,3 +30,6 @@ Set profile to use /opt/local/bin/zsh at startup/login.
 
 Peppermint theme also available. See link within for iTerm2's download.
 https://noahfrederick.com/log/lion-terminal-theme-peppermint/
+
+Seoul256 theme also available for iTerm2
+https://github.com/junegunn/seoul256.vim
