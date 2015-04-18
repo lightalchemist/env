@@ -1,23 +1,20 @@
-[alias]
-  co = checkout
-  ci = commit
-  st = status
-  br = branch
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-  type = cat-file -t
-  dump = cat-file -p
+# For linux
 [user]
-	name = hongwei
-	email = lightalchemist@gmail.com
+    name = hongwei
+    email = hongwei.ng@adsc.com.sg
 [core]
-	excludesfile = /Users/hongwei/.gitignore_global
-	autocrlf = input
-	safecrlf = true
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[color]
-	ui = auto
+    editor = vim
+    autocrlf = input
+    safecrlf = true
+[credential]
+    helper = cache
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
+[diff]
+    tool = vimdiff
