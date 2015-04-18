@@ -4,8 +4,7 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" Let Vundle manage Vundle
-" required!
+" Let Vundle manage Vundle required!
 Bundle 'gmarik/vundle'
 
 Bundle 'tpope/vim-surround'
@@ -535,7 +534,6 @@ let delimitMate_expand_cr = 1
 :imap <c-s> <Esc>:w<CR>a
 
 " YouCompleteMe
-let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
@@ -566,7 +564,7 @@ let g:syntastic_auto_loc_list = 2
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_cpp_no_include_search = 0
 let g:syntastic_cpp_compiler = "g++"
-let g:syntastic_cpp_compiler_options = " -std=c++11"
+let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
 let g:syntastic_quiet_messages = {"type": "style"}
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
