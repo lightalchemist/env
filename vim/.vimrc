@@ -4,14 +4,14 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" Let Vundle manage Vundle
-" required!
+" Let Vundle manage Vundle required!
 Bundle 'gmarik/vundle'
 
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 
@@ -19,7 +19,7 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'klen/python-mode'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/matchit.zip'
-Bundle 'jacquesbh/vim-showmarks'
+Bundle 'vim-scripts/ShowMarks'
 
 Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/Gundo'
@@ -34,24 +34,30 @@ Bundle 'vim-scripts/YankRing.vim'
 Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
 Bundle 'tomtom/tlib_vim'
-" Bundle 'vim-scripts/TagHighlight.git'
+Bundle 'vim-scripts/TagHighlight.git'
 Bundle 'godlygeek/tabular'
-
-" Color schemes
-Bundle 'lightalchemist/molokai'
 
 Bundle 'junegunn/goyo.vim'
 Bundle 'junegunn/limelight.vim'
+
+" Color schemes
+Bundle 'lightalchemist/molokai'
+Bundle 'junegunn/seoul256.vim'
 
 filetype plugin indent on
 
 "Must set this to enable 256 color support
 set t_Co=256
 
-let g:molokai_original=1
-let g:rehash256 = 1
-colorscheme molokai
-" colorscheme seoul256
+" let g:molokai_original=1
+" let g:rehash256 = 1
+" colorscheme molokai
+
+" seoul256 (dark):
+"   Range:   233 (darkest) ~ 239 (lightest)
+"   Default: 237
+let g:seoul256_background = 236
+colorscheme seoul256
 
 let g:goyo_width = 100
 
@@ -69,6 +75,10 @@ nnoremap <silent> ,/ :set hlsearch!<CR>
 
 "Turn syntax highlighting on.  (This helps you know when you leave a brace open!):
 syntax on
+
+" Hides buffer instead of closing them. Better buffer handling.
+" See http://nvie.com/posts/how-i-boosted-my-vim/
+set hidden
 
 " Vim window stuff
 "I'm pretty sure this makes wrapped lines break at spaces, not in the middle of words:
@@ -324,16 +334,6 @@ set splitright " Place new vertical split on right
 
 command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
 
-" Spell checking
-highlight clear SpellBad
-highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-highlight clear SpellCap
-highlight SpellCap term=underline cterm=underline
-highlight clear SpellRare
-highlight SpellRare term=underline cterm=underline
-highlight clear SpellLocal
-highlight SpellLocal term=underline cterm=underline
-
 set encoding=utf-8
 
 "Enable powerline tabline
@@ -436,7 +436,6 @@ let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 nnoremap <silent> <leader>y :YRShow<CR>
 let g:yankring_history_dir = '~/Documents'
 
-
 " Python-mode
 " Activate rope
 " Keys:
@@ -479,7 +478,6 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " let g:pymode_folding = 1
 
 let g:pymode_lint_cwindow = 0
-
 let g:pymode_rope_complete_on_dot = 0
 " let g:pymode_rope_completion_bind = '<C-Space>'
 " let g:pymode_rope_completion = 1
@@ -491,57 +489,42 @@ let g:pymode_options_colorcolumn = 0
 " Turn off warnings
 let g:pymode_warnings = 1
 
+" YouCompleteMe
 " Disable completion previews with function prototypes, etc.
 set completeopt-=preview
 set previewheight=50  " Preview window height
 let g:ycm_add_preview_to_completeopt = 0
-
-" nnoremap <silent> <Leader>l :TlistToggle<CR>
-" let g:Tlist_Exit_OnlyWindow = 1
-" let g:Tlist_Auto_Update = 1
-" let g:Tlist_Show_One_File = 1
-
-" Tagbar
-map <silent><Leader>v :TagbarToggle<CR>
-
-" Underline the current line with dashes in normal mode
-" nnoremap <c-_> yyp<c-v>$r-
-" Underline the current line with dashes in insert mode
-" inoremap <c-_> <Esc>yyp<c-v>$r-A
-
-highlight clear SpellBad
-highlight SpellBad ctermfg=196 term=underline cterm=underline
-" highlight clear SpellBad
-" highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-" highlight clear SpellCap
-" highlight SpellCap term=underline cterm=underline
-" highlight clear SpellRare
-" highlight SpellRare term=underline cterm=underline
-" highlight clear SpellLocal
-" highlight SpellLocal term=underline cterm=underline
-
-" DelimitMate add extra newline after typing cr inside a pair of delimiters
-let delimitMate_expand_cr = 1
-
-" Highlight column
-" set colorcolumn=80
-" highlight ColorColumn ctermbg=darkgray
-" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-" match OverLength /\%81v.\+/
-
-" Map save to C-s
-" Might need to modify bash_profile
-:nmap <c-s> :w<CR>
-:imap <c-s> <Esc>:w<CR>a
-
-" YouCompleteMe
-let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 let g:ycm_autoclose_preview_window_after_insertion = 1
 set pumheight=10  " Limit show max 10 suggestions
+
+" Syntastic
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_enable_signs = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_no_include_search = 0
+let g:syntastic_cpp_compiler = "g++"
+let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
+" let g:syntastic_cpp_compiler_options = " -std=c++11"
+let g:syntastic_quiet_messages = {"type": "style"}
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_java_checkers = []
+let g:syntastic_error_symbol = "X"
+let g:syntastic_style_error_symbol = ">"
+let g:syntastic_warning_symbol = "!"
+let g:syntastic_style_warning_symbol = ">"
+let g:syntastic_always_populate_loc_list = 1
+
+" let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_python_checkers=['flake8']
+" let g:syntastic_python_checker_args='--ignore=E501,E225,E231,E302,F401 --max-complexity 10'
 
 " UltiSnips
 " better key bindings for UltiSnipsExpandTrigger
@@ -558,29 +541,31 @@ let g:snips_github = "https://github.com/lightalchemist"
 set virtualedit=onemore " Allow for cursor beyond last character
 set showmatch " Set show matching parenthesis
 
-" Syntastic
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_signs = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_cpp_check_header = 1
-let g:syntastic_cpp_no_include_search = 0
-let g:syntastic_cpp_compiler = "g++"
-let g:syntastic_cpp_compiler_options = " -std=c++11"
-let g:syntastic_quiet_messages = {"type": "style"}
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_java_checkers = []
-let g:syntastic_error_symbol = "X"
-let g:syntastic_style_error_symbol = ">"
-let g:syntastic_warning_symbol = "!"
-let g:syntastic_style_warning_symbol = ">"
-let g:syntastic_always_populate_loc_list = 1
+" DelimitMate add extra newline after typing cr inside a pair of delimiters
+let delimitMate_expand_cr = 1
 
-" let g:syntastic_python_checkers=['pyflakes']
-let g:syntastic_python_checkers=['flake8']
-" let g:syntastic_python_checker_args='--ignore=E501,E225,E231,E302,F401 --max-complexity 10'
+
+" Tagbar
+map <silent><Leader>v :TagbarToggle<CR>
+
+" Underline the current line with dashes in normal mode
+" nnoremap <c-_> yyp<c-v>$r-
+" Underline the current line with dashes in insert mode
+" inoremap <c-_> <Esc>yyp<c-v>$r-A
+
+" Spell checking
+" highlight clear SpellBad
+" highlight SpellBad ctermfg=196 term=underline cterm=underline
+" highlight clear SpellBad
+" highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+" highlight clear SpellCap
+" highlight SpellCap term=underline cterm=underline
+" highlight clear SpellRare
+" highlight SpellRare term=underline cterm=underline
+" highlight clear SpellLocal
+" highlight SpellLocal term=underline cterm=underline
+
+
 
 " Goyo
 function! s:goyo_enter()
@@ -608,6 +593,9 @@ function! s:goyo_leave()
     silent !tmux set status on
   endif
 
+  " This might help fix problem of airline top bar not drawn properly.
+  " autocmd AirlineRefresh
+
   " Quit Vim if this is the only remaining buffer
   if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
       if b:quitting_bang
@@ -633,17 +621,6 @@ nnoremap <silent> O1;2R :Limelight!!<CR>
 inoremap <silent> O1;2R <Esc>:Limelight!!<CR>i
 let g:Limelight_default_coefficient = 0.7
 
-" For Linux. Only applicable if 'xsel' installed
-" Workaround to keep whatever Vim copied to clipboard even after Vim exits/suspends.
-" http://dalibornasevic.com/posts/38-paste-text-from-vim-when-it-s-suspended-ctrl-z
-" function! CopyText()
-"   normal gv"+y
-"   :call system('xsel -ib', getreg('+'))
-" endfunction
-" vmap <leader>y :call CopyText()
-
-" set timeoutlen=150
-
 " Shortcut to close preview window
 nnoremap <silent> <Leader>pc :pc<CR>
 
@@ -659,3 +636,20 @@ set tags+=./tags;$HOME
 " This is Macports python 2.7
 " let g:ycm_path_to_python_interpreter = '/opt/local/bin/python2.7'
 
+" This will only work if VIM/terminal can handle italics
+" highlight Comment cterm=italic
+
+" By default don't show marks
+let g:showmarks_enable=0
+highlight ShowMarksHLl ctermfg=lightblue
+highlight ShowMarksHLu ctermfg=lightblue
+highlight ShowMarksHLo ctermfg=lightblue
+let g:showmarks_textlower="-"
+let g:showmarks_textupper="-"
+let g:showmarks_textother="-"
+
+" Set diff colors to more appropriate ones
+highlight DiffAdd    cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
+highlight DiffDelete cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
+highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red

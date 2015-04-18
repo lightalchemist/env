@@ -86,6 +86,8 @@ sudo apt-get install untex luatex vim-latexsuite latex2html latex-beamer xpdf wr
 sudo apt-get install colordiff moreutils
 # tofrodos # Converts DOS <-> Unix i.e., tofromdos
 sudo apt-get install tofrodos
+# silver searcher Ag
+# diff tools like meld
 
 # Miscellaneous stuff we probably won't need
 # gimp
