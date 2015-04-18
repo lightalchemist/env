@@ -14,12 +14,6 @@ It is stored as %gconf.xml in this directory.
 Antigen to manage zsh
 git clone https://github.com/zsh-users/antigen ~/.antigen
 
-Install oh-my-zsh. Use agnoster theme
-https://github.com/robbyrussell/oh-my-zsh/
-
-Install oh-my-zsh syntax highlighting
-https://github.com/zsh-users/zsh-syntax-highlighting
-
 On Mac:
 Install Powerline fonts by running in Terminal App.
 This is important as iTerm 2 somehow does not have have `uname` available.
