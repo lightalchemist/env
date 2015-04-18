@@ -56,8 +56,6 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias grep='grep --color=auto -nH'
 
-# NOTE: PATH variable *MUST* be set before sourcing virtualenvwrapper.sh
-# See http://virtualenvwrapper.readthedocs.org/en/latest/install.html
 # NOTE: PATH variable must be set before sourcing virtualenvwrapper.sh
 # See http://virtualenvwrapper.readthedocs.org/en/latest/install.html
 # For virtualenv support
@@ -76,7 +74,8 @@ case $TERM in
 esac
 
 # This adds [dd-mm-yy time] that updates to right prompt
-RPROMPT='[%D %D{%L:%M:%S %p}]'
+# Use %p instead of %K for 12 hour time format
+RPROMPT='[%D %D{%L:%M:%S %K}]'
 # TMOUT=1
 # TRAPALRM() {
 #     zle reset-prompt
