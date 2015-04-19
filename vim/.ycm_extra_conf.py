@@ -19,14 +19,14 @@ flags = [
     # Use this for OS X
     # '-stdlib=libc++',
     # Use this for linux
-    '-stdlib=libstdc++',
+    # '-stdlib=libstdc++',
     '-I', 'include'
     '-I', 'src'
     '-I', '.',
     # '-isystem',
     '-isystem', '/usr/include',
     '-isystem', '/usr/local/include',
-    '-isystem', '/usr//include/c++/4.8',  # Need to change this for OS!
+    # '-isystem', '/usr/include/c++/4.2.1',  # Need to change this for OS!
     # '-isystem', '/usr/lib/gcc/x86_64-linux-gnu/4.8/include',
     # THIS IS IMPORTANT! Without a "-std=<something>" flag, clang won't know which
     # language to use when compiling headers. So it will guess. Badly. So C++
@@ -43,9 +43,19 @@ flags = [
     # This path will only work on OS X, but extra paths that don't exist are not
     # harmful
     # '-isystem', '/System/Library/Frameworks/Python.framework/Headers',
-    # '-isystem', '/usr/local/include',
-    # '-isystem', '/usr/local/include/eigen3',
+    # '-isystem', '/opt/local/include',
 ]
+
+import sys
+if sys.platform == "darwin":
+    flags.extend(['-stdlib=libc++', # Use this for OS X
+        '-isystem', '/usr/include/c++/4.2.1',  # Need to change this for OS!
+        '-isystem', '/opt/local/include',])
+
+elif sys.platform.startswith("linux"):
+    flags.extend(['-stdlib=libstdc++',
+    '-isystem', '/usr/include/c++/4.8',  # Need to change this for OS!
+    ])
 
 # Set this to the absolute path to the folder (NOT the file!) containing the
 # compile_commands.json file to use that instead of 'flags'. See here for
