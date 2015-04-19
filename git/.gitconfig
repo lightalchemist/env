@@ -1,4 +1,3 @@
-# For linux
 [user]
     name = hongwei
     email = hongwei.ng@adsc.com.sg
@@ -18,3 +17,5 @@
     dump = cat-file -p
 [diff]
     tool = vimdiff
+[help]
+	autocorrect = 1
