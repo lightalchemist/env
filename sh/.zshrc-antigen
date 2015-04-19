@@ -12,6 +12,7 @@ antigen bundle virtualenvwrapper
 antigen bundle virtualenv
 antigen bundle dirhistory
 antigen bundle common-aliases
+antigen bundle command-not-found
 # antigen bundle history-substring-search
 
 antigen bundle zsh-users/zsh-completions src
