@@ -7,16 +7,19 @@ source "$HOME/.antigen/antigen.zsh"
 antigen use oh-my-zsh
 
 # bundles from oh-my-zsh
-# antigen bundle extract
+antigen bundle osx
+antigen bundle extract
 antigen bundle git
 antigen bundle virtualenvwrapper
 antigen bundle virtualenv
-# antigen bundle dirhistory
+# zsh-syntax-highlighting must be loaded before history-substring-search
+# See: https://github.com/zsh-users/zsh-history-substring-search
+antigen bundle zsh-users/zsh-syntax-highlighting
 # antigen bundle history-substring-search
-# antigen bundle history
+# antigen bundle common-aliases
+antigen bundle fasd
 
 antigen bundle zsh-users/zsh-completions src
-antigen bundle zsh-users/zsh-syntax-highlighting
 # antigen bundle tarruda/zsh-autosuggestions
 # antigen bundle kennethreitz/autoenv
 antigen bundle Tarrasch/zsh-autoenv
@@ -96,6 +99,7 @@ export PIP_RESPECT_VIRTUALENV=true
 # Configure 256 colors if possible
 case $TERM in
     xterm|screen|rxvt-unicode)
+        # TERM="${TERM}-256color-italic" ;;
         TERM="${TERM}-256color" ;;
 esac
 
@@ -127,5 +131,8 @@ alias mmv='noglob zmv -W'
 
 # Don't add failed commands to history
 zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
+
+# To activate fasd
+eval "$(fasd --init auto)"
 
 antigen-apply
