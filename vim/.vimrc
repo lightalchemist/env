@@ -32,6 +32,7 @@ Bundle 'bling/vim-airline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'honza/vim-snippets'
+" Bundle 'garbas/vim-snipmate'
 Bundle 'SirVer/ultisnips'
 Bundle 'tomtom/tlib_vim'
 Bundle 'vim-scripts/TagHighlight.git'
@@ -504,6 +505,11 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 let g:ycm_autoclose_preview_window_after_insertion = 1
+
+let g:ycm_error_symbol = 'x'
+let g:ycm_warning_symbol = '!'
+
+
 set pumheight=10  " Limit show max 10 suggestions
 
 " Syntastic
@@ -521,10 +527,10 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_java_checkers = []
-let g:syntastic_error_symbol = "X"
-let g:syntastic_style_error_symbol = ">"
-let g:syntastic_warning_symbol = "!"
-let g:syntastic_style_warning_symbol = ">"
+let g:syntastic_error_symbol = "x"
+let g:syntastic_style_error_symbol = "x"
+" let g:syntastic_warning_symbol = "!"
+" let g:syntastic_style_warning_symbol = "!"
 let g:syntastic_always_populate_loc_list = 1
 
 " let g:syntastic_python_checkers=['pyflakes']
@@ -658,3 +664,11 @@ highlight DiffAdd    cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 highlight DiffDelete cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 highlight DiffChange cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
+
+" " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"
+" " If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
