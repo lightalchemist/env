@@ -47,6 +47,8 @@ Bundle 'lightalchemist/molokai'
 Bundle 'junegunn/seoul256.vim'
 
 filetype plugin indent on
+" For some reason this allows # comments to indent properly
+" syntax enable
 
 "Must set this to enable 256 color support
 set t_Co=256
@@ -142,10 +144,10 @@ set noautoread
 " SPACING """"
 """"""""""""""  
 "If you are indented and start a new line, this makes the new line indented, too:
-set autoindent
+" set autoindent
 
 "This it makes some sort of autoindenting occur, like when you have an open { at the end of a line.  I'm not sure I love this, so it might not last long:  
-set smartindent
+" set smartindent
 set preserveindent
 
 "These deal with what the TAB key inserts.
@@ -348,6 +350,19 @@ let g:airline#extensions#whitespace#enabled = 0
 "Use nice fonts from powerline
 let g:airline_powerline_fonts = 1
 let g:airline_theme = "sol"
+
+if has("gui_running")
+    " This patch the font to work properly.
+    " Inconsolata does not work in MacVim.
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline:h14
+else
+    " So that italics will show up proerly in VIM
+    set t_ZH=[3m
+    set t_ZR=[23m
+endif
+
+" set guifont=Inconsolata\ for\ Powerline:h15
+" set guifont=Inconsolata\ for\ Powerline:h14
 " let g:airline_theme = "molokai"
 " let g:airline_theme = "tomorrow"
 " let g:airline_theme = "light"
@@ -649,7 +664,7 @@ set tags+=./tags;$HOME
 let g:ycm_path_to_python_interpreter = '/opt/local/bin/python2.7'
 
 " This will only work if VIM/terminal can handle italics
-" highlight Comment cterm=italic
+highlight Comment cterm=italic
 
 " By default don't show marks
 let g:showmarks_enable=0
@@ -674,7 +689,4 @@ highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 " " If you want :UltiSnipsEdit to split your window.
 " let g:UltiSnipsEditSplit="vertical"
 
-" So that italics will show up proerly in VIM
-set t_ZH=[3m
-set t_ZR=[23m
 let g:ycm_confirm_extra_conf = 0
