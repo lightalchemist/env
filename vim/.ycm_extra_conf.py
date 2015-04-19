@@ -1,6 +1,9 @@
 # Partially stolen from https://bitbucket.org/mblum/libgp/src/2537ea7329ef/.ycm_extra_conf.py
+# Extra stuff taken from: https://gist.github.com/locojay/4950253
 import os
 import ycm_core
+
+# When in doubt, or when things don't work, Google ycm config file.
 
 # These are the compilation flags that will be used in case there's no
 # compilation database set (by default, one is not set).
@@ -8,12 +11,23 @@ import ycm_core
 flags = [
     '-Wall',
     '-Wextra',
-    '-Werror',
-    '-Wnoc++98-compat',
+    # '-Werror',
     # '-Wc++98-compat',
     '-Wno-long-long',
     '-Wno-variadic-macros',
     '-fexceptions',
+    # Use this for OS X
+    # '-stdlib=libc++',
+    # Use this for linux
+    '-stdlib=libstdc++',
+    '-I', 'include'
+    '-I', 'src'
+    '-I', '.',
+    # '-isystem',
+    '-isystem', '/usr/include',
+    '-isystem', '/usr/local/include',
+    '-isystem', '/usr//include/c++/4.8',  # Need to change this for OS!
+    # '-isystem', '/usr/lib/gcc/x86_64-linux-gnu/4.8/include',
     # THIS IS IMPORTANT! Without a "-std=<something>" flag, clang won't know which
     # language to use when compiling headers. So it will guess. Badly. So C++
     # headers will be compiled as C headers. You don't want that so ALWAYS specify
@@ -28,11 +42,9 @@ flags = [
     '-x', 'c++',
     # This path will only work on OS X, but extra paths that don't exist are not
     # harmful
-    '-isystem', '/System/Library/Frameworks/Python.framework/Headers',
-    '-isystem', '/usr/local/include',
-    '-isystem', '/usr/local/include/eigen3',
-    '-I', 'include'
-    '-I.'
+    # '-isystem', '/System/Library/Frameworks/Python.framework/Headers',
+    # '-isystem', '/usr/local/include',
+    # '-isystem', '/usr/local/include/eigen3',
 ]
 
 # Set this to the absolute path to the folder (NOT the file!) containing the
@@ -42,6 +54,11 @@ flags = [
 # Most projects will NOT need to set this to anything; you can just change the
 # 'flags' list of compilation flags. Notice that YCM itself uses that approach.
 compilation_database_folder = ''
+if compilation_database_folder:
+    database = ycm_core.CompilationDatabase(compilation_database_folder)
+else:
+    database = None
+
 
 if compilation_database_folder:
   database = ycm_core.CompilationDatabase( compilation_database_folder )
