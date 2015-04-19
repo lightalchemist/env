@@ -13,7 +13,8 @@ antigen bundle virtualenv
 antigen bundle dirhistory
 antigen bundle common-aliases
 antigen bundle command-not-found
-# antigen bundle history-substring-search
+antigen bundle fasd
+antigen bundle history-substring-search
 
 antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -83,10 +84,16 @@ export PIP_RESPECT_VIRTUALENV=true
 # # (edit filename accordingly if you're using another shell)
 # $ echo 'export TERM=xterm-256color-italic' >> ~/.bashrc
 case $TERM in
-    xterm|screen|rxvt-unicode)
+    screen|rxvt-unicode)
         # TERM="${TERM}-256color-italic" ;;
         TERM="${TERM}-256color" ;;
 esac
+case $TERM in
+    xterm|screen|rxvt-unicode)
+        TERM="${TERM}-256color-italic" ;;
+        # TERM="${TERM}-256color" ;;
+esac
+
 
 # This adds [dd-mm-yy time] that updates to right prompt
 # Use %p instead of %K for 12 hour time format

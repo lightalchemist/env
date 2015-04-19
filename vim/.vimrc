@@ -672,3 +672,7 @@ highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 "
 " " If you want :UltiSnipsEdit to split your window.
 " let g:UltiSnipsEditSplit="vertical"
+
+" So that italics will show up proerly in VIM
+set t_ZH=[3m
+set t_ZR=[23m
