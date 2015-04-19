@@ -340,6 +340,7 @@ set encoding=utf-8
 
 "Enable powerline tabline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
 "Configure airline tab separator
 " let g:airline#extensions#tabline#left_sep = ' '
 " let g:airline#extensions#tabline#left_alt_sep = '>'
@@ -676,3 +677,4 @@ highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 " So that italics will show up proerly in VIM
 set t_ZH=[3m
 set t_ZR=[23m
+let g:ycm_confirm_extra_conf = 0
