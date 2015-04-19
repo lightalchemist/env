@@ -32,10 +32,11 @@ Bundle 'bling/vim-airline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'honza/vim-snippets'
-Bundle 'garbas/vim-snipmate'
+Bundle 'SirVer/ultisnips'
 Bundle 'tomtom/tlib_vim'
 Bundle 'vim-scripts/TagHighlight.git'
 Bundle 'godlygeek/tabular'
+Bundle 'terryma/vim-multiple-cursors'
 
 Bundle 'junegunn/goyo.vim'
 Bundle 'junegunn/limelight.vim'
@@ -347,9 +348,13 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = "sol"
 " let g:airline_theme = "molokai"
 " let g:airline_theme = "tomorrow"
-" let g:airline_theme = "wombat"
 " let g:airline_theme = "light"
 " let g:airline_theme = "solarized"
+" let g:airline_theme = "raven"
+" let g:airline_theme = "powerlineish"
+" Might pair well with seoul256 colorscheme
+" let g:airline_theme = "hybridline"
+" let g:airline_theme = "bubblegum"
 
 
 "Allows you to use w!! to save file that requires root priviledge
