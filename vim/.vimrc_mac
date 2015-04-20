@@ -47,8 +47,6 @@ Bundle 'lightalchemist/molokai'
 Bundle 'junegunn/seoul256.vim'
 
 filetype plugin indent on
-" For some reason this allows # comments to indent properly
-" syntax enable
 
 "Must set this to enable 256 color support
 set t_Co=256
@@ -144,9 +142,11 @@ set noautoread
 " SPACING """"
 """"""""""""""  
 "If you are indented and start a new line, this makes the new line indented, too:
+" Disable to allow # comments to indent properly
 " set autoindent
 
 "This it makes some sort of autoindenting occur, like when you have an open { at the end of a line.  I'm not sure I love this, so it might not last long:  
+" Disable to allow # comments to indent properly
 " set smartindent
 set preserveindent
 
