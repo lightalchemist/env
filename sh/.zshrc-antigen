@@ -21,7 +21,7 @@ antigen bundle history-substring-search
 
 antigen bundle zsh-users/zsh-completions src
 antigen bundle tarruda/zsh-autosuggestions
-antigen bundle kennethreitz/autoenv
+# antigen bundle kennethreitz/autoenv
 antigen bundle Tarrasch/zsh-autoenv
 
 antigen-theme agnoster
@@ -71,9 +71,9 @@ alias c='fasd_cd -d'
 # For virtualenv support
 export VIRTUALENVWRAPPER_PYTHON=`which python`
 export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
-export WORKON_HOME=$HOME/virtualenvs
+export WORKON_HOME="$HOME/virtualenvs"
 source /usr/local/bin/virtualenvwrapper.sh
-export PIP_VIRTUALENV_BASE=$WORKON_HOME
+export PIP_VIRTUALENV_BASE="$WORKON_HOME"
 # makes pip detect an active virtualenv and install to it
 export PIP_RESPECT_VIRTUALENV=true
 
