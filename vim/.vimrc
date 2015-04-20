@@ -142,10 +142,10 @@ set noautoread
 " SPACING """"
 """"""""""""""  
 "If you are indented and start a new line, this makes the new line indented, too:
-set autoindent
+" set autoindent
 
 "This it makes some sort of autoindenting occur, like when you have an open { at the end of a line.  I'm not sure I love this, so it might not last long:  
-set smartindent
+" set smartindent
 set preserveindent
 
 "These deal with what the TAB key inserts.
@@ -340,6 +340,7 @@ set encoding=utf-8
 
 "Enable powerline tabline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
 "Configure airline tab separator
 " let g:airline#extensions#tabline#left_sep = ' '
 " let g:airline#extensions#tabline#left_alt_sep = '>'
@@ -529,8 +530,8 @@ set statusline+=%*
 let g:syntastic_java_checkers = []
 let g:syntastic_error_symbol = "x"
 let g:syntastic_style_error_symbol = "x"
-" let g:syntastic_warning_symbol = "!"
-" let g:syntastic_style_warning_symbol = "!"
+let g:syntastic_warning_symbol = "!"
+let g:syntastic_style_warning_symbol = "!"
 let g:syntastic_always_populate_loc_list = 1
 
 " let g:syntastic_python_checkers=['pyflakes']
