@@ -25,7 +25,7 @@ sudo apt-get install subversion subversion-tools
 sudo apt-get install libboost-all-dev
 
 # Parser stuff
-sudo apt-get install xml-core
+# sudo apt-get install xml-core
 
 # Documentation generators
 sudo apt-get install doxygen

@@ -25,6 +25,10 @@ sudo apt-get install openssh-server
 # Browser
 # Chromium
 
+# Send files to trash bin in command line
+# Remember to alias rm to trash-cli
+sudo apt-get install trash-cli
+
 sudo apt-get install ubuntu-restricted-extras
 
 # Need these for OpenCV

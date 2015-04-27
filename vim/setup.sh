@@ -13,7 +13,10 @@ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 # Get my .vimrc
 wget https://github.com/lightalchemist/env/raw/master/vim/.vimrc
 
+cp .vimrc ~
+
 # Vundle install plugins
 vim +PluginInstall
 
 # Remember to manually run any install scripts for plugins (e.g., YouCompleteMe) if necessary.
+# And copy the .ycm_extra_conf.py file to ~/.vim/
