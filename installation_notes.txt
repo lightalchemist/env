@@ -1,0 +1,24 @@
+Installation notes
+==================
+
+
+Xubuntu 14.04 LTS Desktop
+=========================
+
+
+
+NVIDIA graphics driver and CUDA libraries
+=========================================
+NOTE: Make sure to first uninstall any proprietary drivers (whether from Xorg:Edgers or manually installed drivers from NVIDIA).
+
+Download .deb file from NVIDIA's website for Linux 64-bit.
+sudo dpkg -i <deb filename>.deb
+sudo apt-get update
+sudo apt-get install cuda
+
+
+OpenBLAS
+========
+Installs OpenBLAS to compile with gfortran compiler, use 12 threads by default, and no OpenMP support.
+make FC=gfortran NUM_THREADS=12 USE_OPENMP=0
+sudo PREFIX=/opt/OpenBLAS-noomp install
