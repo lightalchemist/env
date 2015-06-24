@@ -18,7 +18,7 @@ sudo apt-get install git
 sudo apt-get install subversion subversion-tools
 
 # Boost libraries
-sudo apt-get install libboost-all-dev
+sudo apt-get install libboost-1.55-all-dev
 
 # qt
 sudo apt-get install libqt4-dev
