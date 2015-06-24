@@ -11,7 +11,7 @@
 
 # ---------- Update ---------- 
 sudo apt-get update
-sudo apt-get dist-upgrade
+sudo apt-get upgrade
 
 # ---------- OS related ----------
 sudo apt-get install aptitude apt-file
@@ -92,14 +92,3 @@ sudo apt-get install colordiff moreutils
 sudo apt-get install tofrodos
 # silver searcher Ag
 # diff tools like meld
-
-# Miscellaneous stuff we probably won't need
-# gimp
-# wine
-# libreoffice-writer2latex
-# libreoffice-wiki-publisher
-# libreoffice-pdfimport
-# libreoffice-grammarcheck
-# libreoffice-calc
-# libreoffice-draw
-# libreoffice
