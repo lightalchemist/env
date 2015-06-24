@@ -17,8 +17,6 @@ sudo apt-get upgrade
 sudo apt-get install aptitude apt-file
 sudo apt-get install synaptic
 
-# Server processes
-sudo apt-get install openssh-server
 # vnc server
 # LAMP stack?
 
