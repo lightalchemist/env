@@ -4,6 +4,10 @@ For Linux:
 Install Powerline fonts
 https://github.com/powerline/fonts
 
+The instructions here are better
+http://askubuntu.com/questions/283908/how-can-i-install-and-use-powerline-plugin
+
+
 NOTE: Install Solarized theme.
 Remember to create a new profile first for it to override!
 https://github.com/Anthony25/gnome-terminal-colors-solarized

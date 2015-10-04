@@ -37,7 +37,7 @@ libatlas3gf-base
 libavcodec-dev
 libavformat-dev
 libblas-dev
-libboost-1.55-all-dev
+libboost-all-dev
 libdc1394-22-dev
 libgsl0-dbg
 libgsl0-dev
@@ -63,7 +63,6 @@ moreutils
 p7zip-full
 pdf2djvu
 pdf2svg
-pdfedit
 pdftk
 perl
 pkg-config
@@ -90,7 +89,13 @@ vim-common
 vim-doc
 vim-gtk
 vim-latexsuite
-virtualenv
+python-virtualenv
 virtualenvwrapper
 writer2latex
 xpdf
+libclang-dev
+clang-3.6
+llvm
+zsh
+zsh-common
+silversearcher-ag

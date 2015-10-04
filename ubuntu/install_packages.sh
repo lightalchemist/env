@@ -1,3 +1,3 @@
 #!/bin/sh
 
-apt-get -y install $(cat all_packages.txt)
+sudo apt-get -y install $(cat all_packages.txt)

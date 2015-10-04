@@ -10,8 +10,8 @@
 # because there is a chance user is running other shell
 
 # ---------- Update ---------- 
-sudo apt-get update
-sudo apt-get upgrade
+# sudo apt-get update
+# sudo apt-get upgrade
 
 # ---------- OS related ----------
 sudo apt-get install aptitude apt-file
