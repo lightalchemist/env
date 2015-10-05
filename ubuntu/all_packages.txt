@@ -99,3 +99,4 @@ llvm
 zsh
 zsh-common
 silversearcher-ag
+gfortran
