@@ -19,4 +19,5 @@ cp .vimrc ~
 vim +PluginInstall
 
 # Remember to manually run any install scripts for plugins (e.g., YouCompleteMe) if necessary.
+# ./install.py --clang-completer
 # And copy the .ycm_extra_conf.py file to ~/.vim/
