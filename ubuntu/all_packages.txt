@@ -100,3 +100,5 @@ zsh
 zsh-common
 silversearcher-ag
 gfortran
+libfftw3-dev
+libeigen3-dev
