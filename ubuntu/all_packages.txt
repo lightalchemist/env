@@ -34,6 +34,7 @@ latex-beamer
 latex2html
 libatlas-dev
 libatlas3gf-base
+libatlas-base-dev
 libavcodec-dev
 libavformat-dev
 libblas-dev
@@ -102,3 +103,6 @@ silversearcher-ag
 gfortran
 libfftw3-dev
 libeigen3-dev
+libtiff4-dev
+libv4l-dev
+libv4l2rds0
