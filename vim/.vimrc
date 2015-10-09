@@ -32,7 +32,6 @@ Bundle 'bling/vim-airline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'honza/vim-snippets'
-" Bundle 'garbas/vim-snipmate'
 Bundle 'SirVer/ultisnips'
 Bundle 'tomtom/tlib_vim'
 Bundle 'vim-scripts/TagHighlight.git'
@@ -51,17 +50,20 @@ filetype plugin indent on
 "Must set this to enable 256 color support
 set t_Co=256
 
-" let g:molokai_original=1
-" let g:rehash256 = 1
-" colorscheme molokai
+let g:molokai_original=1
+let g:rehash256 = 1
+colorscheme molokai
 
 " seoul256 (dark):
 "   Range:   233 (darkest) ~ 239 (lightest)
 "   Default: 237
-let g:seoul256_background = 236
-colorscheme seoul256
+" let g:seoul256_background = 236
+" colorscheme seoul256
 
 let g:goyo_width = 100
+
+" Ensure colors work correctly in tmux
+set term=screen-256color
 
 """"""""""""""""""""""""""""""""""""""""""
 "" SEARCH, HIGHLIGHT, SPELLING, ETC.
@@ -252,7 +254,7 @@ au InsertLeave * set nopaste
 set showmode
 
 noremap <backspace> O<Esc>j
-" noremap <CR> o<Esc>k
+noremap <CR> o<Esc>k
 
 "Show commands
 set showcmd
@@ -502,14 +504,18 @@ set completeopt-=preview
 set previewheight=50  " Preview window height
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_collect_identifiers_from_tags_files = 1
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 let g:ycm_autoclose_preview_window_after_insertion = 1
-
 let g:ycm_error_symbol = 'x'
 let g:ycm_warning_symbol = '!'
-
+" We must set this to the SAME python YCM was compiled with!
+" This is Macports python 2.7
+" let g:ycm_path_to_python_interpreter = '/opt/local/bin/python2.7'
+let g:ycm_path_to_python_interpreter = '/home/hongwei/virtualenvs/ml/bin/python'
 
 set pumheight=10  " Limit show max 10 suggestions
 
@@ -556,7 +562,6 @@ set showmatch " Set show matching parenthesis
 " DelimitMate add extra newline after typing cr inside a pair of delimiters
 let delimitMate_expand_cr = 1
 
-
 " Tagbar
 map <silent><Leader>v :TagbarToggle<CR>
 
@@ -576,8 +581,6 @@ map <silent><Leader>v :TagbarToggle<CR>
 " highlight SpellRare term=underline cterm=underline
 " highlight clear SpellLocal
 " highlight SpellLocal term=underline cterm=underline
-
-
 
 " Goyo
 function! s:goyo_enter()
@@ -643,10 +646,6 @@ set tags+=./tags;$HOME
 
 " nnoremap <silent><c-q> :q<CR>
 " nnoremap <silent><c-x> :x<CR>
-"
-" We must set this to the SAME python YCM was compiled with!
-" This is Macports python 2.7
-" let g:ycm_path_to_python_interpreter = '/opt/local/bin/python2.7'
 
 " This will only work if VIM/terminal can handle italics
 " highlight Comment cterm=italic
