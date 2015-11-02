@@ -1,10 +1,11 @@
 " Vundle
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
 
 " Let Vundle manage Vundle required!
+set rtp+=~/.vim/bundle/vundle/
+call vundle#begin()
+
 Bundle 'gmarik/vundle'
 
 Bundle 'tpope/vim-surround'
@@ -43,7 +44,9 @@ Bundle 'junegunn/limelight.vim'
 
 " Color schemes
 Bundle 'lightalchemist/molokai'
-Bundle 'junegunn/seoul256.vim'
+" Bundle 'junegunn/seoul256.vim'
+
+call vundle#end()
 
 filetype plugin indent on
 
@@ -504,7 +507,7 @@ set completeopt-=preview
 set previewheight=50  " Preview window height
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-let g:ycm_confirm_extra_conf = 0
+" let g:ycm_confirm_extra_conf = 0
 let g:ycm_collect_identifiers_from_tags_files = 1
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
