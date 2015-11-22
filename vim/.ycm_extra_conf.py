@@ -20,8 +20,8 @@ flags = [
     # '-stdlib=libc++',
     # Use this for linux
     # '-stdlib=libstdc++',
-    '-I', 'include'
-    '-I', 'src'
+    '-I', 'include',
+    '-I', 'src',
     '-I', '.',
     # '-isystem',
     '-isystem', '/usr/include',
