@@ -16,7 +16,7 @@ wget https://github.com/lightalchemist/env/raw/master/vim/.vimrc
 cp .vimrc ~
 
 # Vundle install plugins
-vim +PluginInstall
+vim +PluginInstall +qall
 
 # Remember to manually run any install scripts for plugins (e.g., YouCompleteMe) if necessary.
 # ./install.py --clang-completer
