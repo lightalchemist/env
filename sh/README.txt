@@ -31,3 +31,7 @@ https://noahfrederick.com/log/lion-terminal-theme-peppermint/
 
 Seoul256 theme also available for iTerm2
 https://github.com/junegunn/seoul256.vim
+
+Install core linux utils in Mac using Homebrew
+http://apple.stackexchange.com/questions/69223/how-to-replace-mac-os-x-utilities-with-gnu-core-utilities
+https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
