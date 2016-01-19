@@ -49,22 +49,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # E.g. sudo port install coreutils or brew install coreutils
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH
 
-# MacPorts Installer addition on 2011-12-06_at_22:00:03: adding an appropriate PATH variable for use with MacPorts.
-export PATH=/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH
-export PATH=/opt/local/lib:$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
-
-# Setting PATH for QT 4.7
-export PATH=/Users/hongwei/QtSDK/Desktop/Qt/474/gcc/bin:$PATH
-
-# Set up apache ant
-export PATH=$PATH:/opt/apache-ant-1.9.4/bin
-export ANT_HOME=/opt/apache-ant-1.9.4
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home
-
-# Set up octave
-export PATH=$PATH:/Applications/Octave.app/Contents/MacOS
-
 # ---------- End set up PATH ---------- 
 
 export LANG=en_US.UTF-8
@@ -74,14 +58,15 @@ export LC_ALL=en_US.UTF-8
 alias ll='ls -AlhF'
 alias la='ls -aF'
 # ls --option not available on OS X. Need to use Homebrew to install coreutils
-alias ls='ls --color=tty -F --group-directories-first'
+alias ls='gls --color=tty -F --group-directories-first'
 alias l=ls
-alias lc='ls --color=tty -F --format=single-column --group-directories-first'
+# alias lc='ls --color=tty -F --format=single-column --group-directories-first'
 alias rm='rmtrash'
 alias cp='cp -i'
 alias mv='mv -i'
 alias grep='grep --color=auto -nH'
-alias vim='mvim -v'
+# alias vim='mvim -v'
+alias diff="colordiff"
 
 # NOTE: PATH variable *MUST* be set before sourcing virtualenvwrapper.sh
 # See http://virtualenvwrapper.readthedocs.org/en/latest/install.html
@@ -91,7 +76,7 @@ alias vim='mvim -v'
 export VIRTUALENVWRAPPER_PYTHON=`which python`
 export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
 export WORKON_HOME=$HOME/.virtualenvs
-source /opt/local/bin/virtualenvwrapper.sh-2.7
+source /usr/local/bin/virtualenvwrapper.sh
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 # makes pip detect an active virtualenv and install to it
 export PIP_RESPECT_VIRTUALENV=true
