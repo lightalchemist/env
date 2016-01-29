@@ -393,7 +393,7 @@ nnoremap <silent> <C-Left> :bprevious<CR>
 let g:ctrlp_map = '<Leader>t'
 let g:ctrlp_cmd = 'CtrlP'
 set wildignore+=*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$' 
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|jpg|jpeg|png|bmp)$' 
 let g:ctrlp_working_path_mode = 'ra'
 
 set wildignore+=*.swp,*.bak,*.class,*.o,*.obj,*.pyc,*.pkl,*.jpg,*.bmp,*.png,*.mat,*.bak,*.pdf
@@ -679,3 +679,29 @@ highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 " So that italics will show up proerly in VIM
 set t_ZH=[3m
 set t_ZR=[23m
+
+" Shortcuts for aligning using Tabular
+function! ConfigTabular()
+    if exists(':Tabularize')
+        nmap <Leader>a= :Tabularize /=<CR>
+        vmap <Leader>a= :Tabularize /=<CR>
+        nmap <Leader>a: :Tabularize /:<CR>
+        vmap <Leader>a: :Tabularize /:<CR>
+    endif
+endfunction
+
+autocmd VimEnter * call ConfigTabular()
+
+" Automatically align on '|' when creating a table
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction
