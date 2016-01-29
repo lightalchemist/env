@@ -66,7 +66,7 @@ colorscheme molokai
 let g:goyo_width = 100
 
 " Ensure colors work correctly in tmux
-set term=screen-256color
+" set term=screen-256color
 
 """"""""""""""""""""""""""""""""""""""""""
 "" SEARCH, HIGHLIGHT, SPELLING, ETC.
@@ -393,7 +393,7 @@ nnoremap <silent> <C-Left> :bprevious<CR>
 let g:ctrlp_map = '<Leader>t'
 let g:ctrlp_cmd = 'CtrlP'
 set wildignore+=*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$' 
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|jpg|jpeg|png|bmp)$' 
 let g:ctrlp_working_path_mode = 'ra'
 
 set wildignore+=*.swp,*.bak,*.class,*.o,*.obj,*.pyc,*.pkl,*.jpg,*.bmp,*.png,*.mat,*.bak,*.pdf
@@ -679,3 +679,15 @@ highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 " So that italics will show up proerly in VIM
 set t_ZH=[3m
 set t_ZR=[23m
+
+" Shortcuts for aligning using Tabular
+function! ConfigTabular()
+    if exists(':Tabularize')
+        nmap <Leader>a= :Tabularize /=<CR>
+        vmap <Leader>a= :Tabularize /=<CR>
+        nmap <Leader>a: :Tabularize /:<CR>
+        vmap <Leader>a: :Tabularize /:<CR>
+    endif
+endfunction
+
+autocmd VimEnter * call ConfigTabular()
