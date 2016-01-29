@@ -12,25 +12,19 @@ antigen bundle extract
 antigen bundle git
 antigen bundle virtualenvwrapper
 antigen bundle virtualenv
+antigen bundle common-aliases
+antigen bundle command-not-found
 # zsh-syntax-highlighting must be loaded before history-substring-search
 # See: https://github.com/zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-syntax-highlighting
-# antigen bundle history-substring-search
-# antigen bundle common-aliases
-antigen bundle fasd
-
 antigen bundle zsh-users/zsh-completions src
+antigen bundle history-substring-search
 # antigen bundle tarruda/zsh-autosuggestions
-# antigen bundle kennethreitz/autoenv
 antigen bundle Tarrasch/zsh-autoenv
-
+antigen bundle fasd
 antigen-theme agnoster
 
-setopt correct_all # Enable autocorrect suggestions
-ENABLE_CORRECTION="true"
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Autosuggestion color
+# # Autosuggestion color
 # AUTOSUGGESTION_HIGHLIGHT_COLOR=fg159
 # AUTOSUGGESTION_HIGHLIGHT_CURSOR=1
 # AUTOSUGGESTION_HIGHLIGHT_COLOR="fg=159,bg=020"
@@ -41,15 +35,20 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 #     zle autosuggest-start
 # }
 # zle -N zle-line-init
-# COMPLETION_WAITING_DOTS="false"
 
-# User configuration
-# Set up PATH variable
-# Need to install coreutils to have /opt/../gnubin for gnu version of ls and other utils.
-# E.g. sudo port install coreutils or brew install coreutils
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH
+setopt correct_all # Enable autocorrect suggestions
+ENABLE_CORRECTION="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# ---------- End set up PATH ---------- 
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/lib:$PATH"
+# export MANPATH="/usr/local/man:$MANpATH"
+
+# Need to set this so that Vim's YouCompleteMe plugin find libs and provide suggestions
+# NOTE: Need to be careful how this is set, especially when working with virtualenv.
+# export PYTHONPATH="${PYTHONPATH}:/usr/local/lib/python2.7/dist-packages"
+
+# This allows TMUX window titles to remain fix after they are renamed
+export DISABLE_AUTO_TITLE=true
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -96,7 +95,7 @@ RPROMPT='[%D %D{%L:%M:%S %K}]'
 #     zle reset-prompt
 # }
 
-export EDITOR="mvim -v"
+export EDITOR=`which vim`
 
 # bind UP and DOWN arrow keys
 # zmodload zsh/terminfo
