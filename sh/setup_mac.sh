@@ -8,4 +8,3 @@ git clone https://github.com/zsh-users/antigen ~/.antigen
 * Install zsh if not already installed
 * Install packages like coreutils
 * Install neovim
-brew install neovim/neovim/neovim
