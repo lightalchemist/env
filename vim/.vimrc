@@ -23,7 +23,8 @@ Bundle 'vim-scripts/matchit.zip'
 Bundle 'vim-scripts/ShowMarks'
 
 Bundle 'scrooloose/nerdtree'
-Bundle 'vim-scripts/Gundo'
+Bundle 'sjl/Gundo.vim'
+" Bundle 'vim-scripts/Gundo'
 Bundle 'majutsushi/tagbar'
 
 Bundle 'scrooloose/syntastic'
@@ -38,6 +39,7 @@ Bundle 'tomtom/tlib_vim'
 Bundle 'vim-scripts/TagHighlight.git'
 Bundle 'godlygeek/tabular'
 Bundle 'terryma/vim-multiple-cursors'
+Bundle 'reedes/vim-wheel'
 
 Bundle 'junegunn/goyo.vim'
 Bundle 'junegunn/limelight.vim'
@@ -45,6 +47,7 @@ Bundle 'junegunn/limelight.vim'
 " Color schemes
 Bundle 'lightalchemist/molokai'
 " Bundle 'junegunn/seoul256.vim'
+" Bundle 'altercation/vim-colors-solarized'
 
 call vundle#end()
 
@@ -62,6 +65,8 @@ colorscheme molokai
 "   Default: 237
 " let g:seoul256_background = 236
 " colorscheme seoul256
+
+" colorscheme solarized
 
 let g:goyo_width = 100
 
@@ -121,8 +126,14 @@ set formatprg=par
 
 "I don't recall where this came from, but it makes Vim put all its backup
 "and temporary files in places I don't mind:
-set backupdir=~/.vim/vim-tmp,~/.tmp,~/tmp,~/var/tmp,/tmp
-set directory=~/.vim/vim-tmp,~/.tmp,~/tmp,~/var/tmp,/tmp
+set backupdir=~/.vim/tmp/backup//,~/.tmp,~/tmp,~/var/tmp,/tmp
+set directory=~/.vim/tmp/swap//,~/.tmp,~/tmp,~/var/tmp,/tmp
+
+" persist Gundo tree between sessions
+set undodir=~/.vim/tmp/undo//
+set undofile
+set history=100
+set undolevels=100
 
 """"""""""""""""""""""""""""""
 " GENERIC PLUGIN BEHAVIOR """"
@@ -205,6 +216,7 @@ noremap  <buffer> <silent> j gj
 " noremap  <buffer> <silent> 0 g0
 " noremap  <buffer> <silent> $ g$
 
+" TODO: Remap wheel to Alt-k, Alt-j, and Alt-shift-k, Alt-shift-j for this
 " map Alt-j and Alt-k to scroll screen while maintaining cursor position at current line
 noremap j <C-e>
 noremap k <C-y>
@@ -395,7 +407,11 @@ let g:ctrlp_cmd = 'CtrlP'
 set wildignore+=*.so,*.swp,*.zip     " MacOSX/Linux
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|jpg|jpeg|png|bmp)$' 
 let g:ctrlp_working_path_mode = 'ra'
-
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+"Use silver-searcher to search
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 set wildignore+=*.swp,*.bak,*.class,*.o,*.obj,*.pyc,*.pkl,*.jpg,*.bmp,*.png,*.mat,*.bak,*.pdf
 
 "Rainbow Parentheses
