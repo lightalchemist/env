@@ -24,7 +24,6 @@ Bundle 'vim-scripts/ShowMarks'
 
 Bundle 'scrooloose/nerdtree'
 Bundle 'sjl/Gundo.vim'
-" Bundle 'vim-scripts/Gundo'
 Bundle 'majutsushi/tagbar'
 
 Bundle 'scrooloose/syntastic'
