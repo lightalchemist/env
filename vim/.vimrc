@@ -698,10 +698,10 @@ set t_ZR=[23m
 " Shortcuts for aligning using Tabular
 function! ConfigTabular()
     if exists(':Tabularize')
-        nmap <Leader>a= :Tabularize /=<CR>
-        vmap <Leader>a= :Tabularize /=<CR>
-        nmap <Leader>a: :Tabularize /:<CR>
-        vmap <Leader>a: :Tabularize /:<CR>
+        nmap <silent> <Leader>a= :Tabularize /=<CR>
+        vmap <silent> <Leader>a= :Tabularize /=<CR>
+        nmap <silent> <Leader>a: :Tabularize /:<CR>
+        vmap <silent> <Leader>a: :Tabularize /:<CR>
     endif
 endfunction
 
