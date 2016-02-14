@@ -13,6 +13,7 @@ antigen bundle virtualenv
 antigen bundle dirhistory
 antigen bundle common-aliases
 antigen bundle command-not-found
+antigen bundle fasd
 # zsh-syntax-highlighting must be loaded before history-substring-search
 # See: https://github.com/zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -65,6 +66,8 @@ alias rm='trash'
 alias cp='cp -i'
 alias mv='mv -i'
 alias grep='grep --color=auto -nH'
+# For fasd cd
+alias c='fasd_cd -d'
 
 # NOTE: PATH variable must be set before sourcing virtualenvwrapper.sh
 # See http://virtualenvwrapper.readthedocs.org/en/latest/install.html
@@ -134,6 +137,7 @@ alias mmv='noglob zmv -W'
 # Don't add failed commands to history
 zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 
-LD_LIBRARY_PATH="/opt/openblas-noomp/lib/:$LD_LIBRARY_PATH"
+# To activate fasd
+eval "$(fasd --init auto)"
 
 antigen-apply

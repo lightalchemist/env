@@ -18,7 +18,7 @@ Bundle 'kien/rainbow_parentheses.vim'
 
 Bundle 'Raimondi/delimitMate'
 Bundle 'klen/python-mode'
-Bundle 'Valloric/YouCompleteMe'
+" Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'vim-scripts/ShowMarks'
 
@@ -29,17 +29,24 @@ Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/syntastic'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'bling/vim-airline'
-Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'vim-airline/vim-airline'
+Bundle "git://github.com/vim-airline/vim-airline-themes.git"
+" Bundle 'bling/vim-airline'
+
+" Bundle 'tomtom/tlib_vim'
+" Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle "git://github.com/MarcWeber/vim-addon-mw-utils.git"
+Bundle "git://github.com/tomtom/tlib_vim.git"
+Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+
 Bundle 'vim-scripts/YankRing.vim'
-Bundle 'honza/vim-snippets'
-Bundle 'SirVer/ultisnips'
-Bundle 'tomtom/tlib_vim'
 Bundle 'vim-scripts/TagHighlight.git'
 Bundle 'godlygeek/tabular'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'reedes/vim-wheel'
 
+Bundle 'git://github.com/junegunn/vim-easy-align.git'
 Bundle 'junegunn/goyo.vim'
 Bundle 'junegunn/limelight.vim'
 
@@ -404,7 +411,7 @@ nnoremap <silent> <C-Left> :bprevious<CR>
 let g:ctrlp_map = '<Leader>t'
 let g:ctrlp_cmd = 'CtrlP'
 set wildignore+=*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|jpg|jpeg|png|bmp)$' 
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|jpg|jpeg|png|bmp)$|build|bin' 
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 "Use silver-searcher to search
@@ -643,6 +650,7 @@ autocmd User GoyoEnter nested call <SID>goyo_enter()
 autocmd User GoyoLeave nested call <SID>goyo_leave()
 
 " Save file and make project
+set makeprg=make\ -C\ ../build\ -j4
 nnoremap <F5> :w<cr>:make!<cr>
 
 " F3 to toggle Goyo
@@ -695,18 +703,33 @@ highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 set t_ZH=[3m
 set t_ZR=[23m
 
+" For indenting function arguments over multiple lines
+" http://stackoverflow.com/questions/11984520/vim-indent-align-function-arguments
+set cino+=(0
+
+" Mappings for EasyAlign
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+nmap <silent> <Leader>a<Space> gaip<Space>
+vmap <silent> <Leader>a<Space> gaip<Space>
+
 " Shortcuts for aligning using Tabular
 function! ConfigTabular()
     if exists(':Tabularize')
-        nmap <Leader>a= :Tabularize /=<CR>
-        vmap <Leader>a= :Tabularize /=<CR>
-        nmap <Leader>a: :Tabularize /:<CR>
-        vmap <Leader>a: :Tabularize /:<CR>
+        nnoremap <silent> <Leader>a= :Tabularize /=<CR>
+        vnoremap <silent> <Leader>a= :Tabularize /=<CR>
+        nnoremap <silent> <Leader>a: :Tabularize /:<CR>
+        vnoremap <silent> <Leader>a: :Tabularize /:<CR>
+        " nnoremap <silent> <Leader>av :Tabularize /\w\s\zs<CR>
+        " vnoremap <silent> <Leader>av :Tabularize /\w\s\zs<CR>
     endif
 endfunction
 
 autocmd VimEnter * call ConfigTabular()
 
+"From Tim Pope's gist for 'cucumber table'
 " Automatically align on '|' when creating a table
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
