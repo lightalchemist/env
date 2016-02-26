@@ -40,7 +40,7 @@ flags = [
 '-DQT_WIDGETS_LIB',
 '-DQT_XML_LIB',
 
-'-I', '/usr/lib/qt5/mkspecs/linux-clang',
+'-I', '/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-clang',
 '-I', '/usr/include/qt5',
 '-I', '/usr/include/qt5/QtConcurrent',
 '-I', '/usr/include/qt5/QtCore',
