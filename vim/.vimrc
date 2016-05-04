@@ -18,9 +18,9 @@ Bundle 'kien/rainbow_parentheses.vim'
 
 Bundle 'Raimondi/delimitMate'
 Bundle 'klen/python-mode'
-" Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/matchit.zip'
-Bundle 'vim-scripts/ShowMarks'
+" Bundle 'vim-scripts/ShowMarks'
 
 Bundle 'scrooloose/nerdtree'
 Bundle 'sjl/Gundo.vim'
@@ -54,6 +54,10 @@ Bundle 'junegunn/limelight.vim'
 Bundle 'lightalchemist/molokai'
 " Bundle 'junegunn/seoul256.vim'
 " Bundle 'altercation/vim-colors-solarized'
+
+Bundle 'rking/ag.vim'
+
+Bundle 'Chiel92/vim-autoformat'
 
 call vundle#end()
 
@@ -129,6 +133,16 @@ set cursorline
 "This tells Vim to use an external program, Par, to format my paragraphs. 
 "This comes from www.vimcasts.org
 set formatprg=par
+
+" Use F2 to call autoformat plugin
+noremap <F2> :Autoformat<CR>
+" Disable the fallback to vim's indent file, retabbing and removing trailing whitespace
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+" Path to formatter
+let g:formatterpath = ['/usr/lib/llvm-3.6/bin']
+
 
 "I don't recall where this came from, but it makes Vim put all its backup
 "and temporary files in places I don't mind:
@@ -275,7 +289,7 @@ au InsertLeave * set nopaste
 set showmode
 
 noremap <backspace> O<Esc>j
-noremap <CR> o<Esc>k
+" noremap <CR> o<Esc>k
 
 "Show commands
 set showcmd
@@ -406,6 +420,11 @@ inoremap h <Esc>gTi
 " Cycle through buffer
 nnoremap <silent> <C-Right> :bnext<CR>
 nnoremap <silent> <C-Left> :bprevious<CR>
+
+"Configure Ag.vim
+" Search from project root rather than cwd
+let g:ag_working_path_mode="r"
+
 
 "Configure CtrlP
 let g:ctrlp_map = '<Leader>t'
