@@ -18,29 +18,35 @@ Bundle 'kien/rainbow_parentheses.vim'
 
 Bundle 'Raimondi/delimitMate'
 Bundle 'klen/python-mode'
-" Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/matchit.zip'
-Bundle 'vim-scripts/ShowMarks'
+" Bundle 'vim-scripts/ShowMarks'
 
 Bundle 'scrooloose/nerdtree'
 Bundle 'sjl/Gundo.vim'
-" Bundle 'vim-scripts/Gundo'
 Bundle 'majutsushi/tagbar'
 
 Bundle 'scrooloose/syntastic'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'bling/vim-airline'
-Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'vim-airline/vim-airline'
+Bundle "git://github.com/vim-airline/vim-airline-themes.git"
+" Bundle 'bling/vim-airline'
+
+" Bundle 'tomtom/tlib_vim'
+" Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle "git://github.com/MarcWeber/vim-addon-mw-utils.git"
+Bundle "git://github.com/tomtom/tlib_vim.git"
+Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+
 Bundle 'vim-scripts/YankRing.vim'
-Bundle 'honza/vim-snippets'
-Bundle 'SirVer/ultisnips'
-Bundle 'tomtom/tlib_vim'
 Bundle 'vim-scripts/TagHighlight.git'
 Bundle 'godlygeek/tabular'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'reedes/vim-wheel'
 
+Bundle 'git://github.com/junegunn/vim-easy-align.git'
 Bundle 'junegunn/goyo.vim'
 Bundle 'junegunn/limelight.vim'
 
@@ -48,6 +54,10 @@ Bundle 'junegunn/limelight.vim'
 Bundle 'lightalchemist/molokai'
 " Bundle 'junegunn/seoul256.vim'
 " Bundle 'altercation/vim-colors-solarized'
+
+Bundle 'rking/ag.vim'
+
+Bundle 'Chiel92/vim-autoformat'
 
 call vundle#end()
 
@@ -123,6 +133,16 @@ set cursorline
 "This tells Vim to use an external program, Par, to format my paragraphs. 
 "This comes from www.vimcasts.org
 set formatprg=par
+
+" Use F2 to call autoformat plugin
+noremap <F2> :Autoformat<CR>
+" Disable the fallback to vim's indent file, retabbing and removing trailing whitespace
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+" Path to formatter
+let g:formatterpath = ['/usr/lib/llvm-3.6/bin']
+
 
 "I don't recall where this came from, but it makes Vim put all its backup
 "and temporary files in places I don't mind:
@@ -271,7 +291,7 @@ au InsertLeave * set nopaste
 set showmode
 
 noremap <backspace> O<Esc>j
-noremap <CR> o<Esc>k
+" noremap <CR> o<Esc>k
 
 "Show commands
 set showcmd
@@ -403,11 +423,16 @@ inoremap ¬ <Esc>gTi
 nnoremap <silent> <C-Right> :bnext<CR>
 nnoremap <silent> <C-Left> :bprevious<CR>
 
+"Configure Ag.vim
+" Search from project root rather than cwd
+let g:ag_working_path_mode="r"
+
+
 "Configure CtrlP
 let g:ctrlp_map = '<Leader>t'
 let g:ctrlp_cmd = 'CtrlP'
 set wildignore+=*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|jpg|jpeg|png|bmp)$' 
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|jpg|jpeg|png|bmp)$|build|bin' 
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 "Use silver-searcher to search
@@ -536,7 +561,8 @@ let g:ycm_warning_symbol = '!'
 " We must set this to the SAME python YCM was compiled with!
 " This is Macports python 2.7
 " let g:ycm_path_to_python_interpreter = '/opt/local/bin/python2.7'
-let g:ycm_path_to_python_interpreter = '/home/hongwei/.virtualenvs/ml/bin/python'
+" let g:ycm_path_to_python_interpreter = '/home/hongwei/.virtualenvs/ml/bin/python'
+" let g:ycm_path_to_python_interpreter = '/home/hongwei/.virtualenvs/ml/bin/python'
 
 set pumheight=10  " Limit show max 10 suggestions
 
@@ -646,6 +672,7 @@ autocmd User GoyoEnter nested call <SID>goyo_enter()
 autocmd User GoyoLeave nested call <SID>goyo_leave()
 
 " Save file and make project
+set makeprg=make\ -C\ ../build\ -j4
 nnoremap <F5> :w<cr>:make!<cr>
 
 " F3 to toggle Goyo
@@ -698,18 +725,33 @@ highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 set t_ZH=[3m
 set t_ZR=[23m
 
+" For indenting function arguments over multiple lines
+" http://stackoverflow.com/questions/11984520/vim-indent-align-function-arguments
+set cino+=(0
+
+" Mappings for EasyAlign
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+nmap <silent> <Leader>a<Space> gaip<Space>
+vmap <silent> <Leader>a<Space> gaip<Space>
+
 " Shortcuts for aligning using Tabular
 function! ConfigTabular()
     if exists(':Tabularize')
-        nmap <Leader>a= :Tabularize /=<CR>
-        vmap <Leader>a= :Tabularize /=<CR>
-        nmap <Leader>a: :Tabularize /:<CR>
-        vmap <Leader>a: :Tabularize /:<CR>
+        nnoremap <silent> <Leader>a= :Tabularize /=<CR>
+        vnoremap <silent> <Leader>a= :Tabularize /=<CR>
+        nnoremap <silent> <Leader>a: :Tabularize /:<CR>
+        vnoremap <silent> <Leader>a: :Tabularize /:<CR>
+        " nnoremap <silent> <Leader>av :Tabularize /\w\s\zs<CR>
+        " vnoremap <silent> <Leader>av :Tabularize /\w\s\zs<CR>
     endif
 endfunction
 
 autocmd VimEnter * call ConfigTabular()
 
+"From Tim Pope's gist for 'cucumber table'
 " Automatically align on '|' when creating a table
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
