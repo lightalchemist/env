@@ -66,6 +66,7 @@ alias mv='mv -i'
 alias grep='grep --color=auto -nH'
 # alias vim='mvim -v'
 alias diff="colordiff"
+alias ctags="brew --prefix`/bin/ctags`"
 
 # NOTE: PATH variable *MUST* be set before sourcing virtualenvwrapper.sh
 # See http://virtualenvwrapper.readthedocs.org/en/latest/install.html
