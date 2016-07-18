@@ -31,19 +31,16 @@ ENABLE_CORRECTION="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Autosuggestion color
-AUTOSUGGESTION_HIGHLIGHT_COLOR=fg159
-AUTOSUGGESTION_HIGHLIGHT_CURSOR=1
-# AUTOSUGGESTION_HIGHLIGHT_COLOR="fg=159,bg=020"
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg159'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=159,bg=020"
 bindkey '^f' vi-forward-blank-word
 bindkey '^b' vi-backward-blank-word
-# Setup zsh-autosuggestions
-zle-line-init() {
-    zle autosuggest-start
-}
-zle -N zle-line-init
+
+# Ctrl <space> to accept auto suggestion
+bindkey '^ ' autosuggest-accept
+bindkey '^x' autosuggest-clear
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/lib:$PATH"
-# export MANPATH="/usr/local/man:$MANpATH"
 
 # Need to set this so that Vim's YouCompleteMe plugin find libs and provide suggestions
 # NOTE: Need to be careful how this is set, especially when working with virtualenv.
@@ -119,7 +116,7 @@ export EDITOR=`which vim`
 
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
-# For Ubuntu and OS X
+# For Ubuntu
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
