@@ -8,6 +8,9 @@ call vundle#begin()
 
 Bundle 'gmarik/vundle'
 
+" Bundle 'mhinz/vim-hugefile'
+Bundle 'git://github.com/mhinz/vim-hugefile.git'
+
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-unimpaired'
@@ -559,10 +562,8 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_error_symbol = 'x'
 let g:ycm_warning_symbol = '!'
 " We must set this to the SAME python YCM was compiled with!
-" This is Macports python 2.7
-" let g:ycm_path_to_python_interpreter = '/opt/local/bin/python2.7'
-" let g:ycm_path_to_python_interpreter = '/home/hongwei/.virtualenvs/ml/bin/python'
-" let g:ycm_path_to_python_interpreter = '/home/hongwei/.virtualenvs/ml/bin/python'
+let g:ycm_path_to_python_interpreter = '/Users/hongwei/.virtualenvs/ml/bin/python'
+let g:python_host_prog = '/Users/hongwei/.virtualenvs/ml/bin/python'
 
 set pumheight=10  " Limit show max 10 suggestions
 
