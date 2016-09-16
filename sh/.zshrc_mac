@@ -71,8 +71,6 @@ alias ctags="`brew --prefix`/bin/ctags"
 
 # NOTE: PATH variable *MUST* be set before sourcing virtualenvwrapper.sh
 # See http://virtualenvwrapper.readthedocs.org/en/latest/install.html
-# NOTE: PATH variable must be set before sourcing virtualenvwrapper.sh
-# See http://virtualenvwrapper.readthedocs.org/en/latest/install.html
 # For virtualenv support
 export VIRTUALENVWRAPPER_PYTHON=`which python`
 export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
