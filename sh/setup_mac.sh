@@ -2,15 +2,15 @@
 
 git clone https://github.com/zsh-users/antigen ~/.antigen
 
-# TODO
+# Setup homebrew
+# See instructions here: http://brew.sh
 
-* Setup homebrew
-* See instructions here: http://brew.sh
-
-* Install zsh if not already installed
-* Setup zsh with antigen and oh-my-zsh
-* Install packages like coreutils
-* Install neovim
+# Install zsh if not already installed
+# Setup zsh with antigen and oh-my-zsh
+# Install solarized dark color theme to terminal so that zsh theme will work.
+# Install patched powerfonts and set terminal profile to use one of those powerfont
+# Install packages like coreutils
+# Install neovim - use homebrew and install related python packages using pip
 
 # Install qt5
 # brew install qt5
@@ -23,7 +23,6 @@ git clone https://github.com/zsh-users/antigen ~/.antigen
 
 # Setup OpenCV and other related libraries and tools
 # http://www.pyimagesearch.com/2015/06/15/install-opencv-3-0-and-python-2-7-on-osx/
-brew install cmake pkg-config
-brew install jpeg libpng libtiff openexr
-brew install eigen tbb
-
+# brew install cmake pkg-config
+# brew install jpeg libpng libtiff openexr
+# brew install eigen tbb
