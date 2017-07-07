@@ -15,7 +15,8 @@ antigen bundle virtualenv
 antigen bundle dirhistory
 antigen bundle common-aliases
 antigen bundle command-not-found
-antigen bundle fasd
+
+antigen bundle clvv/fasd
 # zsh-syntax-highlighting must be loaded before history-substring-search
 # See: https://github.com/zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -24,9 +25,9 @@ antigen bundle history-substring-search
 antigen bundle zsh-users/zsh-completions src
 antigen bundle tarruda/zsh-autosuggestions
 # antigen bundle kennethreitz/autoenv
-antigen bundle Tarrasch/zsh-autoenv
+# antigen bundle Tarrasch/zsh-autoenv
 
-antigen-theme agnoster
+antigen theme agnoster
 setopt correct_all # Enable autocorrect suggestions
 ENABLE_CORRECTION="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
@@ -41,7 +42,7 @@ bindkey '^b' vi-backward-blank-word
 bindkey '^ ' autosuggest-accept
 bindkey '^x' autosuggest-clear
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/lib:$PATH"
+# export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/lib:$PATH"
 
 # Need to set this so that Vim's YouCompleteMe plugin find libs and provide suggestions
 # NOTE: Need to be careful how this is set, especially when working with virtualenv.
@@ -54,10 +55,12 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 # Aliases
+alias vim='nvim'
 alias ll='ls -AlhF'
 alias la='ls -aF'
 # ls --option not available on OS X. Need to use Homebrew to install coreutils
-alias ls='gls --color=tty -F --group-directories-first'
+# alias ls='gls --color=tty -F --group-directories-first'
+alias ls='gls --color -h -F --group-directories-first'
 alias l=ls
 # alias lc='ls --color=tty -F --format=single-column --group-directories-first'
 alias rm='rmtrash'
@@ -119,4 +122,4 @@ zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 # To activate fasd
 eval "$(fasd --init auto)"
 
-antigen-apply
+antigen apply
