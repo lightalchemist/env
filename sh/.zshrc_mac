@@ -27,6 +27,8 @@ antigen bundle tarruda/zsh-autosuggestions
 # antigen bundle kennethreitz/autoenv
 # antigen bundle Tarrasch/zsh-autoenv
 
+antigen bundle unixorn/warhol.plugin.zsh
+
 antigen theme agnoster
 setopt correct_all # Enable autocorrect suggestions
 ENABLE_CORRECTION="true"
@@ -42,7 +44,8 @@ bindkey '^b' vi-backward-blank-word
 bindkey '^ ' autosuggest-accept
 bindkey '^x' autosuggest-clear
 
-# export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/lib:$PATH"
+# Export to use Anaconda
+export PATH="/Users/hongwei/anaconda3/bin:$PATH"
 
 # Need to set this so that Vim's YouCompleteMe plugin find libs and provide suggestions
 # NOTE: Need to be careful how this is set, especially when working with virtualenv.
