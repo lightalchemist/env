@@ -19,7 +19,6 @@ ln -s ~/.config/nvim/init.vim ~/.vimrc
 
 # Get Vundle
 git clone https://github.com/gmarik/vundle.git ~/.config/nvim/vundle
-ln -s ~/.config/nvim ~/.vim
 
 # Vundle install plugins
 vim +PluginInstall +qall
