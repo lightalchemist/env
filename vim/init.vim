@@ -559,7 +559,7 @@ let g:ycm_warning_symbol = '!'
 " We must set this to the SAME python YCM was compiled with!
 " This is Macports python 2.7
 " let g:ycm_path_to_python_interpreter = '/opt/local/bin/python2.7'
-let g:ycm_path_to_python_interpreter = '/home/hongwei/virtualenvs/ml/bin/python'
+" let g:ycm_path_to_python_interpreter = '/home/hongwei/virtualenvs/ml/bin/python'
 
 set pumheight=10  " Limit show max 10 suggestions
 
