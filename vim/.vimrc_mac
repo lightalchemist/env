@@ -3,64 +3,76 @@ set nocompatible
 filetype off
 
 " Let Vundle manage Vundle required!
-set rtp+=~/.vim/bundle/vundle/
+" set rtp+=~/.config/nvim/vundle/
+set rtp+=~/.config/nvim/.vim/bundle/vundle/
 call vundle#begin()
 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
-" Bundle 'mhinz/vim-hugefile'
-Bundle 'git://github.com/mhinz/vim-hugefile.git'
-
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
-Bundle 'kien/ctrlp.vim'
-Bundle 'kien/rainbow_parentheses.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'kien/rainbow_parentheses.vim'
 
-Bundle 'Raimondi/delimitMate'
-Bundle 'klen/python-mode'
-" Bundle 'Valloric/YouCompleteMe'
-Bundle 'vim-scripts/matchit.zip'
-" Bundle 'vim-scripts/ShowMarks'
+Plugin 'Raimondi/delimitMate'
+Plugin 'python-mode/python-mode'
+" Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-scripts/matchit.zip'
+" Plugin 'vim-scripts/ShowMarks'
 
-Bundle 'scrooloose/nerdtree'
-Bundle 'sjl/Gundo.vim'
-Bundle 'majutsushi/tagbar'
+" Plugin 'shougo/deoplete.nvim'
+Plugin 'Shougo/deoplete.nvim'
+" Plugin 'roxma/nvim-yarp'
+" Plugin 'roxma/vim-hug-neovim-rpc'
+Plugin 'zchee/deoplete-jedi'
 
-Bundle 'scrooloose/syntastic'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'vim-airline/vim-airline'
-Bundle "git://github.com/vim-airline/vim-airline-themes.git"
-" Bundle 'bling/vim-airline'
+Plugin 'Shougo/echodoc.vim'
 
-" Bundle 'tomtom/tlib_vim'
-" Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle "git://github.com/MarcWeber/vim-addon-mw-utils.git"
-Bundle "git://github.com/tomtom/tlib_vim.git"
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'sjl/Gundo.vim'
+Plugin 'majutsushi/tagbar'
+
+" Plugin 'scrooloose/syntastic'
+" Plugin 'vim-syntastic/syntastic'
+" Plugin 'w0rp/ale'
+Plugin 'neomake/neomake'
+
+Plugin 'tomtom/tcomment_vim'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+
+Plugin 'tomtom/tlib_vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+
+" Plugin "git://github.com/MarcWeber/vim-addon-mw-utils.git"
+" Plugin "git://github.com/tomtom/tlib_vim.git"
 Plugin 'honza/vim-snippets'
 Plugin 'SirVer/ultisnips'
 
-Bundle 'vim-scripts/YankRing.vim'
-Bundle 'vim-scripts/TagHighlight.git'
-Bundle 'godlygeek/tabular'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'reedes/vim-wheel'
+Plugin 'vim-scripts/YankRing.vim'
+Plugin 'vim-scripts/TagHighlight.git'
+Plugin 'godlygeek/tabular'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'reedes/vim-wheel'
 
-Bundle 'git://github.com/junegunn/vim-easy-align.git'
-Bundle 'junegunn/goyo.vim'
-Bundle 'junegunn/limelight.vim'
+Plugin 'junegunn/vim-easy-align.git'
+Plugin 'junegunn/goyo.vim'
+Plugin 'junegunn/limelight.vim'
 
 " Color schemes
 Bundle 'lightalchemist/molokai'
-" Bundle 'junegunn/seoul256.vim'
-" Bundle 'altercation/vim-colors-solarized'
+" Plugin 'junegunn/seoul256.vim'
+" Plugin 'altercation/vim-colors-solarized'
 
-Bundle 'rking/ag.vim'
+Plugin 'rking/ag.vim'
 
-Bundle 'Chiel92/vim-autoformat'
+Plugin 'Chiel92/vim-autoformat'
 
 call vundle#end()
 
@@ -69,13 +81,13 @@ filetype plugin indent on
 "Must set this to enable 256 color support
 set t_Co=256
 
-" let g:molokai_original=1
+let g:molokai_original=1
 let g:rehash256 = 1
 colorscheme molokai
 
 " seoul256 (dark):
-"   Range:   233 (darkest) ~ 239 (lightest)
-"   Default: 237
+  " Range:   233 (darkest) ~ 239 (lightest)
+  " Default: 237
 " let g:seoul256_background = 236
 " colorscheme seoul256
 
@@ -111,6 +123,9 @@ set linebreak breakat=\
 set list
 set listchars=tab:▸\ ,trail:⋅,extends:❯,precedes:❮
 set showbreak=↪
+
+" Remove extra dots after fold
+set fillchars=fold:\ 
 
 " :set formatoptions+=w
 :set formatoptions+=t
@@ -205,8 +220,10 @@ set scrolloff=5
 """""""""""""""
 """" FOLDS """"
 """""""""""""""
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
+nnoremap <silent> <Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
+vnoremap <Space> zA
+
+set foldmethod=indent
 set nofoldenable " Don't fold on start
 
 "Specify a column-width for fold markers:
@@ -239,14 +256,12 @@ noremap  <buffer> <silent> j gj
 " noremap  <buffer> <silent> 0 g0
 " noremap  <buffer> <silent> $ g$
 
-" map <option>-j and <option>-k to scroll screen while moving cursor along with line
-noremap  <C-e>
-noremap Ô <C-y>
-inoremap  <Esc><C-e>i
-inoremap Ô <Esc><C-y>i
-" wheel barrow scroll screen while maintaining cursor at current line
-let g:wheel#map#up   = '˚'
-let g:wheel#map#down = '∆'
+" TODO: Remap wheel to Alt-k, Alt-j, and Alt-shift-k, Alt-shift-j for this
+" map Alt-j and Alt-k to scroll screen while maintaining cursor position at current line
+noremap j <C-e>
+noremap k <C-y>
+inoremap j <Esc><C-e>i
+inoremap k <Esc><C-y>i
 
 "noremap <silent> <leader>w :call ToggleWrap()<cr>
 "function ToggleWrap()
@@ -283,7 +298,7 @@ set mouse=a
 
 "Operations for copy and paste will work with OS clipboard.
 "No need to prefix with '+' or *
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 " nnoremap <F2> :set invpaste paste?<CR>
 " set pastetoggle=<F2>
@@ -389,33 +404,6 @@ let g:airline#extensions#whitespace#enabled = 0
 " let g:airline#extensions#tabline#left_alt_sep = '|'
 "Use nice fonts from powerline
 let g:airline_powerline_fonts = 1
-" if !exists('g:airline_symbols')
-"     let g:airline_symbols = {}
-" endif
-
-" unicode symbols
-" let g:airline_left_sep = '»'
-" let g:airline_left_sep = '▶'
-" let g:airline_right_sep = '«'
-" let g:airline_right_sep = '◀'
-" let g:airline_symbols.linenr = '␊'
-" let g:airline_symbols.linenr = '␤'
-" let g:airline_symbols.linenr = '¶'
-" let g:airline_symbols.branch = '⎇'
-" let g:airline_symbols.paste = 'ρ'
-" let g:airline_symbols.paste = 'Þ'
-" let g:airline_symbols.paste = '∥'
-" let g:airline_symbols.whitespace = 'Ξ'
-
-" airline symbols
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = ''
-
 let g:airline_theme = "sol"
 " let g:airline_theme = "molokai"
 " let g:airline_theme = "tomorrow"
@@ -443,11 +431,11 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
-"Map <option>-l and <option>-h to move between tabs
-noremap ˙ gt
-noremap ¬ gT
-inoremap ˙ <Esc>gti
-inoremap ¬ <Esc>gTi
+"Map Alt-l and Alt-h to move between tabs
+noremap l gt
+noremap h gT
+inoremap l <Esc>gti
+inoremap h <Esc>gTi
 
 " Cycle through buffer
 nnoremap <silent> <C-Right> :bnext<CR>
@@ -491,22 +479,22 @@ augroup TastetheRainbow
 augroup END
 
 let g:rbpt_colorpairs = [
-    \ ['LightRed',       'RoyalBlue3'],
-    \ [112,    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['red',     'SeaGreen3'],
-    \ [226, 'DarkOrchid3'],
-    \ ['red',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ [112,       'SeaGreen3'],
-    \ [226, 'DarkOrchid3'],
-    \ [112,    'firebrick3'],
-    \ [204,    'SeaGreen3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ [112,     'DarkOrchid3'],
-    \ ['gray',    'RoyalBlue3'],
+    \ ['LightRed'  , 'RoyalBlue3']  ,
+    \ [112         , 'SeaGreen3']   ,
+    \ ['darkgray'  , 'DarkOrchid3'] ,
+    \ ['darkgreen' , 'firebrick3']  ,
+    \ ['darkcyan'  , 'RoyalBlue3']  ,
+    \ ['red'       , 'SeaGreen3']   ,
+    \ [226         , 'DarkOrchid3'] ,
+    \ ['red'       , 'firebrick3']  ,
+    \ ['gray'      , 'RoyalBlue3']  ,
+    \ [112         , 'SeaGreen3']   ,
+    \ [226         , 'DarkOrchid3'] ,
+    \ [112         , 'firebrick3']  ,
+    \ [204         , 'SeaGreen3']   ,
+    \ ['darkgreen' , 'RoyalBlue3']  ,
+    \ [112         , 'DarkOrchid3'] ,
+    \ ['gray'      , 'RoyalBlue3']  ,
     \ ]
 
 " Update this with the amount of supported colors
@@ -521,20 +509,8 @@ let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 nnoremap <silent> <leader>y :YRShow<CR>
 let g:yankring_history_dir = '~/Documents'
 
-" Python-mode
-" Activate rope
-" Keys:
-" K             Show python docs
-" <Ctrl-Space>  Rope autocomplete
-" <Ctrl-c>g     Rope goto definition
-" <Ctrl-c>d     Rope show documentation
-" <Ctrl-c>f     Rope find occurrences
-" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
-" [[            Jump on previous class or function (normal, visual, operator modes)
-" ]]            Jump on next class or function (normal, visual, operator modes)
-" [M            Jump on previous class or method (normal, visual, operator modes)
-" ]M            Jump on next class or method (normal, visual, operator modes)
 let g:pymode_rope = 0
+let g:pymode_rope_autoimport = 0
 
 " Documentation
 let g:pymode_doc = 1
@@ -542,19 +518,21 @@ let g:pymode_doc_key = 'K'
 
 "Linting
 " let g:pymode_lint = 1
+" let g:pymode_lint_checkers = ['pep8']
+" let g:pymode_lint_checkers = ['pyflakes']
 " let g:pymode_lint_checker = "pyflakes,pep8"
 " Auto check on save
 " let g:pymode_lint_write = 1
-
-" Support virtualenv
-" let g:virtualenv_directory="~/.virtualenvs"
-let g:pymode_virtualenv = 1
-
-" Enable breakpoints plugin
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_bind = '<leader>b'
-
-" syntax highlighting
+"
+" " Support virtualenv
+" " let g:virtualenv_directory="~/.virtualenvs"
+" " let g:pymode_virtualenv = 1
+" "
+" " " Enable breakpoints plugin
+" " let g:pymode_breakpoint = 1
+" " let g:pymode_breakpoint_bind = '<leader>b'
+" "
+" " syntax highlighting
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
 let g:pymode_syntax_indent_errors = g:pymode_syntax_all
@@ -563,51 +541,92 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " let g:pymode_folding = 1
 
 let g:pymode_lint_cwindow = 0
-let g:pymode_rope_complete_on_dot = 0
-" let g:pymode_rope_completion_bind = '<C-Space>'
-" let g:pymode_rope_completion = 1
-let g:pymode_rope_completion = 0
-let g:pymode_rope_lookup_project = 0
+" let g:pymode_rope_complete_on_dot = 0
+" " let g:pymode_rope_completion_bind = '<C-Space>'
+" " let g:pymode_rope_completion = 1
+" let g:pymode_rope_completion = 0
+" let g:pymode_rope_lookup_project = 0
+"
+" let g:pymode_options_colorcolumn = 0
+"
+" " Turn off warnings
+" let g:pymode_warnings = 1
 
-let g:pymode_options_colorcolumn = 0
-
-" Turn off warnings
-let g:pymode_warnings = 1
+" deoplete
+set runtimepath+=~/.vim/bundle/deoplete.nvim/
+let g:deoplete#enable_at_startup = 1
 
 " YouCompleteMe
 " Disable completion previews with function prototypes, etc.
 set completeopt-=preview
 set previewheight=50  " Preview window height
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-" let g:ycm_confirm_extra_conf = 0
-let g:ycm_collect_identifiers_from_tags_files = 1
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_error_symbol = 'x'
-let g:ycm_warning_symbol = '!'
+
+" let g:ycm_add_preview_to_completeopt = 0
+" let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+" " let g:ycm_confirm_extra_conf = 0
+" let g:ycm_collect_identifiers_from_tags_files = 1
+" " make YCM compatible with UltiSnips (using supertab)
+" let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_error_symbol = 'x'
+" let g:ycm_warning_symbol = '!'
 " We must set this to the SAME python YCM was compiled with!
-let g:ycm_path_to_python_interpreter = '/Users/hongwei/.virtualenvs/ml/bin/python'
-let g:python_host_prog = '/Users/hongwei/.virtualenvs/ml/bin/python'
 
 set pumheight=10  " Limit show max 10 suggestions
 
+" Ale
+" let g:airline#extensions#ale#enabled = 1
+
+" Neomake
+" autocmd! BufWritePost * Neomake!
+let g:neomake_warning_sign = {
+  \ 'text': 'W',
+  \ 'texthl': 'WarningMsg',
+  \ }
+let g:neomake_error_sign = {
+  \ 'text': 'E',
+  \ 'texthl': 'ErrorMsg',
+  \ }
+
+let g:neomake_python_flake8_maker = {
+    \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202,E501',  '--format=default'],
+    \ 'errorformat':
+        \ '%E%f:%l: could not compile,%-Z%p^,' .
+        \ '%A%f:%l:%c: %t%n %m,' .
+        \ '%A%f:%l: %t%n %m,' .
+        \ '%-G%.%#',
+    \ }
+
+let g:neomake_python_pep8_maker = {
+    \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202,E501',  '--format=default'],
+    \ 'errorformat':
+        \ '%E%f:%l: could not compile,%-Z%p^,' .
+        \ '%A%f:%l:%c: %t%n %m,' .
+        \ '%A%f:%l: %t%n %m,' .
+        \ '%-G%.%#',
+    \ }
+
+let g:neomake_python_enabled_makers = ['flake8', 'pep8']
+
+
 " Syntastic
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_cpp_no_include_search = 0
-let g:syntastic_cpp_compiler = "g++"
-let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
-" let g:syntastic_cpp_compiler_options = " -std=c++11"
+" let g:syntastic_cpp_compiler = "g++"
+" let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
 let g:syntastic_quiet_messages = {"type": "style"}
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 let g:syntastic_java_checkers = []
 let g:syntastic_error_symbol = "x"
 let g:syntastic_style_error_symbol = "x"
@@ -616,8 +635,9 @@ let g:syntastic_style_warning_symbol = "!"
 let g:syntastic_always_populate_loc_list = 1
 
 " let g:syntastic_python_checkers=['pyflakes']
-let g:syntastic_python_checkers=['flake8']
+" let g:syntastic_python_checkers=['flake8']
 " let g:syntastic_python_checker_args='--ignore=E501,E225,E231,E302,F401 --max-complexity 10'
+let g:syntastic_python_checker_args='--ignore=E501,E203'
 
 " UltiSnips
 " better key bindings for UltiSnipsExpandTrigger
@@ -627,7 +647,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 let g:ultisnips_python_style = 0x3
 let g:UltiSnips = {}
-let g:snips_email = "lightalchemist@gmail.com"
+let g:snips_email = "hngwei.ng@gmail.com"
 let g:snips_author = "Hong-Wei Ng"
 let g:snips_github = "https://github.com/lightalchemist"
 
@@ -641,9 +661,9 @@ let delimitMate_expand_cr = 1
 map <silent><Leader>v :TagbarToggle<CR>
 
 " Underline the current line with dashes in normal mode
-" nnoremap <c-_> yyp<c-v>$r-
+nnoremap <c-_> yyp<c-v>$r-
 " Underline the current line with dashes in insert mode
-" inoremap <c-_> <Esc>yyp<c-v>$r-A
+inoremap <c-_> <Esc>yyp<c-v>$r-A
 
 " Spell checking
 " highlight clear SpellBad
