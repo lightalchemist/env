@@ -18,26 +18,23 @@ Plugin 'kien/rainbow_parentheses.vim'
 
 Plugin 'Raimondi/delimitMate'
 Plugin 'python-mode/python-mode'
-" Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-scripts/matchit.zip'
-" Plugin 'vim-scripts/ShowMarks'
 
-" Plugin 'shougo/deoplete.nvim'
 Plugin 'Shougo/deoplete.nvim'
-" Plugin 'roxma/nvim-yarp'
-" Plugin 'roxma/vim-hug-neovim-rpc'
 Plugin 'zchee/deoplete-jedi'
-
 Plugin 'Shougo/echodoc.vim'
-
+if !has('nvim')
+  Plugin 'roxma/nvim-yarp'
+  Plugin 'roxma/vim-hug-neovim-rpc'
+endif
+Plugin 'Shougo/neosnippet.vim'
+Plugin 'Shougo/neosnippet-snippets'
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'sjl/Gundo.vim'
 Plugin 'majutsushi/tagbar'
 
-" Plugin 'scrooloose/syntastic'
 " Plugin 'vim-syntastic/syntastic'
-" Plugin 'w0rp/ale'
 Plugin 'neomake/neomake'
 
 Plugin 'tomtom/tcomment_vim'
@@ -52,7 +49,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 " Plugin "git://github.com/MarcWeber/vim-addon-mw-utils.git"
 " Plugin "git://github.com/tomtom/tlib_vim.git"
 Plugin 'honza/vim-snippets'
-Plugin 'SirVer/ultisnips'
+" Plugin 'SirVer/ultisnips'
 
 Plugin 'vim-scripts/YankRing.vim'
 Plugin 'vim-scripts/TagHighlight.git'
@@ -66,8 +63,9 @@ Plugin 'junegunn/limelight.vim'
 
 " Color schemes
 Bundle 'lightalchemist/molokai'
-" Plugin 'junegunn/seoul256.vim'
+Plugin 'junegunn/seoul256.vim'
 " Plugin 'altercation/vim-colors-solarized'
+Plugin 'AlessandroYorba/Sierra'
 
 Plugin 'rking/ag.vim'
 
@@ -80,17 +78,21 @@ filetype plugin indent on
 "Must set this to enable 256 color support
 set t_Co=256
 
-let g:molokai_original=1
-let g:rehash256 = 1
-colorscheme molokai
+" let g:molokai_original=1
+" let g:rehash256 = 1
+" colorscheme molokai
 
 " seoul256 (dark):
   " Range:   233 (darkest) ~ 239 (lightest)
   " Default: 237
-" let g:seoul256_background = 236
-" colorscheme seoul256
+let g:seoul256_background = 235
+colorscheme seoul256
 
 " colorscheme solarized
+
+" let g:sierra_Twilight = 1
+" let g:sierra_Sunset = 1
+" colorscheme sierra
 
 let g:goyo_width = 100
 
@@ -114,7 +116,7 @@ syntax on
 
 " Hides buffer instead of closing them. Better buffer handling.
 " See http://nvie.com/posts/how-i-boosted-my-vim/
-set hidden
+" set hidden
 
 " Vim window stuff
 "I'm pretty sure this makes wrapped lines break at spaces, not in the middle of words:
@@ -305,7 +307,8 @@ set clipboard=unnamedplus
 " Clear paste mode when going back to normal mode
 au InsertLeave * set nopaste
 
-set showmode
+" set showmode
+" set noshowmode
 
 noremap <backspace> O<Esc>j
 " noremap <CR> o<Esc>k
@@ -510,10 +513,18 @@ let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 nnoremap <silent> <leader>y :YRShow<CR>
 let g:yankring_history_dir = '~/Documents'
 
-let g:pymode_rope = 0
+let g:pymode_python = 'python3'
+
+let g:pymode_rope = 1
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope_autoimport = 0
 
-" " Documentation
+let g:pymode_rope_goto_definition_bind = '<leader>g'
+let g:pymode_rope_goto_definition_cmd = 'new'
+let g:pymode_rope_rename_bind = '<leader>pr'
+
+" Documentation
 let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
 "
@@ -534,10 +545,10 @@ let g:pymode_doc_key = 'K'
 " " let g:pymode_breakpoint_bind = '<leader>b'
 " "
 " " syntax highlighting
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
+" let g:pymode_syntax = 1
+" let g:pymode_syntax_all = 1
+" let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+" let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
 " let g:pymode_python = '/home/hongwei/anaconda3/bin/python3'
 
@@ -559,31 +570,25 @@ let g:pymode_lint_cwindow = 0
 " deoplete
 set runtimepath+=~/.vim/bundle/deoplete.nvim/
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.python = ''
 
-" YouCompleteMe
+set shortmess+=c
+set cmdheight=2
+set showmode
+
+let g:echodoc#enable_at_startup = 1
+
+" let g:deoplete#sources#jedi#show_docstring = 0
+
 " Disable completion previews with function prototypes, etc.
 set completeopt-=preview
-set previewheight=50  " Preview window height
-
-" let g:ycm_add_preview_to_completeopt = 0
-" let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-" " let g:ycm_confirm_extra_conf = 0
-" let g:ycm_collect_identifiers_from_tags_files = 1
-" " make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-" let g:ycm_autoclose_preview_window_after_insertion = 1
-" let g:ycm_error_symbol = 'x'
-" let g:ycm_warning_symbol = '!'
-" We must set this to the SAME python YCM was compiled with!
-" let g:ycm_path_to_python_interpreter = '/home/hongwei/anaconda3/bin/python3'
+" set previewheight=50  " Preview window height
 
 " let g:python3_host_prog = '/path/to/neovim/env/bin/python'
 
 set pumheight=10  " Limit show max 10 suggestions
-
-" Ale
-" let g:airline#extensions#ale#enabled = 1
 
 " Neomake
 " autocmd! BufWritePost * Neomake!
@@ -623,39 +628,43 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_signs = 1
-let g:syntastic_cpp_check_header = 1
-let g:syntastic_cpp_no_include_search = 0
-" let g:syntastic_cpp_compiler = "g++"
-" let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
-let g:syntastic_quiet_messages = {"type": "style"}
-let g:syntastic_java_checkers = []
-let g:syntastic_error_symbol = "x"
-let g:syntastic_style_error_symbol = "x"
-let g:syntastic_warning_symbol = "!"
-let g:syntastic_style_warning_symbol = "!"
-let g:syntastic_always_populate_loc_list = 1
+" Neosnipps
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <tab>     <Plug>(neosnippet_expand_or_jump)
+smap <tab>     <Plug>(neosnippet_expand_or_jump)
+xmap <tab>     <Plug>(neosnippet_expand_target)
 
-" let g:syntastic_python_checkers=['pyflakes']
-" let g:syntastic_python_checkers=['flake8']
-" let g:syntastic_python_checker_args='--ignore=E501,E225,E231,E302,F401 --max-complexity 10'
-let g:syntastic_python_checker_args='--ignore=E501,E203'
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 " UltiSnips
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" let g:UltiSnipsExpandTrigger = "<tab>"
+" let g:UltiSnipsJumpForwardTrigger = "<tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-let g:ultisnips_python_style = 0x3
-let g:UltiSnips = {}
+" let g:ultisnips_python_style = 0x3
+" let g:UltiSnips = {}
 let g:snips_email = "hngwei.ng@gmail.com"
 let g:snips_author = "Hong-Wei Ng"
 let g:snips_github = "https://github.com/lightalchemist"
+
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
 set virtualedit=onemore " Allow for cursor beyond last character
 set showmatch " Set show matching parenthesis
@@ -670,18 +679,6 @@ map <silent><Leader>v :TagbarToggle<CR>
 nnoremap <c-_> yyp<c-v>$r-
 " Underline the current line with dashes in insert mode
 inoremap <c-_> <Esc>yyp<c-v>$r-A
-
-" Spell checking
-" highlight clear SpellBad
-" highlight SpellBad ctermfg=196 term=underline cterm=underline
-" highlight clear SpellBad
-" highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-" highlight clear SpellCap
-" highlight SpellCap term=underline cterm=underline
-" highlight clear SpellRare
-" highlight SpellRare term=underline cterm=underline
-" highlight clear SpellLocal
-" highlight SpellLocal term=underline cterm=underline
 
 " Goyo
 function! s:goyo_enter()
@@ -766,14 +763,6 @@ highlight DiffAdd    cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 highlight DiffDelete cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 highlight DiffChange cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
-
-" " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-"
-" " If you want :UltiSnipsEdit to split your window.
-" let g:UltiSnipsEditSplit="vertical"
 
 " So that italics will show up proerly in VIM
 set t_ZH=[3m
