@@ -34,6 +34,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'sjl/Gundo.vim'
 Plugin 'majutsushi/tagbar'
 
+Plugin 'google/vim-searchindex'
+
 " Plugin 'vim-syntastic/syntastic'
 Plugin 'neomake/neomake'
 
@@ -49,7 +51,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 " Plugin "git://github.com/MarcWeber/vim-addon-mw-utils.git"
 " Plugin "git://github.com/tomtom/tlib_vim.git"
 Plugin 'honza/vim-snippets'
-" Plugin 'SirVer/ultisnips'
+Plugin 'SirVer/ultisnips'
 
 Plugin 'vim-scripts/YankRing.vim'
 Plugin 'vim-scripts/TagHighlight.git'
@@ -65,9 +67,10 @@ Plugin 'junegunn/limelight.vim'
 Bundle 'lightalchemist/molokai'
 Plugin 'junegunn/seoul256.vim'
 " Plugin 'altercation/vim-colors-solarized'
-Plugin 'AlessandroYorba/Sierra'
+" Plugin 'AlessandroYorba/Sierra'
 
-Plugin 'rking/ag.vim'
+" Plugin 'rking/ag.vim'
+Plugin 'mileszs/ack.vim'
 
 Plugin 'Chiel92/vim-autoformat'
 
@@ -95,6 +98,7 @@ colorscheme seoul256
 " colorscheme sierra
 
 let g:goyo_width = 100
+let g:goyo_height = 100
 
 " Ensure colors work correctly in tmux
 " set term=screen-256color
@@ -448,7 +452,12 @@ nnoremap <silent> <C-Left> :bprevious<CR>
 "Configure Ag.vim
 " Search from project root rather than cwd
 let g:ag_working_path_mode="r"
-
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+let g:ackhighlight = 1
+nnoremap <Leader>af :Ack!  %<Left><Left>
+nnoremap <Leader>f :Ack!  <space><Left><Left>
 
 "Configure CtrlP
 let g:ctrlp_map = '<Leader>t'
@@ -631,18 +640,23 @@ set statusline+=%*
 " Neosnipps
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <tab>     <Plug>(neosnippet_expand_or_jump)
-smap <tab>     <Plug>(neosnippet_expand_or_jump)
-xmap <tab>     <Plug>(neosnippet_expand_target)
+" imap <tab>     <Plug>(neosnippet_expand_or_jump)
+" smap <tab>     <Plug>(neosnippet_expand_or_jump)
+" xmap <tab>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+" "imap <expr><TAB>
+" " \ pumvisible() ? "\<C-n>" :
+" " \ neosnippet#expandable_or_jumpable() ?
+" " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" " Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+" " Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
 " For conceal markers.
 if has('conceal')
@@ -651,23 +665,19 @@ endif
 
 " UltiSnips
 " better key bindings for UltiSnipsExpandTrigger
-" let g:UltiSnipsExpandTrigger = "<tab>"
-" let g:UltiSnipsJumpForwardTrigger = "<tab>"
-" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-" let g:ultisnips_python_style = 0x3
-" let g:UltiSnips = {}
+let g:ultisnips_python_style = 0x3
+let g:UltiSnips = {}
 let g:snips_email = "hngwei.ng@gmail.com"
 let g:snips_author = "Hong-Wei Ng"
 let g:snips_github = "https://github.com/lightalchemist"
 
-" Enable snipMate compatibility feature.
-let g:neosnippet#enable_snipmate_compatibility = 1
-" Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
 set virtualedit=onemore " Allow for cursor beyond last character
-set showmatch " Set show matching parenthesis
+" set showmatch " Set show matching parenthesis
 
 " DelimitMate add extra newline after typing cr inside a pair of delimiters
 let delimitMate_expand_cr = 1
