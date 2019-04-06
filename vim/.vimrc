@@ -536,13 +536,13 @@ let g:pymode_rope_rename_bind = '<leader>pr'
 " Documentation
 let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
-"
-" "Linting
+
+"Linting
 " let g:pymode_lint = 1
 " let g:pymode_lint_checkers = ['pep8']
 " let g:pymode_lint_checkers = ['pyflakes']
 " let g:pymode_lint_checker = "pyflakes,pep8"
-" " Auto check on save
+" Auto check on save
 " let g:pymode_lint_write = 1
 "
 " " Support virtualenv
@@ -563,7 +563,6 @@ let g:pymode_doc_key = 'K'
 
 " let g:pymode_folding = 0
 
-"
 let g:pymode_lint_cwindow = 0
 " let g:pymode_rope_complete_on_dot = 0
 " " let g:pymode_rope_completion_bind = '<C-Space>'
@@ -594,8 +593,6 @@ let g:echodoc#enable_at_startup = 1
 " Disable completion previews with function prototypes, etc.
 set completeopt-=preview
 " set previewheight=50  " Preview window height
-
-" let g:python3_host_prog = '/path/to/neovim/env/bin/python'
 
 set pumheight=10  " Limit show max 10 suggestions
 
