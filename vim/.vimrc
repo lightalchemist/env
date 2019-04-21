@@ -22,6 +22,8 @@ Plugin 'vim-scripts/matchit.zip'
 
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'zchee/deoplete-jedi'
+Plugin 'zchee/deoplete-clang'
+
 Plugin 'Shougo/echodoc.vim'
 if !has('nvim')
   Plugin 'roxma/nvim-yarp'
@@ -582,6 +584,13 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.python = ''
+
+set runtimepath+=~/.vim/bundle/deoplete-clang/
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/include/clang/6.0/include/'
+
+let g:deoplete#sources#jedi#python_path = '/usr/bin/python3'
+let g:deoplete#sources#jedi#extra_path = '~/.local/lib/python3.6/site-packages'
 
 set shortmess+=c
 set cmdheight=2
