@@ -167,7 +167,7 @@ let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 " Path to formatter
-let g:formatterpath = ['/usr/lib/llvm-3.6/bin']
+let g:formatterpath = ['/usr/lib/llvm-6.0/bin']
 
 
 "I don't recall where this came from, but it makes Vim put all its backup
@@ -588,6 +588,12 @@ let g:deoplete#omni#input_patterns.python = ''
 set runtimepath+=~/.vim/bundle/deoplete-clang/
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/include/clang/6.0/include/'
+let g:deoplete#sources#clang#std#cpp = 'c++1z'
+let g:deoplete#sources#clang#sort_algo = 'priority'
+let g:deoplete#sources#clang#flags = [
+    \ "-stdlib=libc++",
+    \ ]
+
 
 let g:deoplete#sources#jedi#python_path = '/usr/bin/python3'
 let g:deoplete#sources#jedi#extra_path = '~/.local/lib/python3.6/site-packages'
