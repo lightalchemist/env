@@ -598,6 +598,9 @@ let g:deoplete#sources#clang#flags = [
 let g:deoplete#sources#jedi#python_path = '/usr/bin/python3'
 let g:deoplete#sources#jedi#extra_path = '~/.local/lib/python3.6/site-packages'
 
+let g:neoinclude#paths = '/usr/local/include'
+let g:neoinclude#paths#cpp = ['/usr/include', '/usr/local/include']
+
 set shortmess+=c
 set cmdheight=2
 set showmode
