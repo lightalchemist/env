@@ -77,9 +77,13 @@ Plugin 'mileszs/ack.vim'
 
 Plugin 'Chiel92/vim-autoformat'
 
+Plugin 'heavenshell/vim-pydocstring'
+
 call vundle#end()
 
 filetype plugin indent on
+
+" nmap <silent> <C-L> <Plug>(pydocstring)
 
 "Must set this to enable 256 color support
 set t_Co=256
@@ -102,6 +106,8 @@ colorscheme seoul256
 
 let g:goyo_width = 100
 let g:goyo_height = 100
+
+let g:goyo_linenr = 1
 
 " Ensure colors work correctly in tmux
 " set term=screen-256color
@@ -217,7 +223,7 @@ set preserveindent
 "for a single line.  The last one converts TAB characters into spaces instead
 "of TAB characters.  (Apparently this is big to programmers,
 "I use it to follow conventions in the Ruby programming language.
-set tabstop=4 shiftwidth=4 expandtab
+set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 
 "This turns off physical line wrapping (i.e. auto insertion of newlines)
 "set textwidth=0 wrapmargin=0
@@ -685,7 +691,7 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-let g:ultisnips_python_style = 0x3
+let g:ultisnips_python_style = "numpy"
 let g:UltiSnips = {}
 let g:snips_email = "hngwei.ng@gmail.com"
 let g:snips_author = "Hong-Wei Ng"
