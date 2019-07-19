@@ -840,4 +840,4 @@ function! s:align()
 endfunction
 
 " Mapping for Pydocstring
-nmap <silent> <leader>l :Pydocstring<CR>
+nmap <silent> <leader>l <Plug>(pydocstring)
