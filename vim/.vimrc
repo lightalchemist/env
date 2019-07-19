@@ -83,8 +83,6 @@ call vundle#end()
 
 filetype plugin indent on
 
-" nmap <silent> <C-L> <Plug>(pydocstring)
-
 "Must set this to enable 256 color support
 set t_Co=256
 
@@ -840,3 +838,6 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
+
+" Mapping for Pydocstring
+nmap <silent> <leader>l :Pydocstring<CR>
