@@ -37,13 +37,14 @@ bindkey '^b' vi-backward-blank-word
 bindkey '^ ' autosuggest-accept
 bindkey '^x' autosuggest-clear
 
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=red,bg=white'
 
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=117'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=117'
 
 # ZSH_AUTOSUGGEST_HIGHLIGHT_COLOR='fg=blue'
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=blue,bg=white'
 # AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=blue'
+
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=red,bg=white'
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=blue,bg=white'
 
 
 # Prefix to use when saving original versions of bound widgets
@@ -183,9 +184,8 @@ alias grep='grep --color=auto -nH'
 # export TERM="xterm-256color"
 
 # This adds [dd-mm-yy time] that updates to right prompt
-# Use %p instead of %K for 12 hour time format
+
 # RPROMPT='[%D %D{%L:%M:%S %K}]'
-RPROMPT='[%D %D{%L:%M:%S %K}]'
 
 alias vim='nvim'
 alias vi='nvim'
@@ -215,7 +215,6 @@ eval "$(fasd --init auto)"
 
 # Remove username and local machine on left side of prompt
 export DEFAULT_USER=$USER
-
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
