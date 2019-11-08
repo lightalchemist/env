@@ -191,6 +191,9 @@ alias vim='nvim'
 alias vi='nvim'
 export EDITOR=`which vim`
 
+# Start tmux with utf-8 support
+alias tmux='tmux -u'
+
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
 
