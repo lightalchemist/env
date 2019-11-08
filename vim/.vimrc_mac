@@ -24,8 +24,6 @@ Plugin 'mhinz/vim-signify'
 " Plugin 'ctrlpvim/ctrlp.vim'
 " Plugin 'tacahiroy/ctrlp-funky'
 
-" Plugin 'kien/rainbow_parentheses.vim'
-
 Plugin 'luochen1990/rainbow'
 
 Plugin 'Raimondi/delimitMate'
@@ -51,8 +49,10 @@ Plugin 'google/vim-searchindex'
 " Plugin 'neomake/neomake'
 
 Plugin 'tomtom/tcomment_vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
+Plugin 'itchyny/lightline.vim'
+
 
 " Plugin 'tomtom/tlib_vim'
 " Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -85,6 +85,7 @@ Plugin 'Chiel92/vim-autoformat'
 Plugin 'heavenshell/vim-pydocstring'
 
 Plugin 'octol/vim-cpp-enhanced-highlight'
+" Plugin 'sheerun/vim-polyglot'
 
 Plugin 'vim-scripts/a.vim'
 
@@ -327,15 +328,13 @@ set ruler
 set laststatus=2
 " set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%==%c,%l/%L\ %P
 
-" Press F3 to retab
-" nnoremap <silent> <F3> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
-
 " This is suppose to auto source vimrc file after editing and saving it.
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC | AirlineRefresh
-    autocmd BufWritePost $MYVIMRC AirlineRefresh
-augroup END " }
+" augroup reload_vimrc " {
+"     autocmd!
+"     autocmd BufWritePost $MYVIMRC source $MYVIMRC | AirlineRefresh
+"     autocmd BufWritePost $MYVIMRC AirlineRefresh
+" augroup END " }
+
 "Backspace works in Insert mode (e.g. not inserting a ^?), but won't delete over line breaks, or automatically-inserted indentation, or the place where insert mode started:
 set backspace=indent,eol,start
 
@@ -386,24 +385,14 @@ command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=
 set encoding=utf-8
 
 "Enable powerline tabline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#whitespace#enabled = 0
-"Configure airline tab separator
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '>'
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-"Use nice fonts from powerline
-let g:airline_powerline_fonts = 1
-let g:airline_theme = "sol"
-" let g:airline_theme = "molokai"
-" let g:airline_theme = "tomorrow"
-" let g:airline_theme = "light"
-" let g:airline_theme = "solarized"
-" let g:airline_theme = "raven"
-" let g:airline_theme = "powerlineish"
-" Might pair well with seoul256 colorscheme
-" let g:airline_theme = "hybridline"
-" let g:airline_theme = "bubblegum"
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#whitespace#enabled = 0
+" let g:airline_powerline_fonts = 1
+" let g:airline_theme = "sol"
+
+let g:lightline = {
+      \ 'colorscheme': 'seoul256',
+      \ }
 
 
 "Allows you to use w!! to save file that requires root priviledge
@@ -485,62 +474,20 @@ set wildignore+=*.swp,*.bak,*.class,*.o,*.obj,*.pyc,*.pkl,*.jpg,*.bmp,*.png,*.ma
 " ctrlp funky
 " let g:ctrlp_funky_syntax_highlight = 1
 " nnoremap <Leader>F :CtrlPFunky<CR>
-
 " let g:ctrlp_root_markers = ['.gitignore']
-
 " let g:ctrlp_max_files=0
 " let g:ctrlp_max_depth=40
-
 " Minimum show 4 lines, maximum 999 lines
 " let g:ctrlp_match_window = 'min:5,max:30,results:100'
 
 "Rainbow Parentheses
 " au FileType c,cpp,objc,objcpp,py,java,m call Load_Rainbow()
 
-" function! Config_Rainbow()
-"     call rainbow_parentheses#load(0)
-"     call rainbow_parentheses#load(1)
-"     call rainbow_parentheses#load(2)
-" endfunction
-"
-" function! Load_Rainbow()
-"     call rainbow_parentheses#activate()
-" endfunction
-"
-" augroup TastetheRainbow
-"     autocmd!
-"     autocmd Syntax * call Config_Rainbow()
-"     autocmd VimEnter,BufRead,BufWinEnter,BufNewFile * call Load_Rainbow()
-" augroup END
-
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
-
-
-" let g:rbpt_colorpairs = [
-"     \ ['LightRed'  , 'RoyalBlue3']  ,
-"     \ [112         , 'SeaGreen3']   ,
-"     \ ['darkgray'  , 'DarkOrchid3'] ,
-"     \ ['darkgreen' , 'firebrick3']  ,
-"     \ ['darkcyan'  , 'RoyalBlue3']  ,
-"     \ ['red'       , 'SeaGreen3']   ,
-"     \ [226         , 'DarkOrchid3'] ,
-"     \ ['red'       , 'firebrick3']  ,
-"     \ ['gray'      , 'RoyalBlue3']  ,
-"     \ [112         , 'SeaGreen3']   ,
-"     \ [226         , 'DarkOrchid3'] ,
-"     \ [112         , 'firebrick3']  ,
-"     \ [204         , 'SeaGreen3']   ,
-"     \ ['darkgreen' , 'RoyalBlue3']  ,
-"     \ [112         , 'DarkOrchid3'] ,
-"     \ ['gray'      , 'RoyalBlue3']  ,
-"     \ ]
 
 " Update this with the amount of supported colors
 let g:rbpt_max = 16
 
-" nnoremap <silent> <Leader>R :RainbowParenthesesToggle<CR>
-" let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
-" let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 
 let g:pymode_python = 'python3'
 
@@ -550,6 +497,8 @@ let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope_autoimport = 0
 
 let g:pymode_rope_ropefolder='~/cache'
+
+let g:pymode_breakpoint_bind = '<leader>k'
 
 " let g:pymode_rope_goto_definition_bind = '<leader>g'
 " let g:pymode_rope_goto_definition_cmd = 'new'
@@ -599,43 +548,6 @@ let g:pymode_lint_cwindow = 0
 " " Turn off warnings
 let g:pymode_warnings = 0
 
-" deoplete
-" set runtimepath+=~/.vim/bundle/deoplete.nvim/
-" let g:deoplete#enable_at_startup = 1
-" let g:deoplete#enable_smart_case = 1
-" let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm/lib/libclang.dylib'
-" let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/include/clang'
-
-" LanguageClient-neovim
-" See https://github.com/autozimu/LanguageClient-neovim/blob/next/INSTALL.md
-" set runtimepath+=~/.vim/bundle/bundle/LanguageClient-neovim
-" Taken from https://github.com/MaskRay/ccls/wiki/LanguageClient-neovim
-" let g:LanguageClient_serverCommands = {
-"     \ 'c': ['nice', 'ccls', '--log-file=/tmp/cc.log'],
-"     \ 'cpp': ['nice', 'ccls', '--log-file=/tmp/cc.log'],
-"     \ 'cuda': ['ccls', '--log-file=/tmp/cc.log'],
-"     \ 'objc': ['ccls', '--log-file=/tmp/cc.log'],
-"     \ }
-
-" Register ccls C++ lanuage server.
-" Taken from https://github.com/MaskRay/ccls/wiki/vim-lsp
-" if executable('ccls')
-"    au User lsp_setup call lsp#register_server({
-"       \ 'name': 'ccls',
-"       \ 'cmd': {server_info->['ccls']},
-"       \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-"       \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
-"       \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-"       \ })
-" endif
-
-" let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
-" let g:LanguageClient_settingsPath = '/home/hongwei/.config/nvim/settings.json'
-" " https://github.com/autozimu/LanguageClient-neovim/issues/379 LSP snippet is not supported
-" "let g:LanguageClient_hasSnippetSupport = 0
-" " Disable showing error at the end of line
-" let g:LanguageClient_useVirtualText = 0
-" let g:LanguageClient_completionPreferTextEdit = 1
 
 set shortmess+=c
 set cmdheight=2
@@ -656,40 +568,6 @@ set completeopt-=preview
 " set previewheight=50  " Preview window height
 
 set pumheight=20  " Limit show max 10 suggestions
-
-" Neomake
-" autocmd! BufWritePost * Neomake!
-" let g:neomake_warning_sign = {
-"   \ 'text': 'W',
-"   \ 'texthl': 'WarningMsg',
-"   \ }
-" let g:neomake_error_sign = {
-"   \ 'text': 'E',
-"   \ 'texthl': 'ErrorMsg',
-"   \ }
-
-" let g:neomake_python_flake8_maker = {
-"     \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202,E501',  '--format=default'],
-"     \ 'errorformat':
-"         \ '%E%f:%l: could not compile,%-Z%p^,' .
-"         \ '%A%f:%l:%c: %t%n %m,' .
-"         \ '%A%f:%l: %t%n %m,' .
-"         \ '%-G%.%#',
-"     \ }
-
-" let g:neomake_python_pep8_maker = {
-"     \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202,E501',  '--format=default'],
-"     \ 'errorformat':
-"         \ '%E%f:%l: could not compile,%-Z%p^,' .
-"         \ '%A%f:%l:%c: %t%n %m,' .
-"         \ '%A%f:%l: %t%n %m,' .
-"         \ '%-G%.%#',
-"     \ }
-
-" let g:neomake_python_enabled_makers = ['flake8', 'pep8']
-
-
-" Syntastic
 
 set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
@@ -812,11 +690,11 @@ set tags+=./tags;,~/.vimtags
 
 " Gutentags config
 set statusline+=%{gutentags#statusline()}
-augroup MyGutentagsStatusLineRefresher
-    autocmd!
-    autocmd User GutentagsUpdating call airline#load_theme()
-    autocmd User GutentagsUpdated call airline#load_theme()
-augroup END
+" augroup MyGutentagsStatusLineRefresher
+"     autocmd!
+"     autocmd User GutentagsUpdating call airline#load_theme()
+"     autocmd User GutentagsUpdated call airline#load_theme()
+" augroup END
 let g:gutentags_cache_dir="~/.cache/gutentags"
 let g:gutentags_ctags_exclude = ['.ccls-cache']
 let g:gutentags_project_root = ['.git/', 'compile_commands.json']
