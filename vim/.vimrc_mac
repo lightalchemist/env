@@ -52,7 +52,7 @@ Plugin 'tomtom/tcomment_vim'
 " Plugin 'vim-airline/vim-airline'
 " Plugin 'vim-airline/vim-airline-themes'
 Plugin 'itchyny/lightline.vim'
-
+Plugin 'mengelbrecht/lightline-bufferline'
 
 " Plugin 'tomtom/tlib_vim'
 " Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -384,32 +384,50 @@ command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=
 
 set encoding=utf-8
 
-"Enable powerline tabline
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#whitespace#enabled = 0
-" let g:airline_powerline_fonts = 1
-" let g:airline_theme = "sol"
+let g:lightline#bufferline#show_number  = 2
+let g:lightline#bufferline#shorten_path = 1
+let g:lightline#bufferline#unnamed      = '[No Name]'
+let g:lightline                         = {'colorscheme': 'seoul256'}
+let g:lightline.tabline                 = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand        = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type          = {'buffers': 'tabsel'}
+" let g:lightline#bufferline#number_map = {
+" \ 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
+" \ 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'}
+let g:lightline#bufferline#filename_modifier = ':t'
+" let g:lightline#bufferline#number_separator = ':'
+" let g:lightline#bufferline#enable_devicons = 1
+" let g:lightline#bufferline#unicode_symbols = 1
 
-let g:lightline = {
-      \ 'colorscheme': 'seoul256',
-      \ }
+nmap <Leader>1 <Plug>lightline#bufferline#go(1)
+nmap <Leader>2 <Plug>lightline#bufferline#go(2)
+nmap <Leader>3 <Plug>lightline#bufferline#go(3)
+nmap <Leader>4 <Plug>lightline#bufferline#go(4)
+nmap <Leader>5 <Plug>lightline#bufferline#go(5)
+nmap <Leader>6 <Plug>lightline#bufferline#go(6)
+nmap <Leader>7 <Plug>lightline#bufferline#go(7)
+nmap <Leader>8 <Plug>lightline#bufferline#go(8)
+nmap <Leader>9 <Plug>lightline#bufferline#go(9)
+nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 
+" Always show tabline
+set showtabline=2
 
 "Allows you to use w!! to save file that requires root priviledge
 "and was opened without it.
 cmap w!! w !sudo tee % >/dev/null
 
 " Go to tab by number 
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
+" noremap <leader>1 1gt
+" noremap <leader>2 2gt
+" noremap <leader>3 3gt
+" noremap <leader>4 4gt
+" noremap <leader>5 5gt
+" noremap <leader>6 6gt
+" noremap <leader>7 7gt
+" noremap <leader>8 8gt
+" noremap <leader>9 9gt
+" noremap <leader>0 :tablast<cr>
 "Map Alt-l and Alt-h to move between tabs
 noremap l gt
 noremap h gT
