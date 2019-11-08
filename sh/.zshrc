@@ -1,34 +1,28 @@
-source "$HOME/.antigen/antigen.zsh"
+export ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="agnoster"
 
-# Install antigen
-# git clone https://github.com/zsh-users/antigen ~/.antigen
+plugins=(
+         colored-man-pages
+         command-not-found
+         # common-aliases 
+         extract 
+         fasd 
+         git 
+         git-extras 
+         git-flow
+         history-substring-search
+         colorize
+         python
+         brew
+         osx 
+         zsh-autosuggestions
+         zsh-completions 
+         zsh-syntax-highlighting 
+         web-search 
+         svn)
 
-antigen use oh-my-zsh
-
-antigen bundle chrissicool/zsh-256color
-
-# bundles from oh-my-zsh
-antigen bundle extract
-antigen bundle git
-# antigen bundle virtualenvwrapper
-antigen bundle virtualenv
-antigen bundle dirhistory
-antigen bundle common-aliases
-antigen bundle command-not-found
-antigen bundle fasd
-
-antigen bundle zsh-users/zsh-completions src
-antigen bundle tarruda/zsh-autosuggestions
-# antigen bundle kennethreitz/autoenv
-antigen bundle Tarrasch/zsh-autoenv
-
-# zsh-syntax-highlighting must be loaded before history-substring-search
-# See: https://github.com/zsh-users/zsh-history-substring-search
-antigen bundle history-substring-search
-antigen bundle zsh-users/zsh-syntax-highlighting
-
-
-antigen theme agnoster
+# For autocompletion
+autoload -U compinit && compinit
 
 setopt correct_all # Enable autocorrect suggestions
 ENABLE_CORRECTION="true"
@@ -43,18 +37,19 @@ bindkey '^b' vi-backward-blank-word
 bindkey '^ ' autosuggest-accept
 bindkey '^x' autosuggest-clear
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=red,bg=white'
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=red,bg=white'
+
 # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=117'
 
 # ZSH_AUTOSUGGEST_HIGHLIGHT_COLOR='fg=blue'
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=blue,bg=white'
 # AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=blue'
 
 
 # Prefix to use when saving original versions of bound widgets
-ZSH_AUTOSUGGEST_ORIGINAL_WIDGET_PREFIX=autosuggest-orig-
+# ZSH_AUTOSUGGEST_ORIGINAL_WIDGET_PREFIX=autosuggest-orig-
 
-ZSH_AUTOSUGGEST_STRATEGY=default
+# ZSH_AUTOSUGGEST_STRATEGY=default
 
 
 # Widgets that clear the suggestion
@@ -122,7 +117,10 @@ bindkey '^[[B' history-substring-search-down
 
 
 # added by Anaconda3 installer
-export PATH="/home/hongwei/anaconda3/bin:$PATH"
+# export PATH="/home/hongwei/anaconda3/bin:$PATH"
+
+# Path to Homebrew packages
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # Need to set this so that Vim's YouCompleteMe plugin find libs and provide suggestions
 # NOTE: Need to be careful how this is set, especially when working with virtualenv.
@@ -135,18 +133,16 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 # Aliases
-alias ll='ls -AlhF'
-alias la='ls -aF'
+# alias ll='ls -AlhF'
+# alias la='ls -aF'
 # ls --option not available on OS X. Need to use Homebrew to install coreutils
-alias ls='ls --color=tty -F --group-directories-first'
-alias l=ls
-alias lc='ls --color=tty -F --format=single-column --group-directories-first'
-alias rm='trash'
+# alias ls='ls --color=tty -F --group-directories-first'
+# alias l=ls
+# alias lc='ls --color=tty -F --format=single-column --group-directories-first'
+# alias rm='trash'
 alias cp='cp -i'
 alias mv='mv -i'
 alias grep='grep --color=auto -nH'
-# For fasd cd
-alias c='fasd_cd -d'
 
 # NOTE: PATH variable must be set before sourcing virtualenvwrapper.sh
 # See http://virtualenvwrapper.readthedocs.org/en/latest/install.html
@@ -215,10 +211,64 @@ zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 # To activate fasd
 eval "$(fasd --init auto)"
 
-antigen apply
+# antigen apply
+
+# Remove username and local machine on left side of prompt
+export DEFAULT_USER=$USER
 
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
   fi
 }
+
+
+# Don't save duplicate commands in history
+export HISTCONTROL=ignoredups
+
+alias ctags="`brew --prefix`/bin/ctags"
+
+source $ZSH/oh-my-zsh.sh
+source /Users/hongwei/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# BMD environment variables
+export COMPONENT_ROOT=/usr/local/Components
+export BMDCPT_FORCE_HOST=mac-elcap
+export FUSION_NO_OBFUSCATION=1
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if (($+commands[fzf])) && (($+commands[bat]))&& (($+commands[ag])); then
+    # export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+    # export FZF_DEFAULT_COMMAND='ag -g ""'
+    export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore-vcs'
+    # export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+    # export FZF_DEFAULT_OPTS=' '
+    export FZF_CTRL_T_OPTS="--preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+fi
+
+unalias -m 'fd'
+
+source ~/.iterm2_shell_integration.zsh
+export HOMEBREW_GITHUB_API_TOKEN=16033de5896dcbc3a40755fd4e91181adb26a907
+
+
+alias ls="exa --group-directories-first"
+alias cat="bat"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/hongwei/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/hongwei/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/hongwei/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/hongwei/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
