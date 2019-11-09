@@ -15,16 +15,12 @@ Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-unimpaired'
-
 Plugin 'tpope/vim-dispatch'
-
 Plugin 'tpope/vim-fugitive'
 Plugin 'mhinz/vim-signify'
 
 " Plugin 'ctrlpvim/ctrlp.vim'
 " Plugin 'tacahiroy/ctrlp-funky'
-
-Plugin 'luochen1990/rainbow'
 
 Plugin 'Raimondi/delimitMate'
 Plugin 'vim-scripts/matchit.zip'
@@ -70,8 +66,11 @@ Plugin 'moll/vim-bbye'
 Plugin 'junegunn/vim-easy-align.git'
 Plugin 'junegunn/goyo.vim'
 Plugin 'junegunn/limelight.vim'
-
 Plugin 'junegunn/fzf.vim'
+" Plugin 'luochen1990/rainbow'
+Plugin 'junegunn/rainbow_parentheses.vim'
+Plugin 'junegunn/vim-peekaboo'
+
 
 " Color schemes
 " Bundle 'lightalchemist/molokai'
@@ -100,7 +99,7 @@ Plugin 'mhinz/vim-startify'
 
 Plugin 'kshenoy/vim-signature'
 
-Plugin 'ryanoasis/vim-devicons'
+" Plugin 'ryanoasis/vim-devicons'
 
 Plugin 'junegunn/gv.vim'
 
@@ -501,10 +500,12 @@ set wildignore+=*.swp,*.bak,*.class,*.o,*.obj,*.pyc,*.pkl,*.jpg,*.bmp,*.png,*.ma
 "Rainbow Parentheses
 " au FileType c,cpp,objc,objcpp,py,java,m call Load_Rainbow()
 
-let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+let g:rainbow#max_level = 16
+
+" let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
 " Update this with the amount of supported colors
-let g:rbpt_max = 16
+" let g:rbpt_max = 16
 
 
 let g:pymode_python = 'python3'
@@ -523,8 +524,8 @@ let g:pymode_breakpoint_bind = '<leader>k'
 " let g:pymode_rope_rename_bind = '<leader>pr'
 
 " Documentation
-" let g:pymode_doc = 1
-" let g:pymode_doc_key = 'K'
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
 
 let g:pymode_trim_whitespaces=0
 
@@ -607,8 +608,8 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 
 let g:ultisnips_python_style = "numpy"
 let g:UltiSnips = {}
-let g:snips_email = "hongwein@blackmagicdesign.com"
-let g:snips_author = "Hong Wei Ng"
+let g:snips_email = "hngwei.ng@gmail.com"
+let g:snips_author = "Hong-Wei Ng"
 
 " Integrate with languageClient
 " Taken from https://github.com/autozimu/LanguageClient-neovim/wiki/UltiSnips-Integration
@@ -627,7 +628,7 @@ let delimitMate_expand_cr = 1
 
 " So that delimiMate will work well with coc.nvim.
 " See https://ianding.io/2019/07/29/configure-coc-nvim-for-c-c++-development/
-imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<Plug>delimitMateCR"
+" imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<Plug>delimitMateCR"
 
 " Tagbar
 map <silent><Leader>v :TagbarToggle<CR>
@@ -877,37 +878,19 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " Navigate snippet placeholders using tab
-" let g:coc_snippet_next = '<C-j>'
-" let g:coc_snippet_prev = '<C-k>'
-
-" vmap <C-j> <Plug>(coc-snippet-next)
-" vmap <C-k> <Plug>(coc-snippet-prev)
+let g:coc_snippet_next = '<C-j>'
+let g:coc_snippet_prev = '<C-k>'
 
 " Use enter to accept snippet expansion
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
+                                           \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" let g:coc_snippet_next = '<C-j>'
-vmap <C-j> <Plug>(coc-snippets-select)
 
 call coc#config('coc.languageserver', {
       \ 'ccls': {
@@ -918,31 +901,43 @@ call coc#config('coc.languageserver', {
       \ },
       \})
 call coc#config("coc.preferences.diagnostic.displayByAle", 1)
+call coc#config("python.jediEnabled", 0)
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
 
 " https://github.com/neoclide/coc.nvim#example-vim-configuration
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" gd - go to definition of word under cursor
+" ld - go to definition of word under cursor
 nmap <silent> <leader>ld <Plug>(coc-definition)
 nmap <silent> <leader>ly <Plug>(coc-type-definition)
 
-" gi - go to implementation
+" li - go to implementation
 nmap <silent> <leader>li <Plug>(coc-implementation)
 
-" gr - find references
+" lr - find references
 nmap <silent> <leader>lr <Plug>(coc-references)
 
-" gh - get hint on whatever's under the cursor
+" lh - get hint on whatever's under the cursor
 " nnoremap <silent> K :call <SID>show_documentation()<CR>
 nnoremap <silent> <leader>lh :call <SID>show_documentation()<CR>
 
+" function! s:show_documentation()
+"   if &filetype == 'vim'
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
 function! s:show_documentation()
-  if &filetype == 'vim'
+  if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
     call CocAction('doHover')
   endif
 endfunction
+
 
 " Coc bindings
 " Highlight symbol under cursor on CursorHold
