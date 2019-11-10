@@ -96,7 +96,7 @@ set incsearch
 set ic
 
 "Highlight things that we find with search
-set hlsearch
+" set hlsearch
 nnoremap <silent> ,/ :set hlsearch!<CR>
 
 "Turn syntax highlighting on.  (This helps you know when you leave a brace open!):
@@ -227,11 +227,10 @@ set laststatus=2
 " set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%==%c,%l/%L\ %P
 
 " This is suppose to auto source vimrc file after editing and saving it.
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC | AirlineRefresh
-    autocmd BufWritePost $MYVIMRC AirlineRefresh
-augroup END " }
+augroup reload_vimrc
+       autocmd!
+       autocmd bufwritepost $MYVIMRC nested source $MYVIMRC
+augroup END
 
 "Backspace works in Insert mode (e.g. not inserting a ^?), but won't delete over line breaks, or automatically-inserted indentation, or the place where insert mode started:
 set backspace=indent,eol,start
@@ -285,7 +284,21 @@ set encoding=utf-8
 let g:lightline#bufferline#show_number  = 2
 let g:lightline#bufferline#shorten_path = 1
 let g:lightline#bufferline#unnamed      = '[No Name]'
-let g:lightline                         = {'colorscheme': 'seoul256'}
+let g:lightline                         = {
+            \'colorscheme': 'seoul256',
+            \   'active': {
+            \     'left':[ [ 'mode', 'paste' ],
+            \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+            \     ]
+            \   },
+            \   'component': {
+            \     'lineinfo': ' %3l:%-2v',
+            \   },
+            \   'component_function': {
+            \     'gitbranch': 'fugitive#head',
+            \   }
+            \ }
+
 let g:lightline.tabline                 = {'left': [['buffers']], 'right': [['close']]}
 let g:lightline.component_expand        = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type          = {'buffers': 'tabsel'}
@@ -385,7 +398,7 @@ let g:pymode_warnings = 0
 
 set shortmess+=c
 set cmdheight=2
-set showmode
+set noshowmode
 
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
@@ -410,8 +423,8 @@ endif
 " UltiSnips
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
-" let g:UltiSnipsJumpForwardTrigger = "<tab>"
-" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 let g:ultisnips_python_style = "numpy"
 let g:UltiSnips = {}
@@ -498,11 +511,6 @@ set tags+=./tags;,~/.vimtags
 
 " Gutentags config
 set statusline+=%{gutentags#statusline()}
-" augroup MyGutentagsStatusLineRefresher
-"     autocmd!
-"     autocmd User GutentagsUpdating call airline#load_theme()
-"     autocmd User GutentagsUpdated call airline#load_theme()
-" augroup END
 let g:gutentags_cache_dir="~/.cache/gutentags"
 let g:gutentags_ctags_exclude = ['.ccls-cache']
 let g:gutentags_project_root = ['.git/', 'compile_commands.json']
@@ -787,6 +795,7 @@ let g:startify_session_delete_buffers = 1
 " FOLDS
 nnoremap <silent> <Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
 vnoremap <Space> zA
+
 set nofoldenable " Don't fold on start
 
 " Vim cpp enhanhanced highlight
