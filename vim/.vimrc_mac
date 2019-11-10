@@ -1,116 +1,79 @@
-" Vundle
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/bundle')
+
 set nocompatible
-filetype off
 
-" Let Vundle manage Vundle required!
-set rtp+=~/.vim/bundle/vundle/
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'mhinz/vim-signify'
 
-" fzf is installed using homebrew
-set rtp+=/usr/local/opt/fzf
+Plug 'Raimondi/delimitMate'
+Plug 'vim-scripts/matchit.zip'
+" Plug 'dense-analysis/ale'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'majutsushi/tagbar'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'google/vim-searchindex'
 
-call vundle#begin()
+Plug 'tomtom/tcomment_vim'
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 
-Plugin 'gmarik/vundle'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
 
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-fugitive'
-Plugin 'mhinz/vim-signify'
+Plug 'vim-scripts/TagHighlight'
 
-" Plugin 'ctrlpvim/ctrlp.vim'
-" Plugin 'tacahiroy/ctrlp-funky'
+Plug 'godlygeek/tabular'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'moll/vim-bbye'
 
-Plugin 'Raimondi/delimitMate'
-Plugin 'vim-scripts/matchit.zip'
-
-" Plugin 'dense-analysis/ale'
-Plugin 'python-mode/python-mode'
-Plugin 'neoclide/coc.nvim'
-" Plugin 'neoclide/coc-snippets'
-" Plugin 'neoclide/coc-highlight'
-
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-
-Plugin 'majutsushi/tagbar'
-
-Plugin 'ludovicchabant/vim-gutentags'
-
-Plugin 'google/vim-searchindex'
-
-" Plugin 'mbbill/undotree'
-
-" Plugin 'neomake/neomake'
-
-Plugin 'tomtom/tcomment_vim'
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
-Plugin 'itchyny/lightline.vim'
-Plugin 'mengelbrecht/lightline-bufferline'
-
-" Plugin 'tomtom/tlib_vim'
-" Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'honza/vim-snippets'
-Plugin 'SirVer/ultisnips'
-
-Plugin 'vim-scripts/TagHighlight.git'
-
-Plugin 'godlygeek/tabular'
-Plugin 'terryma/vim-multiple-cursors'
-" Plugin 'reedes/vim-wheel'
-
-Plugin 'moll/vim-bbye'
-
-Plugin 'junegunn/vim-easy-align.git'
-Plugin 'junegunn/goyo.vim'
-Plugin 'junegunn/limelight.vim'
-Plugin 'junegunn/fzf.vim'
-" Plugin 'luochen1990/rainbow'
-Plugin 'junegunn/rainbow_parentheses.vim'
-Plugin 'junegunn/vim-peekaboo'
-
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" Plug 'luochen1990/rainbow'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'junegunn/vim-peekaboo'
 
 " Color schemes
 " Bundle 'lightalchemist/molokai'
-Plugin 'junegunn/seoul256.vim'
-" Plugin 'altercation/vim-colors-solarized'
+Plug 'junegunn/seoul256.vim'
 
-Plugin 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim'
+Plug 'Chiel92/vim-autoformat'
+Plug 'heavenshell/vim-pydocstring'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'vim-scripts/a.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'bfredl/nvim-miniyank'
+Plug 'mhinz/vim-startify'
+Plug 'kshenoy/vim-signature'
+Plug 'junegunn/gv.vim'
+Plug 'Shougo/echodoc.vim'
+Plug 'junegunn/vim-slash'
+Plug 'markonm/traces.vim'
+Plug 'sheerun/vim-polyglot'
+" Plug 'christoomey/vim-tmux-runner'
+" Plug 'pseewald/vim-anyfold'
 
-Plugin 'Chiel92/vim-autoformat'
+call plug#end()
 
-Plugin 'heavenshell/vim-pydocstring'
-
-Plugin 'octol/vim-cpp-enhanced-highlight'
-" Plugin 'sheerun/vim-polyglot'
-
-Plugin 'vim-scripts/a.vim'
-
-Plugin 'christoomey/vim-tmux-navigator'
-" Plugin 'christoomey/vim-tmux-runner'
-
-Plugin 'bfredl/nvim-miniyank'
-
-Plugin 'mhinz/vim-startify'
-
-" Plugin 'pseewald/vim-anyfold'
-
-Plugin 'kshenoy/vim-signature'
-
-" Plugin 'ryanoasis/vim-devicons'
-
-Plugin 'junegunn/gv.vim'
-
-Plugin 'Shougo/echodoc.vim'
-
-call vundle#end()
-
-filetype plugin indent on
-
-" Enable 256 color support
 set t_Co=256
+
 " Only works for iterm2
 set termguicolors
 
@@ -124,22 +87,13 @@ set termguicolors
 let g:seoul256_background = 235
 colorscheme seoul256
 
-" colorscheme solarized
-
 let g:goyo_width = 100
 let g:goyo_height = 100
 let g:goyo_linenr = 1
 
-" Ensure colors work correctly in tmux
-" set term=screen-256color
-
-""""""""""""""""""""""""""""""""""""""""""
-"" SEARCH, HIGHLIGHT, SPELLING, ETC.
-""""""""""""""""""""""""""""""""""""""""""
-" The following lets searches be incremental.
-" So in normal mode, /sec will go to the first 'section',
-" for example.  I don't have to type /section for that:
 set incsearch
+"Case insensitive search
+set ic
 
 "Highlight things that we find with search
 set hlsearch
@@ -153,7 +107,6 @@ syntax on
 set hidden
 
 " Vim window stuff
-"I'm pretty sure this makes wrapped lines break at spaces, not in the middle of words:
 set linebreak breakat=\ 
 set list
 set listchars=tab:▸\ ,trail:⋅,extends:❯,precedes:❮
@@ -199,36 +152,16 @@ set formatprg=par
 " " Path to formatter
 " let g:formatterpath = ['/usr/lib/llvm-6.0/bin']
 
-
 "I don't recall where this came from, but it makes Vim put all its backup
 "and temporary files in places I don't mind:
-" set backupdir=~/.vim/tmp/backup//,~/.tmp,~/tmp,~/var/tmp,/tmp
-" set directory=~/.vim/tmp/swap//,~/.tmp,~/tmp,~/var/tmp,/tmp
 set backupdir=~/.local/share/nvim/swap,~/.vim/tmp/backup/,~/.tmp,~/tmp,~/var/tmp
 set directory=~/.local/share/nvim/swap,~/.vim/tmp/swap/,~/.tmp,~/tmp,~/var/tmp
 
-" persist Gundo tree between sessions
 set undodir=~/.vim/tmp/undo//
 set undofile
 set history=100
 set undolevels=100
 
-""""""""""""""""""""""""""""""
-" GENERIC PLUGIN BEHAVIOR """"
-""""""""""""""""""""""""""""""
-"Allows for plugins to do smart indentation (I think!):
-" filetype plugin indent on
-
-"I think this lets you use filetype specific plugins:
-" filetype plugin on
-
-"To be frank, offhand I don't know exactly what these two do.
-"The first does something with the Omni Complete function, which is very helpful.
-"The second does something when you have a file open in Vim and then open it
-"with another program and make changes. I think this makes Vim update its version
-" of the file:
-" set ofu=syntaxcomplete#Complete
-" set autoread
 " Tells Vim not to automatically reload changed files
 set noautoread
 
@@ -260,18 +193,12 @@ set scrolloff=5
 "Think this is no visual bell
 set novb
 
-""""""""""""""""
-" KEYMAP STUFF "
-""""""""""""""""
-
 " Make indenting and unindenting in visual mode retain the selection so
 " you don't have to re-select or type gv every time.
 vnoremap > ><CR>gv
 vnoremap < <<CR>gv
 
 "If you have wrapped lines, k will take you to the next line, which likely means the next paragraph.  gk will take you down what you think of as one line.  If you want that to be the default, then some of these mappings will do that.
-" noremap <up> gk 
-" noremap <down> gj
 noremap  <buffer> <silent> k gk
 noremap  <buffer> <silent> j gj
 " noremap  <buffer> <silent> 0 g0
@@ -291,14 +218,8 @@ set mouse=a
 "No need to prefix with '+' or *
 set clipboard=unnamedplus
 
-" nnoremap <F2> :set invpaste paste?<CR>
-" set pastetoggle=<F2>
-
 " Clear paste mode when going back to normal mode
 au InsertLeave * set nopaste
-
-" set showmode
-" set noshowmode
 
 noremap <backspace> O<Esc>j
 " noremap <CR> o<Esc>k
@@ -308,11 +229,6 @@ set showcmd
 
 "Map jj to Esc key
 inoremap jj <Esc>
-
-"Set incremental search
-set incsearch
-"Case insensitive search
-set ic
 
 "Map ';' to ':'
 nnoremap ; :
@@ -328,18 +244,18 @@ set laststatus=2
 " set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%==%c,%l/%L\ %P
 
 " This is suppose to auto source vimrc file after editing and saving it.
-" augroup reload_vimrc " {
-"     autocmd!
-"     autocmd BufWritePost $MYVIMRC source $MYVIMRC | AirlineRefresh
-"     autocmd BufWritePost $MYVIMRC AirlineRefresh
-" augroup END " }
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC | AirlineRefresh
+    autocmd BufWritePost $MYVIMRC AirlineRefresh
+augroup END " }
 
 "Backspace works in Insert mode (e.g. not inserting a ^?), but won't delete over line breaks, or automatically-inserted indentation, or the place where insert mode started:
 set backspace=indent,eol,start
 
 let mapleader = ","
-nnoremap <silent> <Leader>o :NERDTreeToggle<CR>
 
+nnoremap <silent> <Leader>o :NERDTreeToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 0
 
 " Shortcut for comment t
@@ -377,7 +293,7 @@ set splitbelow " Place new horizontal split below
 set splitright " Place new vertical split on right
 
 " Make Y behave normally
-" nnoremap Y y$
+nnoremap Y y$
 
 command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
 
@@ -390,14 +306,7 @@ let g:lightline                         = {'colorscheme': 'seoul256'}
 let g:lightline.tabline                 = {'left': [['buffers']], 'right': [['close']]}
 let g:lightline.component_expand        = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type          = {'buffers': 'tabsel'}
-" let g:lightline#bufferline#number_map = {
-" \ 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
-" \ 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'}
 let g:lightline#bufferline#filename_modifier = ':t'
-" let g:lightline#bufferline#number_separator = ':'
-" let g:lightline#bufferline#enable_devicons = 1
-" let g:lightline#bufferline#unicode_symbols = 1
-
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
 nmap <Leader>3 <Plug>lightline#bufferline#go(3)
@@ -416,17 +325,6 @@ set showtabline=2
 "and was opened without it.
 cmap w!! w !sudo tee % >/dev/null
 
-" Go to tab by number 
-" noremap <leader>1 1gt
-" noremap <leader>2 2gt
-" noremap <leader>3 3gt
-" noremap <leader>4 4gt
-" noremap <leader>5 5gt
-" noremap <leader>6 6gt
-" noremap <leader>7 7gt
-" noremap <leader>8 8gt
-" noremap <leader>9 9gt
-" noremap <leader>0 :tablast<cr>
 "Map Alt-l and Alt-h to move between tabs
 noremap l gt
 noremap h gT
@@ -443,25 +341,10 @@ let g:ag_working_path_mode="r"
 if executable('rg')
     set grepprg=rg\ --color=never
     let g:ackprg = 'rg --vimgrep --no-heading --smart-case --column'
-    let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-    let g:ctrlp_use_caching = 0
 elseif executable('ag')
-  let g:ackprg = 'ag --nogroup --nocolor --column --smart-case --vimgrep'
-
-  " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  " let g:ctrlp_use_caching = 0
+  let g:ackprg = 'ag --nogroup --nocolor --column --smart-case --vimgrep'
 endif
-
-" ack.vim
-" let g:ackhighlight = 1
-" nnoremap <Leader>af :Ack!  %<Left><Left>
-" nnoremap <Leader>f :Ack!  <space><Left><Left>
 
 " prevent flashing when searching
 set shellpipe=>
@@ -469,66 +352,26 @@ set shellpipe=>
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
-"Configure CtrlP
-
-" nnoremap <silent> <Leader>b :CtrlPBuffer<CR>
-" nnoremap <silent> <Leader>b :CtrlPTag<CR>
-
-" if executable('fd')
-"     let g:ctrlp_user_command = 'fd --type f --color=never "" %s'
-"     let g:ctrlp_use_caching = 0
-" endif
-
-" let g:ctrlp_map = '<Leader>t'
-" let g:ctrlp_cmd = 'CtrlP'
-" set wildignore+=*.so,*.zip     " MacOSX/Linux
-" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|jpg|jpeg|png|bmp)$|build|bin'
-" let g:ctrlp_working_path_mode = 'ra'
-" " let g:ctrlp_working_path_mode = ""
-" let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 set wildignore+=*.swp,*.bak,*.class,*.o,*.obj,*.pyc,*.pkl,*.jpg,*.bmp,*.png,*.mat,*.bak,*.pdf
 
-" ctrlp funky
-" let g:ctrlp_funky_syntax_highlight = 1
-" nnoremap <Leader>F :CtrlPFunky<CR>
-" let g:ctrlp_root_markers = ['.gitignore']
-" let g:ctrlp_max_files=0
-" let g:ctrlp_max_depth=40
-" Minimum show 4 lines, maximum 999 lines
-" let g:ctrlp_match_window = 'min:5,max:30,results:100'
-
-"Rainbow Parentheses
-" au FileType c,cpp,objc,objcpp,py,java,m call Load_Rainbow()
-
 let g:rainbow#max_level = 16
-
 " let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
-
 " Update this with the amount of supported colors
 " let g:rbpt_max = 16
 
-
 let g:pymode_python = 'python3'
-
 let g:pymode_rope = 1
 let g:pymode_rope_completion = 0
 let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope_autoimport = 0
-
 let g:pymode_rope_ropefolder='~/cache'
-
 let g:pymode_breakpoint_bind = '<leader>k'
-
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
+let g:pymode_trim_whitespaces=0
 " let g:pymode_rope_goto_definition_bind = '<leader>g'
 " let g:pymode_rope_goto_definition_cmd = 'new'
 " let g:pymode_rope_rename_bind = '<leader>pr'
-
-" Documentation
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
-
-let g:pymode_trim_whitespaces=0
-
 "Linting
 " let g:pymode_lint = 1
 " let g:pymode_lint_checkers = ['pep8']
@@ -537,36 +380,25 @@ let g:pymode_trim_whitespaces=0
 " Auto check on save
 " let g:pymode_lint_write = 1
 "
-" " Support virtualenv
-" " let g:virtualenv_directory="~/.virtualenvs"
-" " let g:pymode_virtualenv = 1
-" "
-" " " Enable breakpoints plugin
+" let g:virtualenv_directory="~/.virtualenvs"
+" let g:pymode_virtualenv = 1
+" " Enable breakpoints plugin
 " " let g:pymode_breakpoint = 1
 " " let g:pymode_breakpoint_bind = '<leader>b'
-" "
-" " syntax highlighting
+" syntax highlighting
 " let g:pymode_syntax = 1
 " let g:pymode_syntax_all = 1
 " let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 " let g:pymode_syntax_space_errors = g:pymode_syntax_all
-
-" let g:pymode_python = '/home/hongwei/anaconda3/bin/python3'
-
 " let g:pymode_folding = 0
-
 let g:pymode_lint_cwindow = 0
 " let g:pymode_rope_complete_on_dot = 0
-" " let g:pymode_rope_completion_bind = '<C-Space>'
-" " let g:pymode_rope_completion = 1
-" let g:pymode_rope_completion = 0
+" let g:pymode_rope_completion_bind = '<C-Space>'
+" let g:pymode_rope_completion = 1
 " let g:pymode_rope_lookup_project = 0
-"
 " let g:pymode_options_colorcolumn = 0
-"
-" " Turn off warnings
+" Turn off warnings
 let g:pymode_warnings = 0
-
 
 set shortmess+=c
 set cmdheight=2
@@ -575,24 +407,16 @@ set showmode
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 
-" LanguageClient-neovim config taken from
-" https://github.com/autozimu/LanguageClient-neovim/wiki/Recommended-Settings
-" Always draw the signcolumn.
 set signcolumn=yes
-
-" let g:deoplete#sources#jedi#show_docstring = 0
 
 " Disable completion previews with function prototypes, etc.
 set completeopt-=preview
 " set previewheight=50  " Preview window height
 
-set pumheight=20  " Limit show max 10 suggestions
+" Limit show max 20 suggestions
+set pumheight=20
 
 set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" We need this for plugins like Syntastic and vim-gitgutter which put symbols
-" in the sign column.
 hi clear SignColumn
 
 " For conceal markers.
@@ -610,13 +434,6 @@ let g:ultisnips_python_style = "numpy"
 let g:UltiSnips = {}
 let g:snips_email = "hngwei.ng@gmail.com"
 let g:snips_author = "Hong-Wei Ng"
-
-" Integrate with languageClient
-" Taken from https://github.com/autozimu/LanguageClient-neovim/wiki/UltiSnips-Integration
-" imap <expr> <CR> (pumvisible() ? "\<C-Y>\<Plug>(expand_or_cr)" : "\<CR>")
-" imap <expr> <Plug>(expand_or_cr) (cm#completed_is_snippet() ? "\<C-U>" : "\<CR>")
-" let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
-" inoremap <silent> <C-U> <C-R>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<CR>
 let g:UltiSnipsJumpForwardTrigger = "<C-J>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-K>"
 
@@ -664,9 +481,6 @@ function! s:goyo_leave()
     silent !tmux set status on
   endif
 
-  " This might help fix problem of airline top bar not drawn properly.
-  " autocmd AirlineRefresh
-
   " Quit Vim if this is the only remaining buffer
   if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
       if b:quitting_bang
@@ -682,7 +496,6 @@ autocmd User GoyoLeave nested call <SID>goyo_leave()
 
 " Save file and make project
 set makeprg=make\ -C\ ../build\ -j4
-" nnoremap <F5> :w<cr>:make!<cr>
 
 " F3 to toggle Goyo
 nnoremap <silent> <F1> :Goyo<CR>
@@ -697,15 +510,8 @@ let g:Limelight_default_coefficient = 0.7
 nnoremap <silent> <Leader>pc :pc<CR>
 
 " Requires Exuberant Tags
-" Call: "ctags -R" at the root directory of project
 " Search for tags all the way up the tree until one is found
 set tags+=./tags;,~/.vimtags
-" Sensible defaults
-" let g:easytags_events = ['BufReadPost', 'BufWritePost']
-" let g:easytags_async = 1
-" let g:easytags_dynamic_files = 2
-" let g:easytags_resolve_links = 1
-" let g:easytags_suppress_ctags_warning = 1
 
 " Gutentags config
 set statusline+=%{gutentags#statusline()}
@@ -814,14 +620,12 @@ nnoremap <leader>W :wa!<cr>
 " highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
-" Vim Tmux Navigation {
-    let g:tmux_navigator_no_mappings = 1
-    nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-    nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-    nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-    nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-    nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
-" }
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 
 " Vim-Signify
 nnoremap <leader>sd :VCSDiff<CR>
@@ -836,13 +640,6 @@ let g:signify_sign_delete_first_line = '▔'
 let g:signify_sign_change            = '≠' " options: ! ≠ • ~
 " let g:signify_sign_change            = '•' " options: ! ≠ • ~
 let g:signify_sign_changedelete      = g:signify_sign_change
-
-" signify: fixup colors
-" highlight SignifySignAdd             cterm=bold ctermbg=238 ctermfg=119
-" highlight SignifySignChange          cterm=bold ctermbg=238 ctermfg=119
-" highlight SignifySignDelete          cterm=bold ctermbg=238 ctermfg=167
-" highlight SignifySignChangeDelete    cterm=bold ctermbg=238 ctermfg=119
-" highlight SignifySignDeleteFirstLine cterm=bold ctermbg=238 ctermfg=119
 
 highlight SignifySignAdd             ctermbg=100 ctermfg=119
 highlight SignifySignChange          ctermbg=100 ctermfg=119
@@ -882,7 +679,6 @@ let g:coc_snippet_next = '<C-j>'
 let g:coc_snippet_prev = '<C-k>'
 
 " Use enter to accept snippet expansion
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
                                            \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
@@ -920,16 +716,7 @@ nmap <silent> <leader>li <Plug>(coc-implementation)
 nmap <silent> <leader>lr <Plug>(coc-references)
 
 " lh - get hint on whatever's under the cursor
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
 nnoremap <silent> <leader>lh :call <SID>show_documentation()<CR>
-
-" function! s:show_documentation()
-"   if &filetype == 'vim'
-"     execute 'h '.expand('<cword>')
-"   else
-"     call CocAction('doHover')
-"   endif
-" endfunction
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -937,7 +724,6 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-
 
 " Coc bindings
 " Highlight symbol under cursor on CursorHold
@@ -979,10 +765,8 @@ let g:session_directory = '~/src/sessions'
 " See https://github.com/bfredl/nvim-miniyank
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
-
 " map <leader>p <Plug>(miniyank-startput)
 " map <leader>P <Plug>(miniyank-startPut)
-
 map \p <Plug>(miniyank-cycle)
 map \P <Plug>(miniyank-cycleback)
 
@@ -999,10 +783,6 @@ let g:startify_lists = [
             \ ]
 let g:startify_bookmarks = [ {'c': '~/.vimrc'}, '~/.zshrc' ]
 let g:startify_session_delete_buffers = 1
-"Open startify when a new tab is opened
-" if has('nvim')
-"     au! TabNewEntered * Startify
-" endif
 
 " Vim anyfold
 " activate anyfold for specific file types
@@ -1024,26 +804,12 @@ let g:startify_session_delete_buffers = 1
 " FOLDS
 nnoremap <silent> <Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
 vnoremap <Space> zA
-
 set nofoldenable " Don't fold on start
-" set foldlevel=0  " close all folds
-" set foldlevel=99 " Open all folds
-" set foldmethod=syntax
-" set foldnestmax=1
-
-" let g:anyfold_identify_comments=2
 
 " Vim cpp enhanhanced highlight
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
-
-" Vim-eighties for auto resizing of windows
-" let g:eighties_enabled = 1
-" let g:eighties_minimum_width = 80
-" " let g:eighties_extra_width = 0 " Increase this if you want some extra room
-" let g:eighties_compute = 1 " Disable this if you just want the minimum + extra
-" " let g:eighties_bufname_additional_patterns = ['fugitiveblame'] " Defaults to [], 'fugitiveblame' is only an example. Takes a comma delimited list of bufnames as strings.
 
 nnoremap <silent> <F6> :!tmux send-keys -t 0:5.0 "noti Build/setup_deps_unix.sh && noti Build/build_unix.sh" Enter<CR>
 inoremap <silent> <F6> :!tmux send-keys -t 0:5.0 "noti Build/setup_deps_unix.sh && noti Build/build_unix.sh" Enter<CR>
@@ -1096,6 +862,8 @@ nnoremap <silent> <Leader>R :Tags<CR>
 nnoremap <silent> <Leader>m :Marks<CR>
 nnoremap <Leader>A :Rg <space><left>
 
+" ack.vim
+" let g:ackhighlight = 1
 nnoremap <Leader>aF :Ack!  <space><Left><Left>
 nnoremap <Leader>af :Ack!  %<Left><Left>
 
