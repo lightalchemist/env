@@ -406,8 +406,13 @@ let g:echodoc#type = 'signature'
 set signcolumn=yes
 
 " Disable completion previews with function prototypes, etc.
-set completeopt-=preview
+" set completeopt-=preview
 " set previewheight=50  " Preview window height
+
+set complete+=k
+set complete-=t
+"set completeopt=noinsert,noselect,menuone
+set completeopt=menu,preview
 
 " Limit show max 20 suggestions
 set pumheight=20
