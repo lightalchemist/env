@@ -1,6 +1,7 @@
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" This install vim-plug for NeoVim
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+ silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim  
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -49,10 +50,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-peekaboo'
 
-" Color schemes
-" Bundle 'lightalchemist/molokai'
-Plug 'junegunn/seoul256.vim'
-
 Plug 'mileszs/ack.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'heavenshell/vim-pydocstring'
@@ -69,6 +66,10 @@ Plug 'markonm/traces.vim'
 Plug 'sheerun/vim-polyglot'
 " Plug 'christoomey/vim-tmux-runner'
 " Plug 'pseewald/vim-anyfold'
+
+" Color schemes
+" Bundle 'lightalchemist/molokai'
+Plug 'junegunn/seoul256.vim'
 
 call plug#end()
 
@@ -189,10 +190,10 @@ noremap  <buffer> <silent> j gj
 
 " TODO: Remap wheel to Alt-k, Alt-j, and Alt-shift-k, Alt-shift-j for this
 " map Alt-j and Alt-k to scroll screen while maintaining cursor position at current line
-noremap j <C-e>
-noremap k <C-y>
-inoremap j <Esc><C-e>i
-inoremap k <Esc><C-y>i
+noremap j <C-e>
+noremap k <C-y>
+inoremap j <Esc><C-e>i
+inoremap k <Esc><C-y>i
 
 "This lets you use your mouse
 set mouse=a
@@ -320,12 +321,6 @@ set showtabline=2
 "Allows you to use w!! to save file that requires root priviledge
 "and was opened without it.
 cmap w!! w !sudo tee % >/dev/null
-
-"Map Alt-l and Alt-h to move between tabs
-noremap l gt
-noremap h gT
-inoremap l <Esc>gti
-inoremap h <Esc>gTi
 
 " Cycle through buffer
 nnoremap <silent> <C-Right> :bnext<CR>
@@ -503,8 +498,8 @@ nnoremap <silent> <F1> :Goyo<CR>
 inoremap <silent> <F1> <Esc>:Goyo<CR>i
 
 " Shift F3 to toggle Limelight
-nnoremap <silent> O1;2R :Limelight!!<CR>
-inoremap <silent> O1;2R <Esc>:Limelight!!<CR>i
+nnoremap <silent> O1;2R :Limelight!!<CR>
+inoremap <silent> O1;2R <Esc>:Limelight!!<CR>i
 let g:Limelight_default_coefficient = 0.7
 
 " Shortcut to close preview window
@@ -549,8 +544,8 @@ let g:cpp_class_decl_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 
 " So that italics will show up proerly in VIM
-set t_ZH=[3m
-set t_ZR=[23m
+set t_ZH=[3m
+set t_ZR=[23m
 
 " For indenting function arguments over multiple lines
 " http://stackoverflow.com/questions/11984520/vim-indent-align-function-arguments
