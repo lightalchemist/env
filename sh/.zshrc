@@ -173,7 +173,7 @@ export SPACESHIP_PROMPT_DEFAULT_PREFIX=""
 export SPACESHIP_GIT_PREFIX=""
 
 # This reduces the lag when switching to Vim normal mode
-# export KEYTIMEOUT=3
+# export KEYTIMEOUT=2
 
 # This is for spaceship vi-mode prompt. Must be set before sourcing oh-my-zsh.
 export RPS1="%{$reset_color%}"

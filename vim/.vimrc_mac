@@ -553,10 +553,6 @@ let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 
-" So that italics will show up proerly in VIM
-set t_ZH=[3m
-set t_ZR=[23m
-
 " For indenting function arguments over multiple lines
 " http://stackoverflow.com/questions/11984520/vim-indent-align-function-arguments
 set cino+=(0
@@ -919,6 +915,6 @@ let g:rooter_patterns = ['.git/', '.hg/', '.ccls', 'compile_commands.json', '.vi
 let g:rooter_change_directory_for_non_project_files = 'home'
 
 " Vim sneak
-map f <Plug>Sneak_s
-map F <Plug>Sneak_S
+" map f <Plug>Sneak_s
+" map F <Plug>Sneak_S
 let g:sneak#s_next = 1
