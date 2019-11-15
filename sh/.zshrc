@@ -6,7 +6,6 @@ plugins=(
          colored-man-pages
          command-not-found
          vi-mode
-         # common-aliases 
          extract 
          fasd 
          git 
@@ -30,15 +29,6 @@ setopt correct_all # Enable autocorrect suggestions
 ENABLE_CORRECTION="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Autosuggestion color
-bindkey '^f' vi-forward-blank-word
-bindkey '^b' vi-backward-blank-word
-bindkey '^ ' autosuggest-accept
-bindkey '^x' autosuggest-clear
-
-# Allow Esc . to insert last word in vim insert mode, just like in bash
-bindkey -M viins '\e.' insert-last-word
-
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=117'
 # ZSH_AUTOSUGGEST_HIGHLIGHT_COLOR='fg=blue'
 # AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=blue'
@@ -47,6 +37,12 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=117'
 # Prefix to use when saving original versions of bound widgets
 # ZSH_AUTOSUGGEST_ORIGINAL_WIDGET_PREFIX=autosuggest-orig-
 # ZSH_AUTOSUGGEST_STRATEGY=default
+
+# Max size of buffer to trigger autosuggestion. Leave undefined for no upper bound.
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=
+# Pty name for calculating autosuggestions asynchronously
+ZSH_AUTOSUGGEST_ASYNC_PTY_NAME=zsh_autosuggest_pty
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white,bold'
 
 # Widgets that clear the suggestion
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(
@@ -99,17 +95,6 @@ ZSH_AUTOSUGGEST_IGNORE_WIDGETS=(
     yank-pop
 )
 
-# Max size of buffer to trigger autosuggestion. Leave undefined for no upper bound.
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=
-
-# Pty name for calculating autosuggestions asynchronously
-ZSH_AUTOSUGGEST_ASYNC_PTY_NAME=zsh_autosuggest_pty
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white,bold'
-
-# For Ubuntu
-# bindkey '^[[A' history-substring-search-up
-# bindkey '^[[B' history-substring-search-down
-
 # Path to Homebrew packages
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 
@@ -118,17 +103,6 @@ export DISABLE_AUTO_TITLE=true
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-
-# Aliases
-alias cp='cp -i'
-alias mv='mv -i'
-alias grep='grep --color=auto -nH'
-alias ls="exa --group-directories-first -s extension"
-alias cat="bat"
-alias tmux='tmux -u'
-alias vim='nvim'
-alias vi='nvim'
-alias ctags="`brew --prefix`/bin/ctags"
 
 export EDITOR=`which vim`
 
@@ -181,7 +155,7 @@ SPACESHIP_PROMPT_ORDER=(
   # terraform     # Terraform workspace section
   exec_time     # Execution time
   line_sep      # Line break
-  battery       # Battery level and status
+  # battery       # Battery level and status
   vi_mode       # Vi-mode indicator
   jobs          # Background jobs indicator
   exit_code     # Exit code section
@@ -190,9 +164,6 @@ SPACESHIP_PROMPT_ORDER=(
 
 export SPACESHIP_PROMPT_ADD_NEWLINE=false
 export SPACESHIP_PROMPT_SEPARATE_LINE=false
-# export SPACESHIP_PROMPT_PREFIXES_SHOW=false
-# export SPACESHIP_PROMPT_SUFFIXES_SHOW=false
-
 # export SPACESHIP_VI_MODE_COLOR=
 export SPACESHIP_VI_MODE_INSERT="⌨"
 export SPACESHIP_VI_MODE_NORMAL="⌘"
@@ -202,7 +173,7 @@ export SPACESHIP_PROMPT_DEFAULT_PREFIX=""
 export SPACESHIP_GIT_PREFIX=""
 
 # This reduces the lag when switching to Vim normal mode
-export KEYTIMEOUT=1
+# export KEYTIMEOUT=3
 
 # This is for spaceship vi-mode prompt. Must be set before sourcing oh-my-zsh.
 export RPS1="%{$reset_color%}"
@@ -212,6 +183,24 @@ export HISTCONTROL=ignoredups
 
 source $ZSH/oh-my-zsh.sh
 source /Users/hongwei/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Aliases
+alias cp='cp -i'
+alias mv='mv -i'
+alias grep='grep --color=auto -nH'
+alias ls="exa --group-directories-first -s extension"
+alias cat="bat"
+alias tmux='tmux -u'
+alias vim='nvim'
+alias vi='nvim'
+alias ctags="`brew --prefix`/bin/ctags"
+
+# Allow Esc . to insert last word in vim insert mode, just like in bash
+bindkey -M viins '\e.' insert-last-word
+bindkey '^f' vi-forward-blank-word
+bindkey '^b' vi-backward-blank-word
+bindkey '^ ' autosuggest-accept
+bindkey '^x' autosuggest-clear
 
 # BMD environment variables
 # export COMPONENT_ROOT=/usr/local/Components
