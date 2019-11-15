@@ -15,6 +15,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-projectionist'
+
 Plug 'mhinz/vim-signify'
 
 Plug 'Raimondi/delimitMate'
@@ -25,7 +27,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'majutsushi/tagbar'
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags', { 'for': ['c', 'cpp']}
 Plug 'google/vim-searchindex'
 
 Plug 'tomtom/tcomment_vim'
@@ -54,7 +56,7 @@ Plug 'mileszs/ack.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'heavenshell/vim-pydocstring'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'vim-scripts/a.vim'
+" Plug 'vim-scripts/a.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'bfredl/nvim-miniyank'
 Plug 'mhinz/vim-startify'
@@ -62,10 +64,13 @@ Plug 'kshenoy/vim-signature'
 Plug 'junegunn/gv.vim'
 Plug 'Shougo/echodoc.vim'
 Plug 'junegunn/vim-slash'
-Plug 'markonm/traces.vim'
+" Plug 'markonm/traces.vim'
 Plug 'sheerun/vim-polyglot'
 " Plug 'christoomey/vim-tmux-runner'
 " Plug 'pseewald/vim-anyfold'
+Plug 'airblade/vim-rooter'
+
+Plug 'justinmk/vim-sneak'
 
 " Color schemes
 " Bundle 'lightalchemist/molokai'
@@ -77,6 +82,7 @@ set t_Co=256
 
 " Only works for iterm2
 set termguicolors
+
 
 " let g:molokai_original=1
 " let g:rehash256 = 1
@@ -188,12 +194,11 @@ noremap  <buffer> <silent> j gj
 " noremap  <buffer> <silent> 0 g0
 " noremap  <buffer> <silent> $ g$
 
-" TODO: Remap wheel to Alt-k, Alt-j, and Alt-shift-k, Alt-shift-j for this
 " map Alt-j and Alt-k to scroll screen while maintaining cursor position at current line
-noremap j <C-e>
-noremap k <C-y>
-inoremap j <Esc><C-e>i
-inoremap k <Esc><C-y>i
+noremap <M-j> <C-e>
+noremap <M-k> <C-y>
+inoremap <M-j> <Esc><C-e>i
+inoremap <M-k> <Esc><C-y>i
 
 "This lets you use your mouse
 set mouse=a
@@ -206,10 +211,13 @@ set clipboard=unnamedplus
 au InsertLeave * set nopaste
 
 noremap <backspace> O<Esc>j
-" noremap <CR> o<Esc>k
+noremap <CR> o<Esc>k
 
 "Show commands
 set showcmd
+
+nnoremap j gj
+nnoremap k gk
 
 "Map jj to Esc key
 inoremap jj <Esc>
@@ -289,7 +297,7 @@ let g:lightline                         = {
             \'colorscheme': 'seoul256',
             \   'active': {
             \     'left':[ [ 'mode', 'paste' ],
-            \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+            \              [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ]
             \     ]
             \   },
             \   'component': {
@@ -304,6 +312,8 @@ let g:lightline.tabline                 = {'left': [['buffers']], 'right': [['cl
 let g:lightline.component_expand        = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type          = {'buffers': 'tabsel'}
 let g:lightline#bufferline#filename_modifier = ':t'
+autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
+
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
 nmap <Leader>3 <Plug>lightline#bufferline#go(3)
@@ -322,10 +332,6 @@ set showtabline=2
 "and was opened without it.
 cmap w!! w !sudo tee % >/dev/null
 
-" Cycle through buffer
-nnoremap <silent> <C-Right> :bnext<CR>
-nnoremap <silent> <C-Left> :bprevious<CR>
-
 "Configure Ack
 " Search from project root rather than cwd
 let g:ag_working_path_mode="r"
@@ -340,15 +346,19 @@ endif
 " prevent flashing when searching
 set shellpipe=>
 
-" bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
 set wildignore+=*.swp,*.bak,*.class,*.o,*.obj,*.pyc,*.pkl,*.jpg,*.bmp,*.png,*.mat,*.bak,*.pdf
 
 let g:rainbow#max_level = 16
-" let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
-" Update this with the amount of supported colors
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+let g:rainbow#blacklist = [233, 234]
+
 " let g:rbpt_max = 16
+" let g:rainbow_active=1
+" au VimEnter * RainbowParenthesesToggle
+" au Syntax * RainbowParenthesesLoadRound
+" au Syntax * RainbowParenthesesLoadSquare
+" au Syntax * RainbowParenthesesLoadBraces
+
 
 let g:pymode_python = 'python3'
 let g:pymode_rope = 1
@@ -493,13 +503,13 @@ autocmd User GoyoLeave nested call <SID>goyo_leave()
 " Save file and make project
 set makeprg=make\ -C\ ../build\ -j4
 
-" F3 to toggle Goyo
+" F1 to toggle Goyo
 nnoremap <silent> <F1> :Goyo<CR>
 inoremap <silent> <F1> <Esc>:Goyo<CR>i
 
-" Shift F3 to toggle Limelight
-nnoremap <silent> O1;2R :Limelight!!<CR>
-inoremap <silent> O1;2R <Esc>:Limelight!!<CR>i
+" " Shift F1 to toggle Limelight
+nnoremap <silent> <S-F1> :Limelight!!<CR>
+inoremap <silent> <S-F1> <Esc>:Limelight!!<CR>i
 let g:Limelight_default_coefficient = 0.7
 
 " Shortcut to close preview window
@@ -531,10 +541,10 @@ let g:showmarks_textupper="-"
 let g:showmarks_textother="-"
 
 " Set diff colors to more appropriate ones
-highlight DiffAdd    cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
-highlight DiffDelete cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
-highlight DiffChange cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
-highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
+" highlight DiffAdd    cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
+" highlight DiffDelete cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
+" highlight DiffChange cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
+" highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
 
 
 " Vim cpp syntax highlight
@@ -606,6 +616,12 @@ set colorcolumn=100
 " Fast saving
 nnoremap <leader>w :w!<cr>
 nnoremap <leader>W :wa!<cr>
+
+nnoremap <C-s> :w!<cr>
+" nnoremap <C-S-s> :wa!<cr>
+inoremap <C-s> <Esc>:w!<cr>a
+" inoremap <C-S-s> <Esc>:wa!<cr>i
+
 
 " highlight trailing whitespace
 " highlight ExtraWhitespace ctermbg=red guibg=red
@@ -820,6 +836,9 @@ inoremap <silent> <F3> :!tmux send-keys -t 0:5.0 C-c Enter<CR>
 " set guifont=DroidSansMono_Nerd_Font:h11
 
 " fzf.vim
+" Reverse the layout to make the FZF list top-down
+let $FZF_DEFAULT_OPTS='--layout=reverse'
+
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -854,6 +873,37 @@ nnoremap <silent> <Leader>R :Tags<CR>
 nnoremap <silent> <Leader>m :Marks<CR>
 nnoremap <Leader>A :Rg <space><left>
 
+" From https://kassioborges.dev/2019/04/10/neovim-fzf-with-a-floating-window.html
+" Using the custom window creation function
+" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+" Function to create the custom floating window
+function! FloatingFZF()
+  " creates a scratch, unlisted, new, empty, unnamed buffer
+  " to be used in the floating window
+  let buf = nvim_create_buf(v:false, v:true)
+
+  " 90% of the height
+  let height = float2nr(&lines * 0.4)
+  " 60% of the height
+  let width = float2nr(&columns * 0.5)
+  " horizontal position (centralized)
+  let horizontal = float2nr((&columns - width) / 2)
+  " vertical position (one line down of the top)
+  let vertical = 1
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': vertical,
+        \ 'col': horizontal,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+  " open the new window, floating, and enter to it
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+
 " ack.vim
 " let g:ackhighlight = 1
 nnoremap <Leader>aF :Ack!  <space><Left><Left>
@@ -861,3 +911,14 @@ nnoremap <Leader>af :Ack!  %<Left><Left>
 
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
+
+set ttyfast
+
+" For vim-rooter
+let g:rooter_patterns = ['.git/', '.hg/', '.ccls', 'compile_commands.json', '.vim/']
+let g:rooter_change_directory_for_non_project_files = 'home'
+
+" Vim sneak
+map f <Plug>Sneak_s
+map F <Plug>Sneak_S
+let g:sneak#s_next = 1
