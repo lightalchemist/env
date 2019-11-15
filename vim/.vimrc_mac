@@ -1,924 +1,284 @@
-" This install vim-plug for NeoVim
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
- silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim  
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin('~/.vim/bundle')
-
-set nocompatible
-
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-projectionist'
-
-Plug 'mhinz/vim-signify'
-
-Plug 'Raimondi/delimitMate'
-Plug 'vim-scripts/matchit.zip'
-" Plug 'dense-analysis/ale'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'majutsushi/tagbar'
-Plug 'ludovicchabant/vim-gutentags', { 'for': ['c', 'cpp']}
-Plug 'google/vim-searchindex'
-
-Plug 'tomtom/tcomment_vim'
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
-
-Plug 'vim-scripts/TagHighlight'
-
-Plug 'godlygeek/tabular'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'moll/vim-bbye'
-
-Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-" Plug 'luochen1990/rainbow'
-Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'junegunn/vim-peekaboo'
-
-Plug 'mileszs/ack.vim'
-Plug 'Chiel92/vim-autoformat'
-Plug 'heavenshell/vim-pydocstring'
-Plug 'octol/vim-cpp-enhanced-highlight'
-" Plug 'vim-scripts/a.vim'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'bfredl/nvim-miniyank'
-Plug 'mhinz/vim-startify'
-Plug 'kshenoy/vim-signature'
-Plug 'junegunn/gv.vim'
-Plug 'Shougo/echodoc.vim'
-Plug 'junegunn/vim-slash'
-" Plug 'markonm/traces.vim'
-Plug 'sheerun/vim-polyglot'
-" Plug 'christoomey/vim-tmux-runner'
-" Plug 'pseewald/vim-anyfold'
-Plug 'airblade/vim-rooter'
-
-Plug 'justinmk/vim-sneak'
-
-" Color schemes
-" Bundle 'lightalchemist/molokai'
-Plug 'junegunn/seoul256.vim'
-
-call plug#end()
-
-set t_Co=256
-
-" Only works for iterm2
-set termguicolors
-
-
-" let g:molokai_original=1
-" let g:rehash256 = 1
-" colorscheme molokai
-
-" seoul256 (dark):
-  " Range:   233 (darkest) ~ 239 (lightest)
-  " Default: 237
-let g:seoul256_background = 235
-colorscheme seoul256
-
-let g:goyo_width = 100
-let g:goyo_height = 100
-let g:goyo_linenr = 1
-
-set incsearch
-"Case insensitive search
-set ic
-
-"Highlight things that we find with search
-" set hlsearch
-nnoremap <silent> ,/ :set hlsearch!<CR>
-
-"Turn syntax highlighting on.  (This helps you know when you leave a brace open!):
-syntax on
-
-" Hides buffer instead of closing them. Better buffer handling.
-" See http://nvie.com/posts/how-i-boosted-my-vim/
-set hidden
-
-" Vim window stuff
-set linebreak breakat=\ 
-set list
-set listchars=tab:▸\ ,trail:⋅,extends:❯,precedes:❮
-set showbreak=↪
-
-" Remove extra dots after fold
-set fillchars=fold:\ 
-
-" :set formatoptions+=w
-:set formatoptions+=t
-
-"Soft wrap long lines
-set wrap
-
-" setlocal wrap nolist linebreak breakat=\ 
-" set breakindent
-" set display+=lastline
-
-"Display filename in titlebar of window
-set title
-
-"I like to see line numbers:
-set number
-
-" Make selection more natural
-set selection=exclusive
-
-"Highlight the line that the cursor is on:
-set cursorline
-highlight CursorLine ctermbg=Black guibg=black gui=bold cterm=bold
-
-"I don't recall where this came from, but it makes Vim put all its backup
-"and temporary files in places I don't mind:
-set backupdir=~/.local/share/nvim/swap,~/.vim/tmp/backup/,~/.tmp,~/tmp,~/var/tmp
-set directory=~/.local/share/nvim/swap,~/.vim/tmp/swap/,~/.tmp,~/tmp,~/var/tmp
-
-set undodir=~/.vim/tmp/undo//
-set undofile
-set history=100
-set undolevels=100
-
-" Tells Vim not to automatically reload changed files
-set noautoread
-
-"If you are indented and start a new line, this makes the new line indented, too:
-" set autoindent
-
-"This it makes some sort of autoindenting occur, like when you have an open { at the end of a line.  I'm not sure I love this, so it might not last long:  
-" set smartindent
-set preserveindent
-
-"These deal with what the TAB key inserts.
-"I set my tabs to be only two spaces wide (default is 4).
-"The second one makes sure the shift function knows this
-""(you use that by selecting some text and hitting > for multiple lines and >>
-"for a single line.  The last one converts TAB characters into spaces instead
-"of TAB characters.  (Apparently this is big to programmers,
-"I use it to follow conventions in the Ruby programming language.
-set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
-
-"This turns off physical line wrapping (i.e. auto insertion of newlines)
-"set textwidth=0 wrapmargin=0
-" set textwidth=79
-
-set scrolloff=5
-
-"Think this is no visual bell
-set novb
-
-" Make indenting and unindenting in visual mode retain the selection so
-" you don't have to re-select or type gv every time.
-vnoremap > ><CR>gv
-vnoremap < <<CR>gv
-
-"If you have wrapped lines, k will take you to the next line, which likely means the next paragraph.  gk will take you down what you think of as one line.  If you want that to be the default, then some of these mappings will do that.
-noremap  <buffer> <silent> k gk
-noremap  <buffer> <silent> j gj
-" noremap  <buffer> <silent> 0 g0
-" noremap  <buffer> <silent> $ g$
-
-" map Alt-j and Alt-k to scroll screen while maintaining cursor position at current line
-noremap <M-j> <C-e>
-noremap <M-k> <C-y>
-inoremap <M-j> <Esc><C-e>i
-inoremap <M-k> <Esc><C-y>i
-
-"This lets you use your mouse
-set mouse=a
-
-"Operations for copy and paste will work with OS clipboard.
-"No need to prefix with '+' or *
-set clipboard=unnamedplus
-
-" Clear paste mode when going back to normal mode
-au InsertLeave * set nopaste
-
-noremap <backspace> O<Esc>j
-noremap <CR> o<Esc>k
-
-"Show commands
-set showcmd
-
-nnoremap j gj
-nnoremap k gk
-
-"Map jj to Esc key
-inoremap jj <Esc>
-
-"Map ';' to ':'
-nnoremap ; :
-"Map ',' to ';'
-nnoremap ;; ;
-
-set ignorecase
-set smartcase
-
-set ruler
-
-set laststatus=2
-" set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%==%c,%l/%L\ %P
-
-" This is suppose to auto source vimrc file after editing and saving it.
-augroup reload_vimrc
-       autocmd!
-       autocmd bufwritepost $MYVIMRC nested source $MYVIMRC
-augroup END
-
-"Backspace works in Insert mode (e.g. not inserting a ^?), but won't delete over line breaks, or automatically-inserted indentation, or the place where insert mode started:
-set backspace=indent,eol,start
-
-let mapleader = ","
-
-nnoremap <silent> <Leader>o :NERDTreeToggle<CR>
-let g:nerdtree_tabs_open_on_console_startup = 0
-
-" Shortcut for comment t
-map <silent> <Leader>c :TComment<CR>
-" map <silent> <Leader>cp <c-_>p
-" map <silent> <Leader>cr <c-_>r
-
-" Map shortcut key to open VIMRC file
-nnoremap <leader>ev :tabnew $MYVIMRC<cr>
-
-" Toggle between absolute line number and relative number
-" function! NumberToggle()
-"   if(&relativenumber == 1)
-"     set number
-"   else
-"     set relativenumber
-"   endif
-" endfunc
-" nnoremap <C-n> :call NumberToggle()<cr>
-
-" Revert vim to absolute line number when focus is lost
-" :au FocusLost * :set number
-" :au FocusGained * :set relativenumber
-
-" autocmd InsertEnter * :set number
-" autocmd InsertLeave * :set relativenumber
-
-" Remapped keys for quick window splits navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-set splitbelow " Place new horizontal split below
-set splitright " Place new vertical split on right
-
-" Make Y behave normally
-nnoremap Y y$
-
-command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
-
-set encoding=utf-8
-
-let g:lightline#bufferline#show_number  = 2
-let g:lightline#bufferline#shorten_path = 1
-let g:lightline#bufferline#unnamed      = '[No Name]'
-let g:lightline                         = {
-            \'colorscheme': 'seoul256',
-            \   'active': {
-            \     'left':[ [ 'mode', 'paste' ],
-            \              [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ]
-            \     ]
-            \   },
-            \   'component': {
-            \     'lineinfo': ' %3l:%-2v',
-            \   },
-            \   'component_function': {
-            \     'gitbranch': 'fugitive#head',
-            \   }
-            \ }
-
-let g:lightline.tabline                 = {'left': [['buffers']], 'right': [['close']]}
-let g:lightline.component_expand        = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type          = {'buffers': 'tabsel'}
-let g:lightline#bufferline#filename_modifier = ':t'
-autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
-
-nmap <Leader>1 <Plug>lightline#bufferline#go(1)
-nmap <Leader>2 <Plug>lightline#bufferline#go(2)
-nmap <Leader>3 <Plug>lightline#bufferline#go(3)
-nmap <Leader>4 <Plug>lightline#bufferline#go(4)
-nmap <Leader>5 <Plug>lightline#bufferline#go(5)
-nmap <Leader>6 <Plug>lightline#bufferline#go(6)
-nmap <Leader>7 <Plug>lightline#bufferline#go(7)
-nmap <Leader>8 <Plug>lightline#bufferline#go(8)
-nmap <Leader>9 <Plug>lightline#bufferline#go(9)
-nmap <Leader>0 <Plug>lightline#bufferline#go(10)
-
-" Always show tabline
-set showtabline=2
-
-"Allows you to use w!! to save file that requires root priviledge
-"and was opened without it.
-cmap w!! w !sudo tee % >/dev/null
-
-"Configure Ack
-" Search from project root rather than cwd
-let g:ag_working_path_mode="r"
-if executable('rg')
-    set grepprg=rg\ --color=never
-    let g:ackprg = 'rg --vimgrep --no-heading --smart-case --column'
-elseif executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ackprg = 'ag --nogroup --nocolor --column --smart-case --vimgrep'
-endif
-
-" prevent flashing when searching
-set shellpipe=>
-
-set wildignore+=*.swp,*.bak,*.class,*.o,*.obj,*.pyc,*.pkl,*.jpg,*.bmp,*.png,*.mat,*.bak,*.pdf
-
-let g:rainbow#max_level = 16
-let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
-let g:rainbow#blacklist = [233, 234]
-
-" let g:rbpt_max = 16
-" let g:rainbow_active=1
-" au VimEnter * RainbowParenthesesToggle
-" au Syntax * RainbowParenthesesLoadRound
-" au Syntax * RainbowParenthesesLoadSquare
-" au Syntax * RainbowParenthesesLoadBraces
-
-
-let g:pymode_python = 'python3'
-let g:pymode_rope = 1
-let g:pymode_rope_completion = 0
-let g:pymode_rope_complete_on_dot = 0
-let g:pymode_rope_autoimport = 0
-let g:pymode_rope_ropefolder='~/cache'
-let g:pymode_breakpoint_bind = '<leader>k'
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
-let g:pymode_trim_whitespaces=0
-" let g:pymode_rope_goto_definition_bind = '<leader>g'
-" let g:pymode_rope_goto_definition_cmd = 'new'
-" let g:pymode_rope_rename_bind = '<leader>pr'
-"Linting
-" let g:pymode_lint = 1
-" let g:pymode_lint_checkers = ['pep8']
-" let g:pymode_lint_checkers = ['pyflakes']
-" let g:pymode_lint_checker = "pyflakes,pep8"
-" Auto check on save
-" let g:pymode_lint_write = 1
-"
-" let g:virtualenv_directory="~/.virtualenvs"
-" let g:pymode_virtualenv = 1
-" " Enable breakpoints plugin
-" " let g:pymode_breakpoint = 1
-" " let g:pymode_breakpoint_bind = '<leader>b'
-" syntax highlighting
-" let g:pymode_syntax = 1
-" let g:pymode_syntax_all = 1
-" let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-" let g:pymode_syntax_space_errors = g:pymode_syntax_all
-" let g:pymode_folding = 0
-let g:pymode_lint_cwindow = 0
-" let g:pymode_rope_complete_on_dot = 0
-" let g:pymode_rope_completion_bind = '<C-Space>'
-" let g:pymode_rope_completion = 1
-" let g:pymode_rope_lookup_project = 0
-" let g:pymode_options_colorcolumn = 0
-" Turn off warnings
-let g:pymode_warnings = 0
-
-set shortmess+=c
-set cmdheight=2
-set noshowmode
-
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'signature'
-
-set signcolumn=yes
-
-" Disable completion previews with function prototypes, etc.
-" set completeopt-=preview
-" set previewheight=50  " Preview window height
-
-set complete+=k
-set complete-=t
-"set completeopt=noinsert,noselect,menuone
-set completeopt=menu,preview
-
-" Limit show max 20 suggestions
-set pumheight=20
-
-set statusline+=%#warningmsg#
-hi clear SignColumn
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-" UltiSnips
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-let g:ultisnips_python_style = "numpy"
-let g:UltiSnips = {}
-let g:snips_email = "hngwei.ng@gmail.com"
-let g:snips_author = "Hong-Wei Ng"
-let g:UltiSnipsJumpForwardTrigger = "<C-J>"
-let g:UltiSnipsJumpBackwardTrigger = "<C-K>"
-
-set virtualedit=onemore " Allow for cursor beyond last character
-" set showmatch " Set show matching parenthesis
-
-" DelimitMate add extra newline after typing cr inside a pair of delimiters
-let delimitMate_expand_cr = 1
-
-" So that delimiMate will work well with coc.nvim.
-" See https://ianding.io/2019/07/29/configure-coc-nvim-for-c-c++-development/
-" imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<Plug>delimitMateCR"
-
-" Tagbar
-map <silent><Leader>v :TagbarToggle<CR>
-
-" Underline the current line with dashes in normal mode
-nnoremap <c-_> yyp<c-v>$r-
-" Underline the current line with dashes in insert mode
-inoremap <c-_> <Esc>yyp<c-v>$r-A
-
-" Goyo
-function! s:goyo_enter()
-  if has('gui_running')
-    set fullscreen
-    set background=light
-    set linespace=7
-  elseif exists('$TMUX')
-    silent !tmux set status off
-  endif
-
-  " Allow to quit in Goyo mode using ':q'
-  let b:quitting = 0
-  let b:quitting_bang = 0
-  autocmd QuitPre <buffer> let b:quitting = 1
-  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
-endfunction
-
-function! s:goyo_leave()
-  if has('gui_running')
-    set nofullscreen
-    set background=dark
-    set linespace=0
-  elseif exists('$TMUX')
-    silent !tmux set status on
-  endif
-
-  " Quit Vim if this is the only remaining buffer
-  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-      if b:quitting_bang
-          qa!
-      else
-          qa
-      endif
-  endif
-endfunction
-
-autocmd User GoyoEnter nested call <SID>goyo_enter()
-autocmd User GoyoLeave nested call <SID>goyo_leave()
-
-" Save file and make project
-set makeprg=make\ -C\ ../build\ -j4
-
-" F1 to toggle Goyo
-nnoremap <silent> <F1> :Goyo<CR>
-inoremap <silent> <F1> <Esc>:Goyo<CR>i
-
-" " Shift F1 to toggle Limelight
-nnoremap <silent> <S-F1> :Limelight!!<CR>
-inoremap <silent> <S-F1> <Esc>:Limelight!!<CR>i
-let g:Limelight_default_coefficient = 0.7
-
-" Shortcut to close preview window
-nnoremap <silent> <Leader>pc :pc<CR>
-
-" Requires Exuberant Tags
-" Search for tags all the way up the tree until one is found
-set tags+=./tags;,~/.vimtags
-
-" Gutentags config
-set statusline+=%{gutentags#statusline()}
-let g:gutentags_cache_dir="~/.cache/gutentags"
-let g:gutentags_ctags_exclude = ['.ccls-cache']
-let g:gutentags_project_root = ['.git/', 'compile_commands.json']
-
-" nnoremap <silent><c-q> :q<CR>
-" nnoremap <silent><c-x> :x<CR>
-
-" This will only work if VIM/terminal can handle italics
-" highlight Comment cterm=italic
-
-" By default don't show marks
-let g:showmarks_enable=0
-highlight ShowMarksHLl ctermfg=lightblue
-highlight ShowMarksHLu ctermfg=lightblue
-highlight ShowMarksHLo ctermfg=lightblue
-let g:showmarks_textlower="-"
-let g:showmarks_textupper="-"
-let g:showmarks_textother="-"
-
-" Set diff colors to more appropriate ones
-" highlight DiffAdd    cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
-" highlight DiffDelete cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
-" highlight DiffChange cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
-" highlight DiffText   cterm=bold ctermfg=7 ctermbg=1 gui=none guifg=bg guibg=Red
-
-
-" Vim cpp syntax highlight
-" let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-
-" So that italics will show up proerly in VIM
-set t_ZH=[3m
-set t_ZR=[23m
-
-" For indenting function arguments over multiple lines
-" http://stackoverflow.com/questions/11984520/vim-indent-align-function-arguments
-set cino+=(0
-
-" Mappings for EasyAlign
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-nmap <silent> <Leader>a<Space> gaip<Space>
-vmap <silent> <Leader>a<Space> gaip<Space>
-
-" Shortcuts for aligning using Tabular
-function! ConfigTabular()
-    if exists(':Tabularize')
-        nnoremap <silent> <Leader>a& :Tabularize /&<CR>
-        vnoremap <silent> <Leader>a& :Tabularize /&<CR>
-        nnoremap <silent> <Leader>a= :Tabularize /^[^=]*\zs=<CR>
-        vnoremap <silent> <Leader>a= :Tabularize /^[^=]*\zs=<CR>
-        nnoremap <silent> <Leader>a=> :Tabularize /=><CR>
-        vnoremap <silent> <Leader>a=> :Tabularize /=><CR>
-        nnoremap <silent> <Leader>a: :Tabularize /:<CR>
-        vnoremap <silent> <Leader>a: :Tabularize /:<CR>
-        nnoremap <silent> <Leader>a:: :Tabularize /:\zs<CR>
-        vnoremap <silent> <Leader>a:: :Tabularize /:\zs<CR>
-        nnoremap <silent> <Leader>a, :Tabularize /,<CR>
-        vnoremap <silent> <Leader>a, :Tabularize /,<CR>
-        nnoremap <silent> <Leader>a,, :Tabularize /,\zs<CR>
-        vnoremap <silent> <Leader>a,, :Tabularize /,\zs<CR>
-        nnoremap <silent> <Leader>a<Bar> :Tabularize /<Bar><CR>
-        vnoremap <silent> <Leader>a<Bar> :Tabularize /<Bar><CR>
-    endif
-endfunction
-
-autocmd VimEnter * call ConfigTabular()
-
-"From Tim Pope's gist for 'cucumber table'
-" Automatically align on '|' when creating a table
-inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-
-function! s:align()
-  let p = '^\s*|\s.*\s|\s*$'
-  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-    Tabularize/|/l1
-    normal! 0
-    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-  endif
-endfunction
-
-" Mapping for Pydocstring
-nmap <silent> <leader>- <Plug>(pydocstring)
-
-set colorcolumn=100
-
-" Fast saving
-nnoremap <leader>w :w!<cr>
-nnoremap <leader>W :wa!<cr>
-
-nnoremap <C-s> :w!<cr>
-" nnoremap <C-S-s> :wa!<cr>
-inoremap <C-s> <Esc>:w!<cr>a
-" inoremap <C-S-s> <Esc>:wa!<cr>i
-
-
-" highlight trailing whitespace
-" highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-
-let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
-
-" Vim-Signify
-nnoremap <leader>sd :VCSDiff<CR>
-" nmap <leader>gj <plug>(signify-next-hunk)
-" nmap <leader>gk <plug>(signify-prev-hunk)
-
-" Taken form https://github.com/mxmerz/dotfiles/blob/master/nvim/init.vim
-" signify: use heavier signs (probably unnecessary on retina displays)
-let g:signify_sign_add               = '✚'
-let g:signify_sign_delete            = '▁'
-let g:signify_sign_delete_first_line = '▔'
-let g:signify_sign_change            = '≠' " options: ! ≠ • ~
-" let g:signify_sign_change            = '•' " options: ! ≠ • ~
-let g:signify_sign_changedelete      = g:signify_sign_change
-
-highlight SignifySignAdd             ctermbg=100 ctermfg=119
-highlight SignifySignChange          ctermbg=100 ctermfg=119
-highlight SignifySignDelete          ctermbg=100 ctermfg=167
-highlight SignifySignChangeDelete    ctermbg=100 ctermfg=119
-highlight SignifySignDeleteFirstLine ctermbg=100 ctermfg=119
-
-highlight link SignifyLineAdd             SignifySignAdd
-highlight link SignifyLineChange          SignifySignChange
-highlight link SignifyLineDelete          SignifySignDelete
-highlight link SignifyLineChangeDelete    SignifyLineChange
-highlight link SignifyLineDeleteFirstLine SignifyLineDelete
-
-" Markdown
-let g:vim_markdown_conceal = 0
-
-" g:python3_host_prog is a neovim-only thing, but it's used unconditionally by
-" nvim-yarp - so set it always.
-let g:python3_host_prog = '/usr/local/bin/python3'
-
-" Configure CoC.vim
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" Navigate snippet placeholders using tab
-let g:coc_snippet_next = '<C-j>'
-let g:coc_snippet_prev = '<C-k>'
-
-" Use enter to accept snippet expansion
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
-                                           \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-call coc#config('coc.languageserver', {
-      \ 'ccls': {
-      \   'command': 'ccls',
-      \   'filetypes': ['c', 'cpp', 'cuda', 'objc', 'objcpp'],
-      \   'rootPatterns': ['.ccls', 'compile_commands.json', '.vim/', '.git/', '.hg/'],
-      \   'initializationOptions': { 'cache': { 'directory': '.ccls-cache' } },
-      \ },
-      \})
-call coc#config("coc.preferences.diagnostic.displayByAle", 1)
-call coc#config("python.jediEnabled", 0)
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" https://github.com/neoclide/coc.nvim#example-vim-configuration
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" ld - go to definition of word under cursor
-nmap <silent> <leader>ld <Plug>(coc-definition)
-nmap <silent> <leader>ly <Plug>(coc-type-definition)
-
-" li - go to implementation
-nmap <silent> <leader>li <Plug>(coc-implementation)
-
-" lr - find references
-nmap <silent> <leader>lr <Plug>(coc-references)
-
-" lh - get hint on whatever's under the cursor
-nnoremap <silent> <leader>lh :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Coc bindings
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-nnoremap <silent> <leader>lo  :<C-u>CocList outline<cr>
-nnoremap <silent> <leader>ls  :<C-u>CocList -I symbols<cr>
-
-" List errors
-nnoremap <silent> <leader>ll  :<C-u>CocList locationlist<cr>
-
-" list commands available in tsserver (and others)
-nnoremap <silent> <leader>lc  :<C-u>CocList commands<cr>
-
-" restart when tsserver gets wonky
-nnoremap <silent> <leader>lR  :<C-u>CocRestart<CR>
-
-" manage extensions
-nnoremap <silent> <leader>lx  :<C-u>CocList extensions<cr>
-
-" rename the current word in the cursor
-nmap <leader>le  <Plug>(coc-rename)
-nmap <leader>lf  <Plug>(coc-format-selected)
-vmap <leader>lf  <Plug>(coc-format-selected)
-
-" run code actions
-vmap <leader>la  <Plug>(coc-codeaction-selected)
-nmap <leader>la  <Plug>(coc-codeaction-selected)
-
-"For vim-bye plugin. Close buffer.
-nnoremap <silent> <leader>q :bd<CR>
-nnoremap <silent> <leader>Q :qa<CR>
-
-" Don't ask to save session
-let g:session_autosave = 'no'
-let g:session_directory = '~/src/sessions'
-
-" Miniyank configuration
-" See https://github.com/bfredl/nvim-miniyank
-map p <Plug>(miniyank-autoput)
-map P <Plug>(miniyank-autoPut)
-" map <leader>p <Plug>(miniyank-startput)
-" map <leader>P <Plug>(miniyank-startPut)
-map \p <Plug>(miniyank-cycle)
-map \P <Plug>(miniyank-cycleback)
-
-" Startify configuration
-let g:startify_session_dir='~/src/sessions'
-let g:startify_session_persistence = 1
-let g:startify_change_to_vcs_root = 1
-let g:startify_lists = [
-            \ { 'type': 'sessions',  'header': ['   Sessions']       },
-            \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-            \ { 'type': 'commands',  'header': ['   Commands']       },
-            \ { 'type': 'files',     'header': ['   MRU']            },
-            \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-            \ ]
-let g:startify_bookmarks = [ {'c': '~/.vimrc'}, '~/.zshrc' ]
-let g:startify_session_delete_buffers = 1
-
-" Vim anyfold
-" activate anyfold for specific file types
-" augroup anyfold
-"     autocmd!
-"     autocmd Filetype cpp,c,cu,ocl,mm AnyFoldActivate
-" augroup END
-"
-" " disable anyfold for large files
-" let g:LargeFile = 2000000 " file is large if size greater than 2MB
-" autocmd BufReadPre,BufRead * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
-" function LargeFile()
-"     augroup anyfold
-"         autocmd! " remove AnyFoldActivate
-"         autocmd Filetype cpp,c,cu,ocl,mm setlocal foldmethod=syntax
-"     augroup END
-" endfunction
-
-" FOLDS
-nnoremap <silent> <Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
-vnoremap <Space> zA
-
-set nofoldenable " Don't fold on start
-
-" Vim cpp enhanhanced highlight
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-
-nnoremap <silent> <F6> :!tmux send-keys -t 0:5.0 "noti Build/setup_deps_unix.sh && noti Build/build_unix.sh" Enter<CR>
-inoremap <silent> <F6> :!tmux send-keys -t 0:5.0 "noti Build/setup_deps_unix.sh && noti Build/build_unix.sh" Enter<CR>
-nnoremap <silent> <F5> :!tmux send-keys -t 0:5.0 "noti Build/build_unix.sh" Enter<CR>
-inoremap <silent> <F5> :!tmux send-keys -t 0:5.0 "noti Build/build_unix.sh" Enter<CR>
-
-" Should probably put the command in a shell script and have it kill the 'tail' command after Resolve exits
-" Or use the 'desk' shell app configured to run these for specific commands and have tmux send the commands to it so that the same command will run different scripts depending on the directory
-nnoremap <silent> <F2> :!tmux send-keys -t 0:5.0 "noti open Cyclone/Resolve.app && tail -f -n 100 ~/Library/Application\ Support/Blackmagic\ Design/DaVinci\ Resolve/logs/ResolveDebug.txt" Enter<CR>
-inoremap <silent> <F2> :!tmux send-keys -t 0:5.0 "noti open Cyclone/Resolve.app && tail -f -n 100 ~/Library/Application\ Support/Blackmagic\ Design/DaVinci\ Resolve/logs/ResolveDebug.txt" Enter<CR>
-
-nnoremap <silent> <F3> :!tmux send-keys -t 0:5.0 C-c Enter<CR>
-inoremap <silent> <F3> :!tmux send-keys -t 0:5.0 C-c Enter<CR>
-
-" set guifont=DroidSansMono\ Nerd\ Font\ 14
-" set guifont=DroidSansMono_Nerd_Font:h11
-
-" fzf.vim
-" Reverse the layout to make the FZF list top-down
-let $FZF_DEFAULT_OPTS='--layout=reverse'
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'hl':      ['fg', 'Statement'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'header':  ['fg', 'Comment'] }
-" \ 'hl':      ['fg', 'Comment'],
-
-" Enable per-command history.
-" CTRL-N and CTRL-P will be automatically bound to next-history and
-" previous-history instead of down and up. If you don't like the change,
-" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-let g:fzf_buffers_jump = 1
-
-nnoremap <silent> <Leader>t :Files<CR>
-nnoremap <silent> <Leader>T :GFiles<CR>
-nnoremap <silent> <Leader>b :Buffers<CR>
-nnoremap <silent> <Leader>f :BLines<CR>
-nnoremap <silent> <Leader>F :Lines<CR>
-nnoremap <silent> <Leader>r :BTags<CR>
-nnoremap <silent> <Leader>R :Tags<CR>
-nnoremap <silent> <Leader>m :Marks<CR>
-nnoremap <Leader>A :Rg <space><left>
-
-" From https://kassioborges.dev/2019/04/10/neovim-fzf-with-a-floating-window.html
-" Using the custom window creation function
-" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-
-" Function to create the custom floating window
-function! FloatingFZF()
-  " creates a scratch, unlisted, new, empty, unnamed buffer
-  " to be used in the floating window
-  let buf = nvim_create_buf(v:false, v:true)
-
-  " 90% of the height
-  let height = float2nr(&lines * 0.4)
-  " 60% of the height
-  let width = float2nr(&columns * 0.5)
-  " horizontal position (centralized)
-  let horizontal = float2nr((&columns - width) / 2)
-  " vertical position (one line down of the top)
-  let vertical = 1
-
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': vertical,
-        \ 'col': horizontal,
-        \ 'width': width,
-        \ 'height': height
-        \ }
-
-  " open the new window, floating, and enter to it
-  call nvim_open_win(buf, v:true, opts)
-endfunction
-
-" ack.vim
-" let g:ackhighlight = 1
-nnoremap <Leader>aF :Ack!  <space><Left><Left>
-nnoremap <Leader>af :Ack!  %<Left><Left>
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-set ttyfast
-
-" For vim-rooter
-let g:rooter_patterns = ['.git/', '.hg/', '.ccls', 'compile_commands.json', '.vim/']
-let g:rooter_change_directory_for_non_project_files = 'home'
-
-" Vim sneak
-map f <Plug>Sneak_s
-map F <Plug>Sneak_S
-let g:sneak#s_next = 1
+export ZSH=$HOME/.oh-my-zsh
+# ZSH_THEME="agnoster"
+ZSH_THEME="spaceship"
+
+plugins=(
+         colored-man-pages
+         command-not-found
+         vi-mode
+         # common-aliases 
+         extract 
+         fasd 
+         git 
+         git-extras 
+         git-flow
+         history-substring-search
+         colorize
+         python
+         brew
+         osx 
+         zsh-autosuggestions
+         zsh-completions 
+         zsh-syntax-highlighting 
+         web-search 
+         svn)
+
+# For autocompletion
+autoload -U compinit && compinit
+
+setopt correct_all # Enable autocorrect suggestions
+ENABLE_CORRECTION="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Autosuggestion color
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg159'
+bindkey '^f' vi-forward-blank-word
+bindkey '^b' vi-backward-blank-word
+
+# Ctrl <space> to accept auto suggestion
+bindkey '^ ' autosuggest-accept
+bindkey '^x' autosuggest-clear
+
+# Allow Esc . to insert last word in vim insert mode, just like in bash
+bindkey -M viins '\e.' insert-last-word
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=117'
+
+# ZSH_AUTOSUGGEST_HIGHLIGHT_COLOR='fg=blue'
+# AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=blue'
+
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=red,bg=white'
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=blue,bg=white'
+
+
+# Prefix to use when saving original versions of bound widgets
+# ZSH_AUTOSUGGEST_ORIGINAL_WIDGET_PREFIX=autosuggest-orig-
+
+# ZSH_AUTOSUGGEST_STRATEGY=default
+
+
+# Widgets that clear the suggestion
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(
+	history-search-forward
+	history-search-backward
+	history-beginning-search-forward
+	history-beginning-search-backward
+	history-substring-search-up
+	history-substring-search-down
+	up-line-or-beginning-search
+	down-line-or-beginning-search
+	up-line-or-history
+	down-line-or-history
+	accept-line
+)
+
+# Widgets that accept the entire suggestion
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
+	forward-char
+	end-of-line
+	vi-forward-char
+	vi-end-of-line
+	vi-add-eol
+)
+
+# Widgets that accept the entire suggestion and execute it
+ZSH_AUTOSUGGEST_EXECUTE_WIDGETS=(
+)
+
+# Widgets that accept the suggestion as far as the cursor moves
+ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(
+	forward-word
+	emacs-forward-word
+	vi-forward-word
+	vi-forward-word-end
+	vi-forward-blank-word
+	vi-forward-blank-word-end
+	vi-find-next-char
+	vi-find-next-char-skip
+)
+
+# Widgets that should be ignored (globbing supported but must be escaped)
+ZSH_AUTOSUGGEST_IGNORE_WIDGETS=(
+	orig-\*
+	beep
+	run-help
+	set-local-history
+	which-command
+	yank
+	yank-pop
+)
+
+# Max size of buffer to trigger autosuggestion. Leave undefined for no upper bound.
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=
+
+# Pty name for calculating autosuggestions asynchronously
+ZSH_AUTOSUGGEST_ASYNC_PTY_NAME=zsh_autosuggest_pty
+
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white,bold'
+
+# For Ubuntu
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+
+# added by Anaconda3 installer
+# export PATH="/home/hongwei/anaconda3/bin:$PATH"
+
+# Path to Homebrew packages
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+# Need to set this so that Vim's YouCompleteMe plugin find libs and provide suggestions
+# NOTE: Need to be careful how this is set, especially when working with virtualenv.
+# export PYTHONPATH="${PYTHONPATH}:/usr/local/lib/python2.7/dist-packages"
+
+# This allows TMUX window titles to remain fix after they are renamed
+export DISABLE_AUTO_TITLE=true
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# Aliases
+# alias ll='ls -AlhF'
+# alias la='ls -aF'
+# ls --option not available on OS X. Need to use Homebrew to install coreutils
+# alias ls='ls --color=tty -F --group-directories-first'
+# alias l=ls
+# alias lc='ls --color=tty -F --format=single-column --group-directories-first'
+# alias rm='trash'
+alias cp='cp -i'
+alias mv='mv -i'
+alias grep='grep --color=auto -nH'
+
+alias tmux='tmux -u'
+
+# This adds [dd-mm-yy time] that updates to right prompt
+# RPROMPT='[%D %D{%L:%M:%S %K}]'
+
+alias vim='nvim'
+alias vi='nvim'
+export EDITOR=`which vim`
+
+# bind UP and DOWN arrow keys
+zmodload zsh/terminfo
+
+# Make prompt more user friendly when user entered wrong command.
+# This replaces [ynae] with the expanded version of the words
+# and color code the wrong and suggested command.
+autoload -U colors && colors
+export SPROMPT="Correct $fg_bold[red]%R$reset_color to $fg_bold[green]%r?$reset_color (Yes, No, Abort, Edit) "
+
+# Extended file move
+# See: http://www.mfasold.net/blog/2008/11/moving-or-renaming-multiple-files/
+autoload -U zmv
+alias mmv='noglob zmv -W'
+
+# Don't add failed commands to history
+zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
+
+# To activate fasd
+eval "$(fasd --init auto)"
+
+# antigen apply
+
+# Remove username and local machine on left side of prompt
+export DEFAULT_USER=$USER
+prompt_context() {
+  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
+  fi
+}
+
+SPACESHIP_PROMPT_ORDER=(
+  # time          # Time stamps section
+  # user          # Username section
+  dir           # Current directory section
+  # host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  hg            # Mercurial section (hg_branch  + hg_status)
+  # package       # Package version
+  # node          # Node.js section
+  # ruby          # Ruby section
+  # docker        # Docker section
+  # aws           # Amazon Web Services section
+  venv          # virtualenv section
+  conda         # conda virtualenv section
+  pyenv         # Pyenv section
+  # dotnet        # .NET section
+  # ember         # Ember.js section
+  # kubecontext   # Kubectl context section
+  # terraform     # Terraform workspace section
+  exec_time     # Execution time
+  line_sep      # Line break
+  battery       # Battery level and status
+  vi_mode       # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+
+export SPACESHIP_PROMPT_ADD_NEWLINE=false
+export SPACESHIP_PROMPT_SEPARATE_LINE=false
+# export SPACESHIP_PROMPT_PREFIXES_SHOW=false
+# export SPACESHIP_PROMPT_SUFFIXES_SHOW=false
+
+# export SPACESHIP_VI_MODE_COLOR=
+export SPACESHIP_VI_MODE_INSERT="⌨"
+export SPACESHIP_VI_MODE_NORMAL="⌘"
+export SPACESHIP_JOBS_SYMBOL="◉"
+export SPACESHIP_PYENV_SYMBOL="🅿 "
+export SPACESHIP_PROMPT_DEFAULT_PREFIX=""
+export SPACESHIP_GIT_PREFIX=""
+
+# This reduces the lag when switching to Vim normal mode
+export KEYTIMEOUT=1
+
+# This is for spaceship vi-mode prompt. Must be set before sourcing oh-my-zsh.
+export RPS1="%{$reset_color%}"
+
+# Don't save duplicate commands in history
+export HISTCONTROL=ignoredups
+
+alias ctags="`brew --prefix`/bin/ctags"
+
+source $ZSH/oh-my-zsh.sh
+source /Users/hongwei/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# BMD environment variables
+export COMPONENT_ROOT=/usr/local/Components
+export BMDCPT_FORCE_HOST=mac-elcap
+export FUSION_NO_OBFUSCATION=1
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if (($+commands[fzf])) && (($+commands[bat]))&& (($+commands[ag])); then
+    export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore-vcs'
+    # export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_CTRL_T_OPTS="--preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+fi
+
+unalias -m 'fd'
+
+unalias -m 'v'
+
+# source ~/.iterm2_shell_integration.zsh
+
+
+alias ls="exa --group-directories-first -s extension"
+alias cat="bat"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/hongwei/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/hongwei/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/hongwei/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/hongwei/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
