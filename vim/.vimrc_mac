@@ -21,18 +21,24 @@ Plug 'mhinz/vim-signify'
 
 Plug 'Raimondi/delimitMate'
 Plug 'vim-scripts/matchit.zip'
-" Plug 'dense-analysis/ale'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'dense-analysis/ale'
+" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
+
 Plug 'majutsushi/tagbar'
-Plug 'ludovicchabant/vim-gutentags', { 'for': ['c', 'cpp']}
+Plug 'liuchengxu/vista.vim'
+
+Plug 'ludovicchabant/vim-gutentags', { 'for': ['c', 'cc', 'cpp']}
 Plug 'google/vim-searchindex'
 
 Plug 'tomtom/tcomment_vim'
 Plug 'itchyny/lightline.vim'
+Plug 'itchyny/vim-gitbranch'
 Plug 'mengelbrecht/lightline-bufferline'
+
+Plug 'maximbaz/lightline-ale'
 
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
@@ -55,12 +61,11 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'mileszs/ack.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'heavenshell/vim-pydocstring'
-Plug 'octol/vim-cpp-enhanced-highlight'
+" Plug 'octol/vim-cpp-enhanced-highlight'
 " Plug 'vim-scripts/a.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'bfredl/nvim-miniyank'
 Plug 'mhinz/vim-startify'
-Plug 'kshenoy/vim-signature'
 Plug 'junegunn/gv.vim'
 Plug 'Shougo/echodoc.vim'
 Plug 'junegunn/vim-slash'
@@ -74,7 +79,13 @@ Plug 'justinmk/vim-sneak'
 
 " Color schemes
 " Bundle 'lightalchemist/molokai'
+Plug 'crusoexia/vim-monokai'
 Plug 'junegunn/seoul256.vim'
+
+Plug 'ryanoasis/vim-devicons'
+
+Plug 'kshenoy/vim-signature'
+Plug 'MattesGroeger/vim-bookmarks'
 
 call plug#end()
 
@@ -91,8 +102,12 @@ set termguicolors
 " seoul256 (dark):
   " Range:   233 (darkest) ~ 239 (lightest)
   " Default: 237
-let g:seoul256_background = 235
+let g:seoul256_background = 234
 colorscheme seoul256
+
+let g:monokai_term_italic = 1
+let g:monokai_gui_italic = 1
+" colorscheme monokai
 
 let g:goyo_width = 100
 let g:goyo_height = 100
@@ -129,7 +144,7 @@ set fillchars=fold:\
 set wrap
 
 " setlocal wrap nolist linebreak breakat=\ 
-" set breakindent
+set breakindent
 " set display+=lastline
 
 "Display filename in titlebar of window
@@ -210,8 +225,8 @@ set clipboard=unnamedplus
 " Clear paste mode when going back to normal mode
 au InsertLeave * set nopaste
 
-noremap <backspace> O<Esc>j
-noremap <CR> o<Esc>k
+" noremap <backspace> O<Esc>j
+" noremap <CR> o<Esc>k
 
 "Show commands
 set showcmd
@@ -297,21 +312,75 @@ let g:lightline                         = {
             \'colorscheme': 'seoul256',
             \   'active': {
             \     'left':[ [ 'mode', 'paste' ],
-            \              [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ]
-            \     ]
+            \              [ 'gitbranch', 'readonly', 'filename', 'modified'],
+            \              [ 'method' ]
+            \     ],
+            \   'right': [ [ 'fileencoding'],
+            \              [ 'lineinfo' ],
+            \              [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]]
+            \   },
+            \   'inactive': {
+            \     'left':[ [ 'mode', 'paste' ],
+            \              [ 'gitbranch', 'readonly', 'filename', 'modified'],
+            \              [ 'method' ]
+            \     ],
+            \   'right': [ [ 'fileencoding'],
+            \              [ 'lineinfo' ]]
             \   },
             \   'component': {
             \     'lineinfo': ' %3l:%-2v',
             \   },
             \   'component_function': {
             \     'gitbranch': 'fugitive#head',
-            \   }
+            \     'method': 'NearestMethodOrFunction',
+            \     'filename': 'LightlineFilename',
+            \   },
             \ }
 
-let g:lightline.tabline                 = {'left': [['buffers']], 'right': [['close']]}
-let g:lightline.component_expand        = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type          = {'buffers': 'tabsel'}
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers',
+                                            \  'linter_checking': 'lightline#ale#checking',
+                                            \  'linter_warnings': 'lightline#ale#warnings',
+                                            \  'linter_errors': 'lightline#ale#errors',
+                                            \  'linter_ok': 'lightline#ale#ok',
+                                            \ }
+let g:lightline.component_type = {'buffers': 'tabsel',
+                                          \     'linter_checking': 'left',
+                                          \     'linter_warnings': 'warning',
+                                          \     'linter_errors': 'error',
+                                          \     'linter_ok': 'left',
+                                          \ }
 let g:lightline#bufferline#filename_modifier = ':t'
+
+let g:lightline#ale#indicator_checking = "\uf110 "
+let g:lightline#ale#indicator_warnings = "\uf071 "
+let g:lightline#ale#indicator_errors = "\uf05e "
+let g:lightline#ale#indicator_ok = "\uf00c "
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+
+nmap <silent> [e <Plug>(ale_previous_wrap)
+nmap <silent> ]e <Plug>(ale_next_wrap)
+nmap <silent> <leader>ee <Plug>(ale_toggle)
+
+nnoremap <leader>ee :call AleSignToggle()<cr>
+
+function! AleSignToggle()
+    if g:ale_sign_error
+        let g:ale_sign_error=0
+    else
+        let g:ale_sign_error=1
+    endif
+endfunction
+
+" let g:ale_sign_column_always = 1
+" highlight ALEError ctermbg=NONE ctermfg=red
+" highlight ALEWarning ctermbg=NONE ctermfg=yellow guifg=yellow
+highlight ALEWarningSign ctermfg=178 guifg=#fcda68
+
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+
 autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
 
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
@@ -455,6 +524,7 @@ let delimitMate_expand_cr = 1
 
 " Tagbar
 map <silent><Leader>v :TagbarToggle<CR>
+" map <silent><Leader>v :Vista!!<CR>
 
 " Underline the current line with dashes in normal mode
 nnoremap <c-_> yyp<c-v>$r-
@@ -523,10 +593,9 @@ set tags+=./tags;,~/.vimtags
 set statusline+=%{gutentags#statusline()}
 let g:gutentags_cache_dir="~/.cache/gutentags"
 let g:gutentags_ctags_exclude = ['.ccls-cache']
-let g:gutentags_project_root = ['.git/', 'compile_commands.json']
+let g:gutentags_project_root = ['.git/', '.ccls', 'compile_commands.json']
 
-" nnoremap <silent><c-q> :q<CR>
-" nnoremap <silent><c-x> :x<CR>
+set statusline+=%{gutentags#statusline()}
 
 " This will only work if VIM/terminal can handle italics
 " highlight Comment cterm=italic
@@ -612,16 +681,15 @@ set colorcolumn=100
 " Fast saving
 nnoremap <leader>w :w!<cr>
 nnoremap <leader>W :wa!<cr>
-
 nnoremap <C-s> :w!<cr>
-" nnoremap <C-S-s> :wa!<cr>
 inoremap <C-s> <Esc>:w!<cr>a
+" nnoremap <C-S-s> :wa!<cr>
 " inoremap <C-S-s> <Esc>:wa!<cr>i
 
 
 " highlight trailing whitespace
 " highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
+" match ExtraWhitespace /\s\+$/
 
 let g:tmux_navigator_no_mappings = 1
 nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
@@ -691,10 +759,16 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
+let g:ale_cpp_ccls_init_options = {
+\   'cache': {
+\       'directory': '.ccls-cache'
+\   }
+\ }
+
 call coc#config('coc.languageserver', {
       \ 'ccls': {
       \   'command': 'ccls',
-      \   'filetypes': ['c', 'cpp', 'cuda', 'objc', 'objcpp'],
+      \   'filetypes': ['c', 'cc', 'cpp', 'cuda', 'objc', 'objcpp'],
       \   'rootPatterns': ['.ccls', 'compile_commands.json', '.vim/', '.git/', '.hg/'],
       \   'initializationOptions': { 'cache': { 'directory': '.ccls-cache' } },
       \ },
@@ -915,6 +989,73 @@ let g:rooter_patterns = ['.git/', '.hg/', '.ccls', 'compile_commands.json', '.vi
 let g:rooter_change_directory_for_non_project_files = 'home'
 
 " Vim sneak
-" map f <Plug>Sneak_s
-" map F <Plug>Sneak_S
 let g:sneak#s_next = 1
+
+" Vista
+" let g:vista_default_executive = 'ctags'
+" function! NearestMethodOrFunction() abort
+"   let l:method = get(b:, 'vista_nearest_method_or_function', '')
+"   if l:method != ''
+"     let l:method = '[' . l:method . ']'
+"   endif
+"   return l:method
+" endfunction
+" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+set statusline+=%{NearestMethodOrFunction()}
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc 
+" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+" autocmd BufEnter * call vista#RunForNearestMethodOrFunction()
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  " let root = fnamemodify(get(b:, 'gitbranch_path'), ':h:h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
+
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_default_executive = 'ctags'
+let g:vista_executive_for = {
+  \ 'cpp': 'coc',
+  \ }
+let g:vista#renderer#enable_icon = 1
+
+" vim bookmarks
+let g:bookmark_no_default_key_mappings = 1
+function! BookmarkMapKeys()
+    nmap mm :BookmarkToggle<CR>
+    nmap mi :BookmarkAnnotate<CR>
+    nmap mn :BookmarkNext<CR>
+    nmap mp :BookmarkPrev<CR>
+    nmap ma :BookmarkShowAll<CR>
+    nmap mc :BookmarkClear<CR>
+    nmap mx :BookmarkClearAll<CR>
+    nmap mkk :BookmarkMoveUp
+    nmap mjj :BookmarkMoveDown
+endfunction
+function! BookmarkUnmapKeys()
+    unmap mm
+    unmap mi
+    unmap mn
+    unmap mp
+    unmap ma
+    unmap mc
+    unmap mx
+    unmap mkk
+    unmap mjj
+endfunction
+autocmd BufEnter * :call BookmarkMapKeys()
+autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
