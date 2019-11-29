@@ -9,6 +9,8 @@ call plug#begin('~/.vim/bundle')
 
 set nocompatible
 
+" Plug 'arakashic/chromatica.nvim'
+
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
@@ -95,6 +97,8 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 
 Plug 'dhruvasagar/vim-zoom'
 
+Plug 'mbbill/undotree'
+" Plug 'Yggdroot/indentLine'
 
 call plug#end()
 
@@ -111,7 +115,7 @@ set termguicolors
 " seoul256 (dark):
   " Range:   233 (darkest) ~ 239 (lightest)
   " Default: 237
-" let g:seoul256_background = 234
+let g:seoul256_background = 234
 " colorscheme seoul256
 
 let g:monokai_term_italic = 1
@@ -119,6 +123,7 @@ let g:monokai_gui_italic = 1
 colorscheme monokai
 
 " let g:gruvbox_contrast_dark='hard'
+" let g:gruvbox_contrast_dark = 'soft'
 " colorscheme gruvbox
 
 " let ayucolor="dark"   " for dark version of theme
@@ -186,6 +191,8 @@ set undodir=~/.vim/tmp/undo//
 set undofile
 set history=100
 set undolevels=100
+
+nnoremap U :UndotreeToggle<cr>
 
 " Tells Vim not to automatically reload changed files
 set noautoread
@@ -384,20 +391,8 @@ let g:ale_linters = {'cpp': ['ccls'], 'c': ['clang']}
 " let g:ale_linters = {'cpp': ['clang'], 'c': ['clang']}
 " let g:ale_c_build_dir_names = ['kaldi', 'build', 'Debug']
 
-nmap <silent> [e <Plug>(ale_previous_wrap)
-nmap <silent> ]e <Plug>(ale_next_wrap)
-nmap <silent> <leader>ee <Plug>(ale_toggle)
-
-" nnoremap <leader>ee :call AleSignToggle()<cr>
-"
-" function! AleSignToggle()
-"     if g:ale_sign_error
-"         let g:ale_sign_error=0
-"         execute 'sign unplace *'
-"     else
-"         let g:ale_sign_error=1
-"     endif
-" endfunction
+nmap <silent> [a <Plug>(ale_previous_wrap)
+nmap <silent> ]a <Plug>(ale_next_wrap)
 
 " let g:ale_sign_column_always = 1
 " highlight ALEError ctermbg=NONE ctermfg=red
@@ -724,7 +719,7 @@ nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 
 " Vim-Signify
-nnoremap <leader>sd :VCSDiff<CR>
+" nnoremap <leader>sd :VCSDiff<CR>
 " nmap <leader>gj <plug>(signify-next-hunk)
 " nmap <leader>gk <plug>(signify-prev-hunk)
 
@@ -801,7 +796,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 highlight CocHighlightText guibg=NONE guifg=NONE gui=underline
 
 " lh - get hint on whatever's under the cursor
-nnoremap <silent> <leader>lh :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -922,8 +917,13 @@ nnoremap <silent> <F3> :!tmux send-keys -t 0:5.0 C-c Enter<CR>
 inoremap <silent> <F3> :!tmux send-keys -t 0:5.0 C-c Enter<CR>
 
 " fzf.vim
+" Taken from https://github.com/junegunn/dotfiles/blob/master/vimrc
 " Reverse the layout to make the FZF list top-down
-let $FZF_DEFAULT_OPTS='--layout=reverse'
+if has('nvim') || has('gui_running')
+    let $FZF_DEFAULT_OPTS .= '--layout=reverse --inline-info'
+else
+    let $FZF_DEFAULT_OPTS .= '--layout=reverse'
+endif
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -942,6 +942,63 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 " \ 'hl':      ['fg', 'Comment'],
 
+" Terminal buffer options for fzf
+autocmd! FileType fzf
+autocmd  FileType fzf set noshowmode noruler nonu
+
+if has('nvim') && exists('&winblend') && &termguicolors
+  set winblend=10
+
+  if stridx($FZF_DEFAULT_OPTS, '--border') == -1
+    let $FZF_DEFAULT_OPTS .= ' --border --margin=0,2'
+  endif
+
+  function! FloatingFZF()
+    let width = float2nr(&columns * 0.9)
+    let height = float2nr(&lines * 0.6)
+    let opts = { 'relative': 'editor',
+               \ 'row': (&lines - height) / 2,
+               \ 'col': (&columns - width) / 2,
+               \ 'width': width,
+               \ 'height': height }
+
+    let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    call setwinvar(win, '&winhighlight', 'NormalFloat:Normal')
+  endfunction
+
+  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+endif
+
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+function! s:plug_help_sink(line)
+  let dir = g:plugs[a:line].dir
+  for pat in ['doc/*.txt', 'README.md']
+    let match = get(split(globpath(dir, pat), "\n"), 0, '')
+    if len(match)
+      execute 'tabedit' match
+      return
+    endif
+  endfor
+  tabnew
+  execute 'Explore' dir
+endfunction
+
+command! PlugHelp call fzf#run(fzf#wrap({
+  \ 'source': sort(keys(g:plugs)),
+  \ 'sink':   function('s:plug_help_sink')}))
+
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let options = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, options, a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RF call RipgrepFzf(<q-args>, <bang>0)
+
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
@@ -956,39 +1013,8 @@ nnoremap <silent> <Leader>f :BLines<CR>
 nnoremap <silent> <Leader>F :Lines<CR>
 nnoremap <silent> <Leader>r :BTags<CR>
 nnoremap <silent> <Leader>R :Tags<CR>
-nnoremap <silent> <Leader>m :Marks<CR>
+nnoremap <silent> <Leader>` :Marks<CR>
 nnoremap <Leader>A :Rg <space><left>
-
-" From https://kassioborges.dev/2019/04/10/neovim-fzf-with-a-floating-window.html
-" Using the custom window creation function
-" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-
-" Function to create the custom floating window
-function! FloatingFZF()
-  " creates a scratch, unlisted, new, empty, unnamed buffer
-  " to be used in the floating window
-  let buf = nvim_create_buf(v:false, v:true)
-
-  " 90% of the height
-  let height = float2nr(&lines * 0.4)
-  " 60% of the height
-  let width = float2nr(&columns * 0.5)
-  " horizontal position (centralized)
-  let horizontal = float2nr((&columns - width) / 2)
-  " vertical position (one line down of the top)
-  let vertical = 1
-
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': vertical,
-        \ 'col': horizontal,
-        \ 'width': width,
-        \ 'height': height
-        \ }
-
-  " open the new window, floating, and enter to it
-  call nvim_open_win(buf, v:true, opts)
-endfunction
 
 " ack.vim
 " let g:ackhighlight = 1
@@ -1066,3 +1092,6 @@ let g:vista#renderer#enable_icon = 1
 " endfunction
 " autocmd BufEnter * :call BookmarkMapKeys()
 " autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
+
+" Search word under cursor
+noremap <Leader>s :Rg <c-r><c-w><cr>
