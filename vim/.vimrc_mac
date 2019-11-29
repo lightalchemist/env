@@ -903,19 +903,6 @@ let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 
-nnoremap <silent> <F6> :!tmux send-keys -t 0:5.0 "noti Build/setup_deps_unix.sh && noti Build/build_unix.sh" Enter<CR>
-inoremap <silent> <F6> :!tmux send-keys -t 0:5.0 "noti Build/setup_deps_unix.sh && noti Build/build_unix.sh" Enter<CR>
-nnoremap <silent> <F5> :!tmux send-keys -t 0:5.0 "noti Build/build_unix.sh" Enter<CR>
-inoremap <silent> <F5> :!tmux send-keys -t 0:5.0 "noti Build/build_unix.sh" Enter<CR>
-
-" Should probably put the command in a shell script and have it kill the 'tail' command after Resolve exits
-" Or use the 'desk' shell app configured to run these for specific commands and have tmux send the commands to it so that the same command will run different scripts depending on the directory
-nnoremap <silent> <F2> :!tmux send-keys -t 0:5.0 "noti open Cyclone/Resolve.app && tail -f -n 100 ~/Library/Application\ Support/Blackmagic\ Design/DaVinci\ Resolve/logs/ResolveDebug.txt" Enter<CR>
-inoremap <silent> <F2> :!tmux send-keys -t 0:5.0 "noti open Cyclone/Resolve.app && tail -f -n 100 ~/Library/Application\ Support/Blackmagic\ Design/DaVinci\ Resolve/logs/ResolveDebug.txt" Enter<CR>
-
-nnoremap <silent> <F3> :!tmux send-keys -t 0:5.0 C-c Enter<CR>
-inoremap <silent> <F3> :!tmux send-keys -t 0:5.0 C-c Enter<CR>
-
 " fzf.vim
 " Taken from https://github.com/junegunn/dotfiles/blob/master/vimrc
 " Reverse the layout to make the FZF list top-down
@@ -1094,4 +1081,6 @@ let g:vista#renderer#enable_icon = 1
 " autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 
 " Search word under cursor
-noremap <Leader>s :Rg <c-r><c-w><cr>
+noremap <Leader>A :Rg <c-r><c-w><cr>
+noremap <Leader>s :BLines <c-r><c-w><cr>
+noremap <Leader>S :Lines <c-r><c-w><cr>
