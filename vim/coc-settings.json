@@ -1,0 +1,44 @@
+{
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true,
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "diagnostic.displayByAle": true,
+  "suggest.snippetIndicator": " → ",
+  "languageserver": {
+      "ccls": {
+          "command": "ccls",
+          "filetypes": ["c", "cpp", "objc", "objcpp", "cuda"],
+          "rootPatterns": [".ccls", ".ccls-root", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+          "initializationOptions": {
+              "capabilities": {
+                  "foldingRangeProvider": false,
+                  "workspace": {
+                      "workspaceFolders": {
+                          "supported": false
+                      }
+                  }
+              },
+              "completion": {
+                  "detailedLabel": true,
+                  "placeholder": true
+              },
+              "client": {
+                  "snippetSupport": true
+              },
+              "index": {
+                  "onChange": false,
+                  "initialNoLinkage": true,
+                  "threads": 2
+              },
+              "cache": {
+                  "directory": "/tmp/ccls/.ccls-cache"
+              }
+          }
+      },
+
+      "lua-language-server": {
+          "command": "lua-language-server",
+          "filetypes": ["lua"]
+      }
+  }
+}
