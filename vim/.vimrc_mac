@@ -1,4 +1,4 @@
-" This install vim-plug for NeoVim
+"This install vim-plug for NeoVim
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim  
@@ -68,7 +68,7 @@ Plug 'bfredl/nvim-miniyank'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/gv.vim'
 Plug 'Shougo/echodoc.vim'
-Plug 'junegunn/vim-slash'
+" Plug 'junegunn/vim-slash'
 " Plug 'markonm/traces.vim'
 Plug 'sheerun/vim-polyglot'
 " Plug 'christoomey/vim-tmux-runner'
@@ -80,12 +80,21 @@ Plug 'justinmk/vim-sneak'
 " Color schemes
 " Bundle 'lightalchemist/molokai'
 Plug 'crusoexia/vim-monokai'
+Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
+" Plug 'ayu-theme/ayu-vim'
 
 Plug 'ryanoasis/vim-devicons'
 
 Plug 'kshenoy/vim-signature'
-Plug 'MattesGroeger/vim-bookmarks'
+" Plug 'MattesGroeger/vim-bookmarks'
+
+" Plug 'jiangmiao/auto-pairs'
+
+Plug 'vim-scripts/DoxygenToolkit.vim'
+
+Plug 'dhruvasagar/vim-zoom'
+
 
 call plug#end()
 
@@ -102,12 +111,19 @@ set termguicolors
 " seoul256 (dark):
   " Range:   233 (darkest) ~ 239 (lightest)
   " Default: 237
-let g:seoul256_background = 234
-colorscheme seoul256
+" let g:seoul256_background = 234
+" colorscheme seoul256
 
 let g:monokai_term_italic = 1
 let g:monokai_gui_italic = 1
-" colorscheme monokai
+colorscheme monokai
+
+" let g:gruvbox_contrast_dark='hard'
+" colorscheme gruvbox
+
+" let ayucolor="dark"   " for dark version of theme
+" let ayucolor="mirage" " for mirage version of theme
+" colorscheme ayu
 
 let g:goyo_width = 100
 let g:goyo_height = 100
@@ -158,7 +174,8 @@ set selection=exclusive
 
 "Highlight the line that the cursor is on:
 set cursorline
-highlight CursorLine ctermbg=Black guibg=black gui=bold cterm=bold
+" highlight CursorLine ctermbg=Gray guibg=gray gui=bold cterm=bold
+highlight CursorLine ctermbg=NONE guibg=#3a3a3a
 
 "I don't recall where this came from, but it makes Vim put all its backup
 "and temporary files in places I don't mind:
@@ -313,11 +330,12 @@ let g:lightline                         = {
             \   'active': {
             \     'left':[ [ 'mode', 'paste' ],
             \              [ 'gitbranch', 'readonly', 'filename', 'modified'],
-            \              [ 'method' ]
-            \     ],
+            \              [ 'method']
+            \            ],
             \   'right': [ [ 'fileencoding'],
             \              [ 'lineinfo' ],
-            \              [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]]
+            \              [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+            \              [ 'zoomstatus']]
             \   },
             \   'inactive': {
             \     'left':[ [ 'mode', 'paste' ],
@@ -325,7 +343,8 @@ let g:lightline                         = {
             \              [ 'method' ]
             \     ],
             \   'right': [ [ 'fileencoding'],
-            \              [ 'lineinfo' ]]
+            \              [ 'lineinfo' ],
+            \              [ 'zoomstatus' ]]
             \   },
             \   'component': {
             \     'lineinfo': ' %3l:%-2v',
@@ -334,6 +353,8 @@ let g:lightline                         = {
             \     'gitbranch': 'fugitive#head',
             \     'method': 'NearestMethodOrFunction',
             \     'filename': 'LightlineFilename',
+            \     'currentfunction': 'CocCurrentFunction',
+            \     'zoomstatus': 'ZoomStatusFunction',
             \   },
             \ }
 
@@ -359,27 +380,34 @@ let g:lightline#ale#indicator_ok = "\uf00c "
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
 
+let g:ale_linters = {'cpp': ['ccls'], 'c': ['clang']}
+" let g:ale_linters = {'cpp': ['clang'], 'c': ['clang']}
+" let g:ale_c_build_dir_names = ['kaldi', 'build', 'Debug']
+
 nmap <silent> [e <Plug>(ale_previous_wrap)
 nmap <silent> ]e <Plug>(ale_next_wrap)
 nmap <silent> <leader>ee <Plug>(ale_toggle)
 
-nnoremap <leader>ee :call AleSignToggle()<cr>
-
-function! AleSignToggle()
-    if g:ale_sign_error
-        let g:ale_sign_error=0
-    else
-        let g:ale_sign_error=1
-    endif
-endfunction
+" nnoremap <leader>ee :call AleSignToggle()<cr>
+"
+" function! AleSignToggle()
+"     if g:ale_sign_error
+"         let g:ale_sign_error=0
+"         execute 'sign unplace *'
+"     else
+"         let g:ale_sign_error=1
+"     endif
+" endfunction
 
 " let g:ale_sign_column_always = 1
 " highlight ALEError ctermbg=NONE ctermfg=red
 " highlight ALEWarning ctermbg=NONE ctermfg=yellow guifg=yellow
-highlight ALEWarningSign ctermfg=178 guifg=#fcda68
+highlight ALEWarningSign ctermfg=NONE guifg=#fcda68
+highlight ALEErrorSign ctermfg=red guifg=red ctermbg=None guibg=None
+" highlight ALEErrorSign ctermbg=None guibg=None
 
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
+" let g:ale_lint_on_insert_leave = 0
 
 autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
 
@@ -501,9 +529,9 @@ endif
 
 " UltiSnips
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" let g:UltiSnipsExpandTrigger = "<tab>"
+" let g:UltiSnipsJumpForwardTrigger = "<tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 let g:ultisnips_python_style = "numpy"
 let g:UltiSnips = {}
@@ -683,9 +711,6 @@ nnoremap <leader>w :w!<cr>
 nnoremap <leader>W :wa!<cr>
 nnoremap <C-s> :w!<cr>
 inoremap <C-s> <Esc>:w!<cr>a
-" nnoremap <C-S-s> :wa!<cr>
-" inoremap <C-S-s> <Esc>:wa!<cr>i
-
 
 " highlight trailing whitespace
 " highlight ExtraWhitespace ctermbg=red guibg=red
@@ -745,6 +770,7 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+
 " Navigate snippet placeholders using tab
 let g:coc_snippet_next = '<C-j>'
 let g:coc_snippet_prev = '<C-k>'
@@ -761,36 +787,18 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 let g:ale_cpp_ccls_init_options = {
 \   'cache': {
-\       'directory': '.ccls-cache'
+\       'directory': '/tmp/ccls/.ccls-cache'
 \   }
 \ }
 
-call coc#config('coc.languageserver', {
-      \ 'ccls': {
-      \   'command': 'ccls',
-      \   'filetypes': ['c', 'cc', 'cpp', 'cuda', 'objc', 'objcpp'],
-      \   'rootPatterns': ['.ccls', 'compile_commands.json', '.vim/', '.git/', '.hg/'],
-      \   'initializationOptions': { 'cache': { 'directory': '.ccls-cache' } },
-      \ },
-      \})
 call coc#config("coc.preferences.diagnostic.displayByAle", 1)
 call coc#config("python.jediEnabled", 0)
 
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" https://github.com/neoclide/coc.nvim#example-vim-configuration
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" ld - go to definition of word under cursor
-nmap <silent> <leader>ld <Plug>(coc-definition)
-nmap <silent> <leader>ly <Plug>(coc-type-definition)
-
-" li - go to implementation
-nmap <silent> <leader>li <Plug>(coc-implementation)
-
-" lr - find references
-nmap <silent> <leader>lr <Plug>(coc-references)
+" Coc bindings
+" See https://github.com/neoclide/coc.nvim#example-vim-configuration
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+highlight CocHighlightText guibg=NONE guifg=NONE gui=underline
 
 " lh - get hint on whatever's under the cursor
 nnoremap <silent> <leader>lh :call <SID>show_documentation()<CR>
@@ -802,9 +810,19 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Coc bindings
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" ld - go to definition of word under cursor
+nmap <silent> <leader>ld <Plug>(coc-definition)
+nmap <silent> <leader>ly <Plug>(coc-type-definition)
+
+" li - go to implementation
+nmap <silent> <leader>li <Plug>(coc-implementation)
+
+nmap <silent> <leader>lc  <Plug>(coc-declaration)
+
+" lr - find references
+nmap <silent> <leader>lr <Plug>(coc-references)
 
 nnoremap <silent> <leader>lo  :<C-u>CocList outline<cr>
 nnoremap <silent> <leader>ls  :<C-u>CocList -I symbols<cr>
@@ -813,7 +831,7 @@ nnoremap <silent> <leader>ls  :<C-u>CocList -I symbols<cr>
 nnoremap <silent> <leader>ll  :<C-u>CocList locationlist<cr>
 
 " list commands available in tsserver (and others)
-nnoremap <silent> <leader>lc  :<C-u>CocList commands<cr>
+" nnoremap <silent> <leader>lc  :<C-u>CocList commands<cr>
 
 " restart when tsserver gets wonky
 nnoremap <silent> <leader>lR  :<C-u>CocRestart<CR>
@@ -822,7 +840,8 @@ nnoremap <silent> <leader>lR  :<C-u>CocRestart<CR>
 nnoremap <silent> <leader>lx  :<C-u>CocList extensions<cr>
 
 " rename the current word in the cursor
-nmap <leader>le  <Plug>(coc-rename)
+nmap <leader>rn <Plug>(coc-rename)
+" nmap <leader>le  <Plug>(coc-rename)
 nmap <leader>lf  <Plug>(coc-format-selected)
 vmap <leader>lf  <Plug>(coc-format-selected)
 
@@ -901,9 +920,6 @@ inoremap <silent> <F2> :!tmux send-keys -t 0:5.0 "noti open Cyclone/Resolve.app 
 
 nnoremap <silent> <F3> :!tmux send-keys -t 0:5.0 C-c Enter<CR>
 inoremap <silent> <F3> :!tmux send-keys -t 0:5.0 C-c Enter<CR>
-
-" set guifont=DroidSansMono\ Nerd\ Font\ 14
-" set guifont=DroidSansMono_Nerd_Font:h11
 
 " fzf.vim
 " Reverse the layout to make the FZF list top-down
@@ -991,29 +1007,20 @@ let g:rooter_change_directory_for_non_project_files = 'home'
 " Vim sneak
 let g:sneak#s_next = 1
 
-" Vista
-" let g:vista_default_executive = 'ctags'
-" function! NearestMethodOrFunction() abort
-"   let l:method = get(b:, 'vista_nearest_method_or_function', '')
-"   if l:method != ''
-"     let l:method = '[' . l:method . ']'
-"   endif
-"   return l:method
-" endfunction
-" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-
 function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+function! ZoomStatusFunction()
+return zoom#statusline()
 endfunction
 
 set statusline+=%{NearestMethodOrFunction()}
 
 " By default vista.vim never run if you don't call it explicitly.
-"
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc 
-" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-" autocmd BufEnter * call vista#RunForNearestMethodOrFunction()
+autocmd BufEnter * call vista#RunForNearestMethodOrFunction()
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 function! LightlineFilename()
@@ -1034,28 +1041,28 @@ let g:vista_executive_for = {
 let g:vista#renderer#enable_icon = 1
 
 " vim bookmarks
-let g:bookmark_no_default_key_mappings = 1
-function! BookmarkMapKeys()
-    nmap mm :BookmarkToggle<CR>
-    nmap mi :BookmarkAnnotate<CR>
-    nmap mn :BookmarkNext<CR>
-    nmap mp :BookmarkPrev<CR>
-    nmap ma :BookmarkShowAll<CR>
-    nmap mc :BookmarkClear<CR>
-    nmap mx :BookmarkClearAll<CR>
-    nmap mkk :BookmarkMoveUp
-    nmap mjj :BookmarkMoveDown
-endfunction
-function! BookmarkUnmapKeys()
-    unmap mm
-    unmap mi
-    unmap mn
-    unmap mp
-    unmap ma
-    unmap mc
-    unmap mx
-    unmap mkk
-    unmap mjj
-endfunction
-autocmd BufEnter * :call BookmarkMapKeys()
-autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
+" let g:bookmark_no_default_key_mappings = 1
+" function! BookmarkMapKeys()
+"     nmap mm :BookmarkToggle<CR>
+"     nmap mi :BookmarkAnnotate<CR>
+"     nmap mn :BookmarkNext<CR>
+"     nmap mp :BookmarkPrev<CR>
+"     nmap ma :BookmarkShowAll<CR>
+"     nmap mc :BookmarkClear<CR>
+"     nmap mx :BookmarkClearAll<CR>
+"     nmap mkk :BookmarkMoveUp
+"     nmap mjj :BookmarkMoveDown
+" endfunction
+" function! BookmarkUnmapKeys()
+"     unmap mm
+"     unmap mi
+"     unmap mn
+"     unmap mp
+"     unmap ma
+"     unmap mc
+"     unmap mx
+"     unmap mkk
+"     unmap mjj
+" endfunction
+" autocmd BufEnter * :call BookmarkMapKeys()
+" autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
