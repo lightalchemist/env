@@ -80,7 +80,7 @@ Plug 'airblade/vim-rooter'
 Plug 'justinmk/vim-sneak'
 
 " Color schemes
-" Bundle 'lightalchemist/molokai'
+" Plug 'lightalchemist/molokai'
 Plug 'crusoexia/vim-monokai'
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
@@ -98,6 +98,9 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'dhruvasagar/vim-zoom'
 
 Plug 'mbbill/undotree'
+
+Plug 'plasticboy/vim-markdown'
+
 " Plug 'Yggdroot/indentLine'
 
 " Plug 'wsdjeg/vim-todo'
@@ -660,7 +663,7 @@ nmap ga <Plug>(EasyAlign)
 " nmap <silent> <Leader>a<Space> gaip<Space>
 " vmap <silent> <Leader>a<Space> gaip<Space>
 
-" " Shortcuts for aligning using Tabular
+" Shortcuts for aligning using Tabular
 " function! ConfigTabular()
 "     if exists(':Tabularize')
 "         nnoremap <silent> <Leader>a& :Tabularize /&<CR>
@@ -909,7 +912,7 @@ let g:cpp_class_decl_highlight = 1
 " Taken from https://github.com/junegunn/dotfiles/blob/master/vimrc
 " Reverse the layout to make the FZF list top-down
 if has('nvim') || has('gui_running')
-    let $FZF_DEFAULT_OPTS .= '--layout=reverse --inline-info '
+    let $FZF_DEFAULT_OPTS .= '--layout=reverse --inline-info'
 else
     let $FZF_DEFAULT_OPTS .= '--layout=reverse'
 endif
